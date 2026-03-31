@@ -20,7 +20,7 @@ public class Posiljalac {
     public Posiljalac(Socket socket) {
         this.socket = socket;
     }
-    public void Posalji(Object obj){
+    public void posalji(Object obj){
         try {
             ObjectOutputStream oos=new ObjectOutputStream(socket.getOutputStream());
             oos.writeObject(obj);
