@@ -4,6 +4,9 @@
  */
 package controller;
 
+import domen.MedicinskiRadnik;
+import soperacije.login.LogInOperacija;
+
 /**
  *
  * @author Emilija
@@ -17,6 +20,15 @@ public class Controller {
     }
     private Controller() {
     }
+
+    public MedicinskiRadnik logIn(MedicinskiRadnik mr) throws Exception {
+       LogInOperacija lo=new LogInOperacija();
+       lo.izvrsiOperaciju(mr, null);
+        System.out.println("Klasa controller : "+lo.getMr());
+       return lo.getMr();
+    }
+
+    
     
     
 }

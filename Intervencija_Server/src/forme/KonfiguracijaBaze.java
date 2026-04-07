@@ -18,9 +18,9 @@ public class KonfiguracijaBaze extends javax.swing.JDialog {
     public KonfiguracijaBaze(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
-        jTextFieldUrl.setText(konfiguracija.Konfiguracija.getInstanca().getProperty("url"));
-        jTextFieldUsername.setText(konfiguracija.Konfiguracija.getInstanca().getProperty("username"));
-        jPasswordField1.setText(konfiguracija.Konfiguracija.getInstanca().getProperty("password"));
+        jTextFieldUrl.setText(konfiguracija.Konfiguracija.getInstanca().getProperty("url").trim());
+        jTextFieldUsername.setText(konfiguracija.Konfiguracija.getInstanca().getProperty("username").trim());
+        jPasswordField1.setText(konfiguracija.Konfiguracija.getInstanca().getProperty("password").trim());
     }
 
     /**

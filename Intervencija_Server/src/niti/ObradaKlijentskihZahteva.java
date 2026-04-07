@@ -4,7 +4,11 @@
  */
 package niti;
 
+import controller.Controller;
+import domen.MedicinskiRadnik;
 import java.net.Socket;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.xml.transform.OutputKeys;
 import komunikacija.Odgovor;
 import komunikacija.Posiljalac;
@@ -29,16 +33,22 @@ public class ObradaKlijentskihZahteva extends Thread {
     @Override
     public void run() {
         while(true){
-        Zahtev zahtev=(Zahtev) primalac.primi();
-        Odgovor odgovor=new Odgovor();
-            switch (zahtev.getOperacija()) {
-               /* case val:
-                    
-                    break;*/
-                default:
-               System.out.println("Greska, izabrana operacija ne postoji");
+            try {
+                Zahtev zahtev=(Zahtev) primalac.primi();
+                Odgovor odgovor=new Odgovor();
+                switch (zahtev.getOperacija()) {
+                    case LOGIN:
+                        MedicinskiRadnik mr=(MedicinskiRadnik) zahtev.getParametar();
+                        mr=Controller.getInstance().logIn(mr);
+                        odgovor.setOdgovor(mr);
+                        break;
+                    default:
+                        System.out.println("Greska, izabrana operacija ne postoji");
+                }
+                posiljalac.posalji(odgovor);
+            } catch (Exception ex) {
+                Logger.getLogger(ObradaKlijentskihZahteva.class.getName()).log(Level.SEVERE, null, ex);
             }
-             posiljalac.posalji(odgovor);
         }
     }
     
