@@ -5,6 +5,7 @@
 package domen;
 
 import java.sql.ResultSet;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Objects;
@@ -91,7 +92,32 @@ public class MrKv implements ApstraktniDomenskiObjekat{
 
     @Override
     public List<ApstraktniDomenskiObjekat> vratiListu(ResultSet rs) throws Exception {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        List<ApstraktniDomenskiObjekat> lista = new ArrayList<>();
+
+    while (rs.next()) {
+        // MR
+        int idMR = rs.getInt("medicinskiRadnik.idMedicinskiRadnik");
+        String ime = rs.getString("medicinskiRadnik.ime");
+        String prezime = rs.getString("medicinskiRadnik.prezime");
+        String email = rs.getString("medicinskiRadnik.email");
+        String lozinka = rs.getString("medicinskiRadnik.lozinka");
+        boolean iskustvo = rs.getBoolean("medicinskiRadnik.iskustvo");
+
+        MedicinskiRadnik mr = new MedicinskiRadnik(idMR, ime, prezime, iskustvo, email, lozinka);
+
+        // Kvalifikacija
+        int idKval = rs.getInt("kvalifikacija.idKvalifikacija");
+        String naziv = rs.getString("kvalifikacija.naziv");
+
+        Kvalifikacija k = new Kvalifikacija(idKval, naziv);
+
+        Date datum = new Date(rs.getDate("mrkv.vremeZavrsetkaStudija").getTime());
+
+        MrKv mk = new MrKv(mr, k, datum);
+
+        lista.add(mk);
+    }
+    return lista;
     }
 
     @Override

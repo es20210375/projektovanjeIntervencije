@@ -5,6 +5,7 @@
 package domen;
 
 import java.sql.ResultSet;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Objects;
@@ -163,7 +164,66 @@ public class StavkaKartona implements ApstraktniDomenskiObjekat{
 
     @Override
     public List<ApstraktniDomenskiObjekat> vratiListu(ResultSet rs) throws Exception {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        List<ApstraktniDomenskiObjekat> lista = new ArrayList<>();
+
+    while (rs.next()) {
+        int id = rs.getInt("stavkaKartona.idStavkeKartona");
+
+        String dijagnoza = rs.getString("stavkaKartona.dijagnoza");
+        String materijal = rs.getString("stavkaKartona.korisceniMaterijal");
+        String terapija = rs.getString("stavkaKartona.terapija");
+        String naznaka = rs.getString("stavkaKartona.naznaka");
+
+        boolean dodatna = rs.getBoolean("stavkaKartona.dodatnaDokumentacija");
+        boolean anestezija = rs.getBoolean("stavkaKartona.anestezija");
+
+        Date datum = new Date(rs.getDate("stavkaKartona.datumIntervencije").getTime());
+
+        // Intervencija FULL
+        int idIntervencija = rs.getInt("intervencija.idIntervencija");
+        String naziv = rs.getString("intervencija.naziv");
+        String opis = rs.getString("intervencija.opis");
+        boolean snimak = rs.getBoolean("intervencija.snimakZuba");
+
+        Intervencija i = new Intervencija(idIntervencija, naziv, opis, snimak);
+
+        // Karton FULL
+        int idKarton = rs.getInt("karton.idKarton");
+        Date datumOtvaranja = new Date(rs.getDate("karton.datumOtvaranja").getTime());
+        Date datumArhiviranja = new Date(rs.getDate("karton.datumArhiviranja").getTime());
+        StatusKartona status = StatusKartona.valueOf(rs.getString("karton.statusKartona"));
+
+        // MR
+        int idMR = rs.getInt("medicinskiRadnik.idMedicinskiRadnik");
+        String imeMR = rs.getString("medicinskiRadnik.ime");
+        String prezimeMR = rs.getString("medicinskiRadnik.prezime");
+        String email = rs.getString("medicinskiRadnik.email");
+        String lozinka = rs.getString("medicinskiRadnik.lozinka");
+        boolean iskustvo = rs.getBoolean("medicinskiRadnik.iskustvo");
+
+        MedicinskiRadnik mr = new MedicinskiRadnik(idMR, imeMR, prezimeMR, iskustvo, email, lozinka);
+
+        // Pacijent
+        int idP = rs.getInt("pacijent.idPacijent");
+        String imeP = rs.getString("pacijent.ime");
+        String prezimeP = rs.getString("pacijent.prezime");
+        String kontakt = rs.getString("pacijent.kontaktInformacije");
+        Date datumRodjenja = new Date(rs.getDate("pacijent.datumRodjenja").getTime());
+
+        int idOsiguranje = rs.getInt("osiguranje.idOsiguranje");
+        String statusOs = rs.getString("osiguranje.statusOsiguranja");
+
+        Osiguranje o = new Osiguranje(idOsiguranje, statusOs);
+        Pacijent p = new Pacijent(idP, imeP, prezimeP, kontakt, datumRodjenja, o);
+
+        Karton k = new Karton(idKarton, datumOtvaranja, status, datumArhiviranja, mr, p);
+
+        StavkaKartona sk = new StavkaKartona(id, dijagnoza, materijal, terapija, naznaka,
+                dodatna, anestezija, datum, i, k);
+
+        lista.add(sk);
+    }
+    return lista;
     }
 
     @Override

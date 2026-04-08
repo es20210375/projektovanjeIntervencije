@@ -5,6 +5,7 @@
 package domen;
 
 import java.sql.ResultSet;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Objects;
@@ -117,7 +118,26 @@ public class Pacijent implements ApstraktniDomenskiObjekat{
 
     @Override
     public List<ApstraktniDomenskiObjekat> vratiListu(ResultSet rs) throws Exception {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+       List<ApstraktniDomenskiObjekat> lista = new ArrayList<>();
+
+    while (rs.next()) {
+        int id = rs.getInt("pacijent.idPacijent");
+        String ime = rs.getString("pacijent.ime");
+        String prezime = rs.getString("pacijent.prezime");
+        String kontakt = rs.getString("pacijent.kontaktInformacije");
+
+        java.sql.Date sqlDatum = rs.getDate("pacijent.datumRodjenja");
+        Date datumRodjenja = new Date(sqlDatum.getTime());
+
+        int idOsiguranje = rs.getInt("osiguranje.idOsiguranje");
+        String status = rs.getString("osiguranje.statusOsiguranja");
+
+        Osiguranje o = new Osiguranje(idOsiguranje, status);
+        Pacijent p = new Pacijent(id, ime, prezime, kontakt, datumRodjenja, o);
+
+        lista.add(p);
+    }
+    return lista;
     }
 
     @Override

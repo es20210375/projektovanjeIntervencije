@@ -136,7 +136,45 @@ public class Karton implements ApstraktniDomenskiObjekat{
 
     @Override
     public List<ApstraktniDomenskiObjekat> vratiListu(ResultSet rs) throws Exception {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+         List<ApstraktniDomenskiObjekat> lista = new ArrayList<>();
+
+    while (rs.next()) {
+        int idKarton = rs.getInt("karton.idKarton");
+
+        Date datumOtvaranja = new Date(rs.getDate("karton.datumOtvaranja").getTime());
+        Date datumArhiviranja = new Date(rs.getDate("karton.datumArhiviranja").getTime());
+
+        StatusKartona status = StatusKartona.valueOf(rs.getString("karton.statusKartona"));
+
+        // MedicinskiRadnik FULL
+        int idMR = rs.getInt("medicinskiRadnik.idMedicinskiRadnik");
+        String imeMR = rs.getString("medicinskiRadnik.ime");
+        String prezimeMR = rs.getString("medicinskiRadnik.prezime");
+        String email = rs.getString("medicinskiRadnik.email");
+        String lozinka = rs.getString("medicinskiRadnik.lozinka");
+        boolean iskustvo = rs.getBoolean("medicinskiRadnik.iskustvo");
+
+        MedicinskiRadnik mr = new MedicinskiRadnik(idMR, imeMR, prezimeMR, iskustvo, email, lozinka);
+
+        // Pacijent FULL
+        int idP = rs.getInt("pacijent.idPacijent");
+        String imeP = rs.getString("pacijent.ime");
+        String prezimeP = rs.getString("pacijent.prezime");
+        String kontakt = rs.getString("pacijent.kontaktInformacije");
+
+        Date datumRodjenja = new Date(rs.getDate("pacijent.datumRodjenja").getTime());
+
+        int idOsiguranje = rs.getInt("osiguranje.idOsiguranje");
+        String statusOs = rs.getString("osiguranje.statusOsiguranja");
+
+        Osiguranje o = new Osiguranje(idOsiguranje, statusOs);
+        Pacijent p = new Pacijent(idP, imeP, prezimeP, kontakt, datumRodjenja, o);
+
+        Karton k = new Karton(idKarton, datumOtvaranja, status, datumArhiviranja, mr, p);
+
+        lista.add(k);
+    }
+    return lista;
     }
 
     @Override
