@@ -12,4 +12,6 @@ import java.io.Serializable;
  */
 public enum Operacije  implements Serializable{
     LOGIN,
+    DODAJ_PACIJENTA, 
+    UCITAJ_OSIGURANJE,
 }

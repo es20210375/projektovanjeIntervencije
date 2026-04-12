@@ -5,6 +5,7 @@
 package domen;
 
 import java.sql.ResultSet;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -142,12 +143,14 @@ public class Pacijent implements ApstraktniDomenskiObjekat{
 
     @Override
     public String vratiKoloneZaUbacivanje() {
-       return "ime,prezime,kontaktInformacije,datumRodjenja";
+       return "ime,prezime,kontaktInformacije,datumRodjenja,idOsiguranje";
     }
 
     @Override
     public String vratiVrednostiZaUbacivanje() {
-       return "'"+ime+"','"+prezime+"','"+kontaktInformacije+"','"+datumRodjenja+"'";
+      java.sql.Date sqlDatum = new java.sql.Date(datumRodjenja.getTime());
+       return "'" + ime + "','" + prezime + "','" + kontaktInformacije + "','" + sqlDatum + "'," 
+           + osiguranje.getIdOsiguranje();
     }
 
     @Override
@@ -162,7 +165,13 @@ public class Pacijent implements ApstraktniDomenskiObjekat{
 
     @Override
     public String vratiVrednostiZaIzmenu() {
-       return "ime='"+ime+"' prezime='"+prezime+"' kontaktInformacije='"+kontaktInformacije+"' datumRodjenja='"+datumRodjenja+"'";
+       java.sql.Date sqlDatum = new java.sql.Date(datumRodjenja.getTime());
+
+    return "ime='" + ime + "', " +
+           "prezime='" + prezime + "', " +
+           "kontaktInformacije='" + kontaktInformacije + "', " +
+           "datumRodjenja='" + sqlDatum + "', " +
+           "idOsiguranje=" + osiguranje.getIdOsiguranje();
     }
     
     

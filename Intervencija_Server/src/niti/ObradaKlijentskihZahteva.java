@@ -6,7 +6,10 @@ package niti;
 
 import controller.Controller;
 import domen.MedicinskiRadnik;
+import domen.Osiguranje;
+import domen.Pacijent;
 import java.net.Socket;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.xml.transform.OutputKeys;
@@ -33,22 +36,45 @@ public class ObradaKlijentskihZahteva extends Thread {
     @Override
     public void run() {
         while(true){
-            try {
+            
                 Zahtev zahtev=(Zahtev) primalac.primi();
                 Odgovor odgovor=new Odgovor();
                 switch (zahtev.getOperacija()) {
                     case LOGIN:
+                        try{
                         MedicinskiRadnik mr=(MedicinskiRadnik) zahtev.getParametar();
                         mr=Controller.getInstance().logIn(mr);
                         odgovor.setOdgovor(mr);
+                        }
+                        catch(Exception e){
+                            odgovor.setOdgovor(e);
+                        }
+                        break;
+                    case DODAJ_PACIJENTA:
+                        try{
+                           Pacijent p=(Pacijent) zahtev.getParametar();
+                        Controller.getInstance().dodajPacijenta(p);
+                        odgovor.setOdgovor(null); 
+                            System.out.println();
+                        }catch(Exception e){
+                            e.printStackTrace();
+                            odgovor.setOdgovor(e);
+                        }
+                        
+                        break;
+                    case UCITAJ_OSIGURANJE:
+                        try{
+                        List<Osiguranje>lista=Controller.getInstance().ucitajOsiguranje();
+                        odgovor.setOdgovor(lista);
+                        }catch(Exception e){
+                            e.printStackTrace();
+                        }
                         break;
                     default:
                         System.out.println("Greska, izabrana operacija ne postoji");
                 }
                 posiljalac.posalji(odgovor);
-            } catch (Exception ex) {
-                Logger.getLogger(ObradaKlijentskihZahteva.class.getName()).log(Level.SEVERE, null, ex);
-            }
+            
         }
     }
     

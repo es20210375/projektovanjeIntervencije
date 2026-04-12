@@ -16,7 +16,7 @@ public class LogInOperacija extends ApstraktnaGenerickaOperacija{
     MedicinskiRadnik mr;
     @Override
     protected void preduslovi(Object param) throws Exception {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+      
     }
 
     @Override

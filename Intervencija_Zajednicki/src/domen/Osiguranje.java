@@ -70,7 +70,7 @@ public class Osiguranje implements ApstraktniDomenskiObjekat{
 
     @Override
     public String toString() {
-        return "Osiguranje{" + "statusOsiguranja=" + statusOsiguranja + '}';
+        return  statusOsiguranja;
     }
 
     @Override
@@ -82,7 +82,7 @@ public class Osiguranje implements ApstraktniDomenskiObjekat{
     public List<ApstraktniDomenskiObjekat> vratiListu(ResultSet rs) throws Exception {
      List<ApstraktniDomenskiObjekat>lista=new ArrayList<>();
       while(rs.next()){
-          int id=rs.getInt("osiguranje.idOsiguranje");
+          int id=rs.getInt("osiguranje.idOsiguranja");
           String statusOsiguranja1=rs.getString("osiguranje.statusOsiguranja");
           Osiguranje o=new Osiguranje(id, statusOsiguranja1);
           lista.add(o);
@@ -102,7 +102,7 @@ public class Osiguranje implements ApstraktniDomenskiObjekat{
 
     @Override
     public String vratiPrimarniKljuc() {
-        return "osiguranje.idOsiguranje="+idOsiguranje;
+        return "osiguranje.idOsiguranja="+idOsiguranje;
     }
 
     @Override
