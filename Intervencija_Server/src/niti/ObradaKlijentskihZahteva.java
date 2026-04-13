@@ -5,6 +5,7 @@
 package niti;
 
 import controller.Controller;
+import domen.Kvalifikacija;
 import domen.MedicinskiRadnik;
 import domen.Osiguranje;
 import domen.Pacijent;
@@ -68,6 +69,24 @@ public class ObradaKlijentskihZahteva extends Thread {
                         odgovor.setOdgovor(lista);
                         }catch(Exception e){
                             e.printStackTrace();
+                        }
+                        break;
+                    case DODAJ_KVALIFIKACIJU:
+                        try{
+                        Kvalifikacija kv=(Kvalifikacija) zahtev.getParametar();
+                        Controller.getInstance().dodajKvalifikaciju(kv);
+                        odgovor.setOdgovor(null);
+                        }catch(Exception e){
+                            odgovor.setOdgovor(e);
+                        }
+                        break;
+                    case UCITAJ_PACIJENTE:
+                    
+                        try {
+                            List<Pacijent>lista=Controller.getInstance().ucitajPacijente();
+                            odgovor.setOdgovor(lista);
+                        } catch (Exception ex) {
+                            ex.printStackTrace();
                         }
                         break;
                     default:

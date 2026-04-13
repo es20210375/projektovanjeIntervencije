@@ -14,4 +14,6 @@ public enum Operacije  implements Serializable{
     LOGIN,
     DODAJ_PACIJENTA, 
     UCITAJ_OSIGURANJE,
+    DODAJ_KVALIFIKACIJU, 
+    UCITAJ_PACIJENTE,
 }

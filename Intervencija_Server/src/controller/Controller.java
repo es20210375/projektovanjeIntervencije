@@ -4,15 +4,18 @@
  */
 package controller;
 
+import domen.Kvalifikacija;
 import domen.MedicinskiRadnik;
 import domen.Osiguranje;
 import domen.Pacijent;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import soperacije.kvalifikacija.DodajKvalifikacijuOperacija;
 import soperacije.login.LogInOperacija;
 import soperacije.osiguranje.UcitajOsiguranjeOperacija;
 import soperacije.pacijent.DodajPacijentaOperacija;
+import soperacije.pacijent.UcitajPacijenteOperacija;
 
 /**
  *
@@ -51,6 +54,17 @@ public class Controller {
         UcitajOsiguranjeOperacija uoo=new UcitajOsiguranjeOperacija();
         uoo.izvrsi(null, null);
         return uoo.getLista();
+    }
+
+    public void dodajKvalifikaciju(Kvalifikacija kv) throws Exception {
+       DodajKvalifikacijuOperacija dko=new DodajKvalifikacijuOperacija();
+       dko.izvrsi(kv, null);
+    }
+
+    public List<Pacijent> ucitajPacijente() throws Exception {
+       UcitajPacijenteOperacija upo=new UcitajPacijenteOperacija();
+       upo.izvrsi(null, null);
+       return upo.getLista();
     }
 
     

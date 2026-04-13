@@ -4,14 +4,18 @@
  */
 package cordinator;
 
+import controllers.DodajKvalifikacijuController;
 import controllers.GlavnaFormaController;
 import controllers.LoginController;
 import domen.MedicinskiRadnik;
 import controllers.DodajPacijentaController;
 import controllers.UcitajOsiguranjeController;
+import controllers.UcitajPacijenteController;
+import forme.DodajKvalifikacijuForma;
 import forme.DodajPacijentaForma;
 import forme.LoginForma;
 import forme.GlavnaForma;
+import forme.UcitajPacijenteForma;
 
 /**
  *
@@ -23,6 +27,8 @@ public class Cordinator {
     private GlavnaFormaController glavnaFormaController;
     private MedicinskiRadnik mr;
     private DodajPacijentaController dodajPacijentaController;
+    private DodajKvalifikacijuController dodajKvalifikacijuController;
+    private UcitajPacijenteController ucitajPacijenteController;
     private DodajPacijentaForma dpf=new DodajPacijentaForma();
     public static Cordinator getInstance(){
         if(instacne==null){
@@ -67,6 +73,28 @@ public class Cordinator {
 
     public void ugasiFormu() {
         dodajPacijentaController.ugasiFormu();
+    }
+
+    public void otvoriKvalifikacijaFormu() {
+        dodajKvalifikacijuController=new DodajKvalifikacijuController(new DodajKvalifikacijuForma());
+        dodajKvalifikacijuController.otvoriFormu();
+    }
+
+    public DodajKvalifikacijuController getDodajKvalifikacijuController() {
+        return dodajKvalifikacijuController;
+    }
+
+    public void setDodajKvalifikacijuController(DodajKvalifikacijuController dodajKvalifikacijuController) {
+        this.dodajKvalifikacijuController = dodajKvalifikacijuController;
+    }
+
+    public void zatvoriFormuDodajKvalifikaciju() {
+        dodajKvalifikacijuController.zatvoriFormuDodajKvalifikaciju();
+    }
+
+    public void otvoriFormuUcitajPacijente() {
+        ucitajPacijenteController=new UcitajPacijenteController(new UcitajPacijenteForma());
+        ucitajPacijenteController.otvoriFormu();
     }
     
     

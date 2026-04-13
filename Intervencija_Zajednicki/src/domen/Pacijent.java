@@ -130,7 +130,7 @@ public class Pacijent implements ApstraktniDomenskiObjekat{
         java.sql.Date sqlDatum = rs.getDate("pacijent.datumRodjenja");
         Date datumRodjenja = new Date(sqlDatum.getTime());
 
-        int idOsiguranje = rs.getInt("osiguranje.idOsiguranje");
+        int idOsiguranje = rs.getInt("osiguranje.idOsiguranja");
         String status = rs.getString("osiguranje.statusOsiguranja");
 
         Osiguranje o = new Osiguranje(idOsiguranje, status);

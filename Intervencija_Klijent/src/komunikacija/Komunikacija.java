@@ -5,6 +5,7 @@
 package komunikacija;
 
 import cordinator.Cordinator;
+import domen.Kvalifikacija;
 import domen.MedicinskiRadnik;
 import domen.Osiguranje;
 import domen.Pacijent;
@@ -58,7 +59,7 @@ public class Komunikacija {
         Zahtev z=new Zahtev(Operacije.DODAJ_PACIJENTA, pac);
         posiljalac.posalji(z);
         Odgovor odg=(Odgovor) primalac.primi();
-        System.out.println(odg);
+       // System.out.println(odg);
         if(odg.getOdgovor()==null){
             JOptionPane.showMessageDialog(Cordinator.getInstance().getDodajPacijentaController().getDp(),"Sistem je zapamtio pacijenta","Uspeh",JOptionPane.INFORMATION_MESSAGE);
         }else{
@@ -68,11 +69,33 @@ public class Komunikacija {
     }
 
     public List<Osiguranje> ucitajOsiguranje() {
-        List<Osiguranje>lista=new ArrayList<>();
+        
         Zahtev z=new Zahtev(Operacije.UCITAJ_OSIGURANJE, null);
         posiljalac.posalji(z);
         Odgovor odg=(Odgovor) primalac.primi();
         return (List<Osiguranje>) odg.getOdgovor();
+    }
+
+    public void dodajLvalifikaciju(Kvalifikacija kv) {
+        Zahtev z=new Zahtev(Operacije.DODAJ_KVALIFIKACIJU,kv);
+        posiljalac.posalji(z);
+        Odgovor odg=(Odgovor) primalac.primi();
+        if(odg.getOdgovor()==null){
+            JOptionPane.showMessageDialog(Cordinator.getInstance().getDodajKvalifikacijuController().getDkf(),"Sistem je zapamtio kvalifikaciju","Uspeh",JOptionPane.INFORMATION_MESSAGE);
+        }else{
+              JOptionPane.showMessageDialog(Cordinator.getInstance().getDodajKvalifikacijuController().getDkf(),"Sistem ne moze da zapamti kvalifikaciju","Greska",JOptionPane.ERROR_MESSAGE);
+        }
+        Cordinator.getInstance().zatvoriFormuDodajKvalifikaciju();
+    }
+
+    public List<Pacijent> ucitajPacijente() {
+       
+       Zahtev z=new Zahtev(Operacije.UCITAJ_PACIJENTE,null);
+       posiljalac.posalji(z);
+       Odgovor odg=(Odgovor) primalac.primi();
+        System.out.println("Klasa komunikacija ucitaj pacijente: "+(List<Pacijent>) odg.getOdgovor());
+       return (List<Pacijent>) odg.getOdgovor();
+        
     }
 
    
