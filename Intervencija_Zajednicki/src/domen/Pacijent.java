@@ -85,7 +85,7 @@ public class Pacijent implements ApstraktniDomenskiObjekat{
 
     @Override
     public String toString() {
-        return "Pacijent{" + "ime=" + ime + ", prezime=" + prezime + ", kontaktInformacije=" + kontaktInformacije + ", datumRodjenja=" + datumRodjenja + ", osiguranje=" + osiguranje + '}';
+        return  ime +" " + prezime;
     }
 
     @Override
@@ -106,12 +106,19 @@ public class Pacijent implements ApstraktniDomenskiObjekat{
             return false;
         }
         final Pacijent other = (Pacijent) obj;
-        if (!Objects.equals(this.kontaktInformacije, other.kontaktInformacije)) {
+        if (!Objects.equals(this.ime, other.ime)) {
             return false;
         }
-        return Objects.equals(this.datumRodjenja, other.datumRodjenja);
+        if (!Objects.equals(this.prezime, other.prezime)) {
+            return false;
+        }
+        return Objects.equals(this.kontaktInformacije, other.kontaktInformacije);
     }
 
+  
+
+    
+    
     @Override
     public String vratiNazivTabele() {
         return "pacijent";

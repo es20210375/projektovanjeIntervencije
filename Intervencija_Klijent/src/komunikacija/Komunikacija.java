@@ -5,6 +5,7 @@
 package komunikacija;
 
 import cordinator.Cordinator;
+import domen.Intervencija;
 import domen.Kvalifikacija;
 import domen.MedicinskiRadnik;
 import domen.Osiguranje;
@@ -16,6 +17,7 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import static javax.swing.text.html.HTML.Tag.P;
 
 /**
  *
@@ -65,7 +67,8 @@ public class Komunikacija {
         }else{
               JOptionPane.showMessageDialog(Cordinator.getInstance().getDodajPacijentaController().getDp(),"Sistem ne moze da zapamti pacijenta","Greska",JOptionPane.ERROR_MESSAGE);
         }
-        Cordinator.getInstance().ugasiFormu();
+        Cordinator.getInstance().isprazniFormu();
+       // Cordinator.getInstance().ugasiFormu();
     }
 
     public List<Osiguranje> ucitajOsiguranje() {
@@ -85,7 +88,7 @@ public class Komunikacija {
         }else{
               JOptionPane.showMessageDialog(Cordinator.getInstance().getDodajKvalifikacijuController().getDkf(),"Sistem ne moze da zapamti kvalifikaciju","Greska",JOptionPane.ERROR_MESSAGE);
         }
-        Cordinator.getInstance().zatvoriFormuDodajKvalifikaciju();
+       // Cordinator.getInstance().zatvoriFormuDodajKvalifikaciju();
     }
 
     public List<Pacijent> ucitajPacijente() {
@@ -97,6 +100,63 @@ public class Komunikacija {
        return (List<Pacijent>) odg.getOdgovor();
         
     }
+
+    public void izbrisiPacijenta(Pacijent p) {
+        Zahtev z=new Zahtev(Operacije.IZBRISI_PACIJENTA, p);
+        posiljalac.posalji(z);
+        Odgovor odg=(Odgovor) primalac.primi();
+        if(odg.getOdgovor()==null){
+            JOptionPane.showMessageDialog(Cordinator.getInstance().getUcitajPacijenteController().getUpf(),"Sistem je obrisao pacijenta","Uspeh",JOptionPane.INFORMATION_MESSAGE);
+        }else{
+              JOptionPane.showMessageDialog(Cordinator.getInstance().getUcitajPacijenteController().getUpf(),"Sistem ne moze da obrise pacijenta","Greska",JOptionPane.ERROR_MESSAGE);
+        }
+        
+    }
+
+   
+
+    public void kreirajPacijenta(Pacijent pac) {
+        Zahtev z=new Zahtev(Operacije.KREIRAJ_PACIJENTA,pac);
+        posiljalac.posalji(z);
+        Odgovor odg=(Odgovor) primalac.primi();
+        if(odg.getOdgovor()==null){
+            JOptionPane.showMessageDialog(Cordinator.getInstance().getDodajPacijentaController().getDp(),"Sistem je kreirao pacijenta","Uspeh",JOptionPane.INFORMATION_MESSAGE);
+           
+        }else{
+              JOptionPane.showMessageDialog(Cordinator.getInstance().getDodajPacijentaController().getDp(),"Sistem ne moze da kreira pacijenta","Greska",JOptionPane.ERROR_MESSAGE);
+              
+        }
+    }
+
+    public void izmeniPacijenta(Pacijent pac) {
+        Zahtev z=new Zahtev(Operacije.IZMENI_PACIJENTA, pac);
+        posiljalac.posalji(z);
+        Odgovor odg=(Odgovor) primalac.primi();
+        if(odg.getOdgovor()==null){
+            JOptionPane.showMessageDialog(Cordinator.getInstance().getIzmeniPacijentaController().getIpf(),"Sistem je zapamtio pacijenta","Uspeh",JOptionPane.INFORMATION_MESSAGE);
+            
+        }else{
+              JOptionPane.showMessageDialog(Cordinator.getInstance().getIzmeniPacijentaController().getIpf(),"Sistem ne moze da zapamti pacijenta","Greska",JOptionPane.ERROR_MESSAGE);
+              
+        }
+    }
+
+    public List<MedicinskiRadnik> ucitajMedicinskeRadnike() {
+        Zahtev z=new Zahtev(Operacije.UCITAJ_MEDICINSKE_RADNIKE, null);
+        posiljalac.posalji(z);
+        Odgovor odg=(Odgovor) primalac.primi();
+        return (List<MedicinskiRadnik>) odg.getOdgovor();
+        
+    }
+
+    public List<Intervencija> ucitajIntervencije() {
+       Zahtev z=new Zahtev(Operacije.UCITAJ_INTERVENCIJE, null);
+        posiljalac.posalji(z);
+        Odgovor odg=(Odgovor) primalac.primi();
+        return (List<Intervencija>) odg.getOdgovor();
+    }
+
+    
 
    
     

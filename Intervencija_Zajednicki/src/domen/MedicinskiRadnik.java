@@ -83,7 +83,7 @@ public class MedicinskiRadnik implements ApstraktniDomenskiObjekat{
 
     @Override
     public String toString() {
-        return "MedicinskiRadnik{" + "ime=" + ime + ", prezime=" + prezime + ", email=" + email + '}';
+        return ime+" " + prezime;
     }
 
     @Override

@@ -86,8 +86,9 @@ public class DodajPacijentaForma extends javax.swing.JFrame {
         jTextFieldDatum = new javax.swing.JTextField();
         jButtonUbaci = new javax.swing.JButton();
         jComboBoxOsiguranje = new javax.swing.JComboBox<>();
+        jButtonKreiraj = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         jLabel1.setText("Ime :");
 
@@ -100,6 +101,13 @@ public class DodajPacijentaForma extends javax.swing.JFrame {
         jLabel5.setText("Osiguranje (DA/NE) : ");
 
         jButtonUbaci.setText("Ubaci");
+
+        jButtonKreiraj.setText("Kreiraj");
+        jButtonKreiraj.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonKreirajActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -129,7 +137,9 @@ public class DodajPacijentaForma extends javax.swing.JFrame {
                             .addComponent(jTextFieldIme))
                         .addGap(130, 130, 130))))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(42, 42, 42)
+                .addComponent(jButtonKreiraj)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jButtonUbaci)
                 .addGap(58, 58, 58))
         );
@@ -157,15 +167,22 @@ public class DodajPacijentaForma extends javax.swing.JFrame {
                     .addComponent(jLabel5)
                     .addComponent(jComboBoxOsiguranje, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 42, Short.MAX_VALUE)
-                .addComponent(jButtonUbaci)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButtonUbaci)
+                    .addComponent(jButtonKreiraj))
                 .addGap(26, 26, 26))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void jButtonKreirajActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonKreirajActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButtonKreirajActionPerformed
+
    
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jButtonKreiraj;
     private javax.swing.JButton jButtonUbaci;
     private javax.swing.JComboBox<Osiguranje> jComboBoxOsiguranje;
     private javax.swing.JLabel jLabel1;
@@ -180,7 +197,20 @@ public class DodajPacijentaForma extends javax.swing.JFrame {
     // End of variables declaration//GEN-END:variables
 
     public void dodajAddActionLisener(ActionListener actionListener) {
+        for (ActionListener al : jButtonUbaci.getActionListeners()) {
+        jButtonUbaci.removeActionListener(al);
+        }
         jButtonUbaci.addActionListener(actionListener);
+         
+    }
+       
+
+
+    public void kreirajActionLisener(ActionListener actionListener) {
+         for (ActionListener al : jButtonKreiraj.getActionListeners()) {
+        jButtonKreiraj.removeActionListener(al);
+    }
+       jButtonKreiraj.addActionListener(actionListener);
     }
 
    

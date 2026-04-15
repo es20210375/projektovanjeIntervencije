@@ -9,12 +9,17 @@ import controllers.GlavnaFormaController;
 import controllers.LoginController;
 import domen.MedicinskiRadnik;
 import controllers.DodajPacijentaController;
+import controllers.IzmeniPacijentaController;
+import controllers.KreirajKartonController;
 import controllers.UcitajOsiguranjeController;
 import controllers.UcitajPacijenteController;
+import domen.Pacijent;
 import forme.DodajKvalifikacijuForma;
 import forme.DodajPacijentaForma;
 import forme.LoginForma;
 import forme.GlavnaForma;
+import forme.IzmeniPacijentaForma;
+import forme.KreirajKartonForma;
 import forme.UcitajPacijenteForma;
 
 /**
@@ -30,6 +35,8 @@ public class Cordinator {
     private DodajKvalifikacijuController dodajKvalifikacijuController;
     private UcitajPacijenteController ucitajPacijenteController;
     private DodajPacijentaForma dpf=new DodajPacijentaForma();
+    private IzmeniPacijentaController izmeniPacijentaController;
+    private KreirajKartonController kreirajKartonController;
     public static Cordinator getInstance(){
         if(instacne==null){
             instacne=new Cordinator();
@@ -96,6 +103,32 @@ public class Cordinator {
         ucitajPacijenteController=new UcitajPacijenteController(new UcitajPacijenteForma());
         ucitajPacijenteController.otvoriFormu();
     }
+
+    public UcitajPacijenteController getUcitajPacijenteController() {
+        return ucitajPacijenteController;
+    }
+
+    public void isprazniFormu() {
+        dodajPacijentaController.isprazniFormu();
+    }
+    public void otvoriIzmeniPacijentaFormu(Pacijent p){
+        izmeniPacijentaController=new IzmeniPacijentaController(new IzmeniPacijentaForma(p),p);
+        izmeniPacijentaController.otvoriFormu();
+    }
+
+    public IzmeniPacijentaController getIzmeniPacijentaController() {
+        return izmeniPacijentaController;
+    }
+
+    public void setIzmeniPacijentaController(IzmeniPacijentaController izmeniPacijentaController) {
+        this.izmeniPacijentaController = izmeniPacijentaController;
+    }
+
+    public void otvoriFormuKreirajKarton() {
+        kreirajKartonController=new KreirajKartonController(new KreirajKartonForma());
+        kreirajKartonController.otvoriFormu();
+    }
+    
     
     
     

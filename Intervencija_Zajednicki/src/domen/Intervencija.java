@@ -96,11 +96,11 @@ public class Intervencija implements ApstraktniDomenskiObjekat{
     public List<ApstraktniDomenskiObjekat> vratiListu(ResultSet rs) throws Exception {
         List<ApstraktniDomenskiObjekat>lista=new ArrayList<>();
       while(rs.next()){
-          int id=rs.getInt("intervancija.idIntervencija");
-          String naziv=rs.getString("intervancija.naziv");
-          String opis=rs.getString("intervancija.opis");
+          int id=rs.getInt("intervencija.idIntervencija");
+          String naziv=rs.getString("intervencija.naziv");
+          String opis=rs.getString("intervencija.opis");
           
-          boolean snimakZuba=rs.getBoolean("intervancija.snimakZuba");
+          boolean snimakZuba=rs.getBoolean("intervencija.snimakZuba");
           Intervencija i=new Intervencija(id, naziv, opis, snimakZuba);
           lista.add(i);
       }

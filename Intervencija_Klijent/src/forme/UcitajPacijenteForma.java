@@ -4,7 +4,14 @@
  */
 package forme;
 
+import controllers.ModelTabelePacijenti;
+import cordinator.Cordinator;
+import domen.Pacijent;
+import java.awt.event.ActionListener;
+import javax.swing.JButton;
+import javax.swing.JOptionPane;
 import javax.swing.JTable;
+import komunikacija.Komunikacija;
 
 /**
  *
@@ -26,6 +33,7 @@ public class UcitajPacijenteForma extends javax.swing.JFrame {
     public void setjTablePacijent(JTable jTablePacijent) {
         this.jTablePacijent = jTablePacijent;
     }
+
     
 
     /**
@@ -40,8 +48,9 @@ public class UcitajPacijenteForma extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         jTablePacijent = new javax.swing.JTable();
         jButton1 = new javax.swing.JButton();
+        jButtonIzmeni = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         jTablePacijent.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -57,38 +66,79 @@ public class UcitajPacijenteForma extends javax.swing.JFrame {
         jScrollPane1.setViewportView(jTablePacijent);
 
         jButton1.setText("Izbrisi");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
+        jButtonIzmeni.setText("Izmeni");
+        jButtonIzmeni.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonIzmeniActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(24, 24, 24)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 558, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(30, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jButton1)
-                .addGap(188, 188, 188))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(26, 26, 26)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 558, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(39, 39, 39)
+                        .addComponent(jButton1)
+                        .addGap(38, 38, 38)
+                        .addComponent(jButtonIzmeni)))
+                .addContainerGap(28, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(86, 86, 86)
+                .addContainerGap(90, Short.MAX_VALUE)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 55, Short.MAX_VALUE)
-                .addComponent(jButton1)
-                .addGap(42, 42, 42))
+                .addGap(34, 34, 34)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButton1)
+                    .addComponent(jButtonIzmeni))
+                .addGap(59, 59, 59))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jButtonIzmeniActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonIzmeniActionPerformed
+        int izabraniRed=jTablePacijent.getSelectedRow();
+           if(izabraniRed==-1){
+               JOptionPane.showMessageDialog(this, "Morate da izaberete red iz tabele", "GRESKA",JOptionPane.ERROR_MESSAGE);
+               return;
+           }else{
+               ModelTabelePacijenti mtp=(ModelTabelePacijenti)getjTablePacijent().getModel();
+               Pacijent p=mtp.getLista().get(izabraniRed);
+              Cordinator.getInstance().otvoriIzmeniPacijentaFormu(p);
+           }
+        
+        
+        
+    }//GEN-LAST:event_jButtonIzmeniActionPerformed
+
    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButtonIzmeni;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTablePacijent;
     // End of variables declaration//GEN-END:variables
+
+    public void izbrisiAddActionLisener(ActionListener actionListener) {
+       jButton1.addActionListener(actionListener);
+    }
 }

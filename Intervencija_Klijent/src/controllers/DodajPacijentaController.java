@@ -34,6 +34,7 @@ public class DodajPacijentaController {
 
     public DodajPacijentaController(DodajPacijentaForma dmr) {
         this.dp = dmr;
+        addActionLisener();
     }
 
     public void otvoriFormu() {
@@ -41,7 +42,7 @@ public class DodajPacijentaController {
         ucitajOsiguranjeController=new UcitajOsiguranjeController(dp);
        ucitajOsiguranjeController.pripremiFormu();
         dp.setVisible(true);
-        addActionLisener();
+        
     }
 
     private void addActionLisener() {
@@ -49,6 +50,8 @@ public class DodajPacijentaController {
          @Override
          public void actionPerformed(ActionEvent e) {
               dodaj(e);
+             
+              
          }
 
          private void dodaj(ActionEvent e) {
@@ -73,11 +76,40 @@ public class DodajPacijentaController {
             
             
          }
+
+     });
+     dp.kreirajActionLisener(new ActionListener() {
+         @Override
+         public void actionPerformed(ActionEvent e) {
+             try {
+                 String ime=dp.getjTextFieldIme().getText().trim();
+                 String prezime=dp.getjTextFieldPrezime().getText().trim();
+                 String kontakt=dp.getjTextFieldInformacije().getText().trim();
+                 String datumString=dp.getjTextFieldDatum().getText().trim();
+                 Date datum=(new SimpleDateFormat("dd.MM.yyyy")).parse(datumString);
+                 Osiguranje osiguranje=(Osiguranje) dp.getjComboBoxOsiguranje().getSelectedItem();
+              Pacijent pac=new Pacijent(-1,ime,prezime,kontakt,datum,osiguranje);
+               
+                 Komunikacija.getInstance().kreirajPacijenta(pac);
+             } catch (ParseException ex) {
+                 ex.printStackTrace();
+             }
+            
+         }
      });
     }
-
+   
     public void ugasiFormu() {
         dp.dispose();
+    }
+
+    public void isprazniFormu() {
+        dp.getjTextFieldIme().setText("");
+    dp.getjTextFieldPrezime().setText("");
+    dp.getjTextFieldInformacije().setText("");
+    dp.getjTextFieldDatum().setText("");
+
+    dp.getjComboBoxOsiguranje().setSelectedIndex(-1);
     }
     
     

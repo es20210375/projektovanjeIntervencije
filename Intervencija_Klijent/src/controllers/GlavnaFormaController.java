@@ -20,6 +20,7 @@ public class GlavnaFormaController {
     }
 
     public void otvoriFormu() {
+        
          gf.setVisible(true);
          gf.getjLabelUlogovani().setText(Cordinator.getInstance().getMr().getIme()+" "+Cordinator.getInstance().getMr().getPrezime());
     }
@@ -27,6 +28,8 @@ public class GlavnaFormaController {
     private void addActionLiseners() {
        
     }
+
+    
     
     
 }

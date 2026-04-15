@@ -5,6 +5,7 @@
 package niti;
 
 import controller.Controller;
+import domen.Intervencija;
 import domen.Kvalifikacija;
 import domen.MedicinskiRadnik;
 import domen.Osiguranje;
@@ -89,6 +90,56 @@ public class ObradaKlijentskihZahteva extends Thread {
                             ex.printStackTrace();
                         }
                         break;
+                    case IZBRISI_PACIJENTA:
+                        try{
+                        Pacijent p=(Pacijent) zahtev.getParametar();
+                        Controller.getInstance().izbrisiPacijenta(p);
+                        odgovor.setOdgovor(null);
+                        }catch(Exception e){
+                           odgovor.setOdgovor(e); 
+                        }
+                        break;
+                    case KREIRAJ_PACIJENTA:
+                        try{
+                            Pacijent p=(Pacijent) zahtev.getParametar();
+                            p=Controller.getInstance().kreirajPacijenta(p);
+                            odgovor.setOdgovor(null);
+                        }catch(Exception e){
+                            odgovor.setOdgovor(e);
+                        }
+                        break;
+                    case IZMENI_PACIJENTA:
+                        try{
+                         Pacijent p=(Pacijent) zahtev.getParametar();
+                          Controller.getInstance().izmeniPacijenta(p);
+                          odgovor.setOdgovor(null);
+                        }catch(Exception e){
+                            odgovor.setOdgovor(e);
+                        }
+                        break;
+                    case UCITAJ_MEDICINSKE_RADNIKE:
+                    {
+                        try {
+                            List<MedicinskiRadnik>lista=Controller.getInstance().ucitajMedicinskeRadnike();
+                            odgovor.setOdgovor(lista);
+                        } catch (Exception ex) {
+                            Logger.getLogger(ObradaKlijentskihZahteva.class.getName()).log(Level.SEVERE, null, ex);
+                        }
+                    }     
+                     break;
+                    case UCITAJ_INTERVENCIJE:
+                    {
+                        try {
+                            List<Intervencija>lista=Controller.getInstance().ucitajIntervencije();
+                            odgovor.setOdgovor(lista);
+                        } catch (Exception ex) {
+                            Logger.getLogger(ObradaKlijentskihZahteva.class.getName()).log(Level.SEVERE, null, ex);
+                        }
+                    }
+                    
+                        break;
+
+
                     default:
                         System.out.println("Greska, izabrana operacija ne postoji");
                 }
