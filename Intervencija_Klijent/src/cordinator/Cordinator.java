@@ -11,9 +11,11 @@ import domen.MedicinskiRadnik;
 import controllers.DodajPacijentaController;
 import controllers.IzmeniPacijentaController;
 import controllers.KreirajKartonController;
+import controllers.UcitajKartonOdredjenogController;
 import controllers.UcitajOsiguranjeController;
 import controllers.UcitajPacijenteController;
 import domen.Pacijent;
+import forme.DetaljiIzabranogPacijentaForma;
 import forme.DodajKvalifikacijuForma;
 import forme.DodajPacijentaForma;
 import forme.LoginForma;
@@ -37,6 +39,7 @@ public class Cordinator {
     private DodajPacijentaForma dpf=new DodajPacijentaForma();
     private IzmeniPacijentaController izmeniPacijentaController;
     private KreirajKartonController kreirajKartonController;
+    private UcitajKartonOdredjenogController ucitajKartonOdredjenogController;
     public static Cordinator getInstance(){
         if(instacne==null){
             instacne=new Cordinator();
@@ -143,6 +146,11 @@ public class Cordinator {
 
     public void setGlavnaFormaController(GlavnaFormaController glavnaFormaController) {
         this.glavnaFormaController = glavnaFormaController;
+    }
+
+    public void otvoriFormuDetaljiIzabranog(Pacijent p) {
+        ucitajKartonOdredjenogController=new UcitajKartonOdredjenogController(new DetaljiIzabranogPacijentaForma(p));
+        ucitajKartonOdredjenogController.otvoriFormu(p);
     }
     
     

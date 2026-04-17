@@ -232,8 +232,9 @@ public class UcitajPacijenteForma extends javax.swing.JFrame {
                JOptionPane.showMessageDialog(this, "Sistem je nasao pacijenta", "Uspeh",JOptionPane.INFORMATION_MESSAGE);
                ModelTabelePacijenti mtp=(ModelTabelePacijenti)getjTablePacijent().getModel();
                Pacijent p=mtp.getLista().get(izabraniRed);
-               DetaljiIzabranogPacijentaForma dipf=new DetaljiIzabranogPacijentaForma(p);
-               dipf.setVisible(true);
+               Cordinator.getInstance().otvoriFormuDetaljiIzabranog(p);
+               /*DetaljiIzabranogPacijentaForma dipf=new DetaljiIzabranogPacijentaForma(p);
+               dipf.setVisible(true);*/
            }
     }//GEN-LAST:event_jButton2ActionPerformed
 

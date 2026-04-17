@@ -8,6 +8,7 @@ import controllers.ModelTabeleKartonOdredjenogPacijenta;
 import domen.Karton;
 import domen.Pacijent;
 import java.util.List;
+import javax.swing.JTable;
 import komunikacija.Komunikacija;
 
 /**
@@ -21,10 +22,18 @@ public class DetaljiIzabranogPacijentaForma extends javax.swing.JFrame {
      */
     public DetaljiIzabranogPacijentaForma(Pacijent pac) {
         initComponents();
-        this.pac=pac;
-        List<Karton>lista=Komunikacija.getInstance().ucitajKartonZaPacijenta(pac.getIdPacijent());
+        //this.pac=pac;
+       /* List<Karton>lista=Komunikacija.getInstance().ucitajKartonZaPacijenta(pac.getIdPacijent());
         ModelTabeleKartonOdredjenogPacijenta mtkop=new ModelTabeleKartonOdredjenogPacijenta(lista);
-        jTablePacijentDetalji.setModel(mtkop);
+        jTablePacijentDetalji.setModel(mtkop);*/
+    }
+
+    public JTable getjTablePacijentDetalji() {
+        return jTablePacijentDetalji;
+    }
+
+    public void setjTablePacijentDetalji(JTable jTablePacijentDetalji) {
+        this.jTablePacijentDetalji = jTablePacijentDetalji;
     }
 
     /**
@@ -60,8 +69,8 @@ public class DetaljiIzabranogPacijentaForma extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(54, 54, 54)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(172, Short.MAX_VALUE))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 566, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(58, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
