@@ -21,4 +21,7 @@ public enum Operacije  implements Serializable{
     IZMENI_PACIJENTA, 
     UCITAJ_MEDICINSKE_RADNIKE, 
     UCITAJ_INTERVENCIJE,
+    UCITAJ_KARTONE,
+    DODAJ_KARTON, 
+    UCITAJ_ODREDJENI_KARTON,
 }

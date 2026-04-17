@@ -10,7 +10,10 @@ import domen.Pacijent;
 import java.awt.event.ActionListener;
 import javax.swing.JButton;
 import javax.swing.JOptionPane;
+import javax.swing.JRadioButton;
+import javax.swing.JScrollBar;
 import javax.swing.JTable;
+import javax.swing.JTextField;
 import komunikacija.Komunikacija;
 
 /**
@@ -34,6 +37,38 @@ public class UcitajPacijenteForma extends javax.swing.JFrame {
         this.jTablePacijent = jTablePacijent;
     }
 
+    public JRadioButton getjRadioButtonDA() {
+        return jRadioButtonDA;
+    }
+
+    public void setjRadioButtonDA(JRadioButton jRadioButtonDA) {
+        this.jRadioButtonDA = jRadioButtonDA;
+    }
+
+    public JRadioButton getjRadioButtonNE() {
+        return jRadioButtonNE;
+    }
+
+    public void setjRadioButtonNE(JRadioButton jRadioButtonNE) {
+        this.jRadioButtonNE = jRadioButtonNE;
+    }
+
+    public JScrollBar getjScrollBar1() {
+        return jScrollBar1;
+    }
+
+    public void setjScrollBar1(JScrollBar jScrollBar1) {
+        this.jScrollBar1 = jScrollBar1;
+    }
+
+    public JTextField getjTextFieldImePrezime() {
+        return jTextFieldImePrezime;
+    }
+
+    public void setjTextFieldImePrezime(JTextField jTextFieldImePrezime) {
+        this.jTextFieldImePrezime = jTextFieldImePrezime;
+    }
+    
     
 
     /**
@@ -45,10 +80,18 @@ public class UcitajPacijenteForma extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jScrollBar1 = new javax.swing.JScrollBar();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTablePacijent = new javax.swing.JTable();
         jButton1 = new javax.swing.JButton();
         jButtonIzmeni = new javax.swing.JButton();
+        jRadioButtonDA = new javax.swing.JRadioButton();
+        jRadioButtonNE = new javax.swing.JRadioButton();
+        jLabel1 = new javax.swing.JLabel();
+        jTextFieldImePrezime = new javax.swing.JTextField();
+        jButtonFiltriraj = new javax.swing.JButton();
+        jButtonResetuj = new javax.swing.JButton();
+        jButton2 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -79,32 +122,82 @@ public class UcitajPacijenteForma extends javax.swing.JFrame {
             }
         });
 
+        jRadioButtonDA.setText("Status osiguranja DA");
+
+        jRadioButtonNE.setText("Status osiguranja NE");
+
+        jLabel1.setText("Ime i/ili prezime : ");
+
+        jButtonFiltriraj.setText("Filtriraj");
+
+        jButtonResetuj.setText("Resetuj tabelu");
+
+        jButton2.setText("Detalji");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jRadioButtonDA)
+                .addGap(65, 65, 65)
+                .addComponent(jRadioButtonNE, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(26, 26, 26)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 558, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addContainerGap()
+                        .addComponent(jTextFieldImePrezime, javax.swing.GroupLayout.PREFERRED_SIZE, 174, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jButtonFiltriraj)
+                        .addGap(33, 33, 33)
+                        .addComponent(jButtonResetuj)
+                        .addGap(65, 65, 65)
+                        .addComponent(jButton2))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(39, 39, 39)
+                        .addGap(33, 33, 33)
                         .addComponent(jButton1)
-                        .addGap(38, 38, 38)
-                        .addComponent(jButtonIzmeni)))
-                .addContainerGap(28, Short.MAX_VALUE))
+                        .addGap(26, 26, 26)
+                        .addComponent(jButtonIzmeni))
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 558, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(42, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap(90, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap(42, Short.MAX_VALUE)
+                        .addComponent(jLabel1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jTextFieldImePrezime, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jButtonFiltriraj)
+                            .addComponent(jButtonResetuj)
+                            .addComponent(jButton2))
+                        .addGap(21, 21, 21))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(29, 29, 29)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jRadioButtonDA)
+                            .addComponent(jRadioButtonNE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(34, 34, 34)
+                .addGap(38, 38, 38)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton1)
                     .addComponent(jButtonIzmeni))
-                .addGap(59, 59, 59))
+                .addGap(30, 30, 30))
         );
 
         pack();
@@ -117,9 +210,10 @@ public class UcitajPacijenteForma extends javax.swing.JFrame {
     private void jButtonIzmeniActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonIzmeniActionPerformed
         int izabraniRed=jTablePacijent.getSelectedRow();
            if(izabraniRed==-1){
-               JOptionPane.showMessageDialog(this, "Morate da izaberete red iz tabele", "GRESKA",JOptionPane.ERROR_MESSAGE);
+               JOptionPane.showMessageDialog(this, "Sistem ne moze da nadje pacijenta", "Greska",JOptionPane.ERROR_MESSAGE);
                return;
            }else{
+               JOptionPane.showMessageDialog(this, "Sistem je nasao pacijenta", "Uspeh",JOptionPane.INFORMATION_MESSAGE);
                ModelTabelePacijenti mtp=(ModelTabelePacijenti)getjTablePacijent().getModel();
                Pacijent p=mtp.getLista().get(izabraniRed);
               Cordinator.getInstance().otvoriIzmeniPacijentaFormu(p);
@@ -129,16 +223,56 @@ public class UcitajPacijenteForma extends javax.swing.JFrame {
         
     }//GEN-LAST:event_jButtonIzmeniActionPerformed
 
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        int izabraniRed=jTablePacijent.getSelectedRow();
+           if(izabraniRed==-1){
+               JOptionPane.showMessageDialog(this, "Sistem ne moze da nadje pacijenta", "Greska",JOptionPane.ERROR_MESSAGE);
+               return;
+           }else{
+               JOptionPane.showMessageDialog(this, "Sistem je nasao pacijenta", "Uspeh",JOptionPane.INFORMATION_MESSAGE);
+               ModelTabelePacijenti mtp=(ModelTabelePacijenti)getjTablePacijent().getModel();
+               Pacijent p=mtp.getLista().get(izabraniRed);
+               DetaljiIzabranogPacijentaForma dipf=new DetaljiIzabranogPacijentaForma(p);
+               dipf.setVisible(true);
+           }
+    }//GEN-LAST:event_jButton2ActionPerformed
+
+    public JButton getjButtonFiltriraj() {
+        return jButtonFiltriraj;
+    }
+
+    public void setjButtonFiltriraj(JButton jButtonFiltriraj) {
+        this.jButtonFiltriraj = jButtonFiltriraj;
+    }
+
+    public JButton getjButtonResetuj() {
+        return jButtonResetuj;
+    }
+
+    public void setjButtonResetuj(JButton jButtonResetuj) {
+        this.jButtonResetuj = jButtonResetuj;
+    }
+
    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButtonFiltriraj;
     private javax.swing.JButton jButtonIzmeni;
+    private javax.swing.JButton jButtonResetuj;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JRadioButton jRadioButtonDA;
+    private javax.swing.JRadioButton jRadioButtonNE;
+    private javax.swing.JScrollBar jScrollBar1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTablePacijent;
+    private javax.swing.JTextField jTextFieldImePrezime;
     // End of variables declaration//GEN-END:variables
 
     public void izbrisiAddActionLisener(ActionListener actionListener) {
        jButton1.addActionListener(actionListener);
     }
+
+    
 }

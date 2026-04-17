@@ -6,10 +6,20 @@ package controllers;
 
 
 import domen.Intervencija;
+import domen.Karton;
 import domen.MedicinskiRadnik;
 import domen.Pacijent;
+import domen.StatusKartona;
 import forme.KreirajKartonForma;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import komunikacija.Komunikacija;
 
 /**
@@ -44,11 +54,40 @@ public class KreirajKartonController {
        kkf.getjComboBoxMradnik().setSelectedIndex(-1);
        List<Intervencija>listaIntervencija=Komunikacija.getInstance().ucitajIntervencije();
        ModelTabeleIntervencija mti=new ModelTabeleIntervencija(listaIntervencija);
-       kkf.getjTable1().setModel(mti);
+       kkf.getjTableIntervencije().setModel(mti);
     }
 
     private void addActionLiseners() {
-        
+        kkf.sacuvajActionLisener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                try {
+                    sacuvaj(e);
+                } catch (ParseException ex) {
+                    Logger.getLogger(KreirajKartonController.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+
+            private void sacuvaj(ActionEvent e) throws ParseException {
+                MedicinskiRadnik mr=(MedicinskiRadnik) kkf.getjComboBoxMradnik().getSelectedItem();
+                Pacijent p=(Pacijent) kkf.getjComboBoxPacijent().getSelectedItem();
+                StatusKartona sk=(StatusKartona) kkf.getjComboBoxStatus().getSelectedItem();
+                String datum=kkf.getjTextFieldDatumOtvaranja().getText();
+                Date datum1=(new SimpleDateFormat("dd.MM.yyyy")).parse(datum);
+                Karton k=new Karton(-1,datum1,sk,null,mr,p);
+                k.setStavkaKartona(new ArrayList());
+                Komunikacija.getInstance().dodajKarton(k);
+                
+            }
+        });
+    }
+
+    public KreirajKartonForma getKkf() {
+        return kkf;
+    }
+
+    public void setKkf(KreirajKartonForma kkf) {
+        this.kkf = kkf;
     }
     
     

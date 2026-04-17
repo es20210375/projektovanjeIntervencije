@@ -2,28 +2,28 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package soperacije.pacijent;
+package soperacije.karton;
 
-import domen.Pacijent;
+import domen.Karton;
 import soperacije.ApstraktnaGenerickaOperacija;
 
 /**
  *
  * @author Emilija
  */
-public class DodajPacijentaOperacija extends ApstraktnaGenerickaOperacija{
-    
+public class DodajKartonOperacija extends ApstraktnaGenerickaOperacija{
+
     @Override
     protected void preduslovi(Object param) throws Exception {
-       if(param==null||!(param instanceof Pacijent)){
-           throw new Exception("Sistem ne moze da sacuva pacijenta");
+        if(param==null||!(param instanceof Karton)){
+           throw new Exception("Sistem ne moze da sacuva karton");
        }
     }
 
     @Override
     protected void izvrsiOperaciju(Object objekat, String kljuc) throws Exception {
-        System.out.println("Klasa DodajPacijentaOperacija: "+(Pacijent)objekat);
-       broker.add((Pacijent)objekat);
+        broker.add((Karton)objekat);
+        System.out.println("soperacije.karton.DodajKartonOperacija.izvrsiOperaciju()"+(Karton)objekat);
     }
     
 }

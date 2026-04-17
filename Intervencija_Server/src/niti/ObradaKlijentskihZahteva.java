@@ -6,6 +6,7 @@ package niti;
 
 import controller.Controller;
 import domen.Intervencija;
+import domen.Karton;
 import domen.Kvalifikacija;
 import domen.MedicinskiRadnik;
 import domen.Osiguranje;
@@ -101,8 +102,8 @@ public class ObradaKlijentskihZahteva extends Thread {
                         break;
                     case KREIRAJ_PACIJENTA:
                         try{
-                            Pacijent p=(Pacijent) zahtev.getParametar();
-                            p=Controller.getInstance().kreirajPacijenta(p);
+                            
+                            Controller.getInstance().kreirajPacijenta();
                             odgovor.setOdgovor(null);
                         }catch(Exception e){
                             odgovor.setOdgovor(e);
@@ -137,6 +138,36 @@ public class ObradaKlijentskihZahteva extends Thread {
                         }
                     }
                     
+                        break;
+                    case UCITAJ_KARTONE:
+                    {
+                        try {
+                            List<Karton>lista=Controller.getInstance().ucitajKartone();
+                            odgovor.setOdgovor(lista);
+                        } catch (Exception ex) {
+                            Logger.getLogger(ObradaKlijentskihZahteva.class.getName()).log(Level.SEVERE, null, ex);
+                        }
+                    }
+                      break;
+                    case DODAJ_KARTON:
+                        try{
+                            Karton k=(Karton) zahtev.getParametar();
+                            Controller.getInstance().dodajKarton(k);
+                            odgovor.setOdgovor(null);
+                        }catch(Exception e){
+                            odgovor.setOdgovor(e);
+                        }
+                        break;
+                    case UCITAJ_ODREDJENI_KARTON:
+                        try {
+                            int id=(int) zahtev.getParametar();
+                            List<Karton>lista=Controller.getInstance().ucitajKartonOdredjenog(id);
+                            odgovor.setOdgovor(lista);
+                        } catch (Exception ex) {
+                            Logger.getLogger(ObradaKlijentskihZahteva.class.getName()).log(Level.SEVERE, null, ex);
+                        }
+                    
+                        
                         break;
 
 

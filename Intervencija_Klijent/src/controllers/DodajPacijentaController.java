@@ -82,16 +82,10 @@ public class DodajPacijentaController {
          @Override
          public void actionPerformed(ActionEvent e) {
              try {
-                 String ime=dp.getjTextFieldIme().getText().trim();
-                 String prezime=dp.getjTextFieldPrezime().getText().trim();
-                 String kontakt=dp.getjTextFieldInformacije().getText().trim();
-                 String datumString=dp.getjTextFieldDatum().getText().trim();
-                 Date datum=(new SimpleDateFormat("dd.MM.yyyy")).parse(datumString);
-                 Osiguranje osiguranje=(Osiguranje) dp.getjComboBoxOsiguranje().getSelectedItem();
-              Pacijent pac=new Pacijent(-1,ime,prezime,kontakt,datum,osiguranje);
+                 
                
-                 Komunikacija.getInstance().kreirajPacijenta(pac);
-             } catch (ParseException ex) {
+                 Komunikacija.getInstance().kreirajPacijenta();
+             } catch (Exception ex) {
                  ex.printStackTrace();
              }
             

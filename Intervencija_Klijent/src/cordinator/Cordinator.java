@@ -128,6 +128,22 @@ public class Cordinator {
         kreirajKartonController=new KreirajKartonController(new KreirajKartonForma());
         kreirajKartonController.otvoriFormu();
     }
+
+    public KreirajKartonController getKreirajKartonController() {
+        return kreirajKartonController;
+    }
+
+    public void setKreirajKartonController(KreirajKartonController kreirajKartonController) {
+        this.kreirajKartonController = kreirajKartonController;
+    }
+
+    public GlavnaFormaController getGlavnaFormaController() {
+        return glavnaFormaController;
+    }
+
+    public void setGlavnaFormaController(GlavnaFormaController glavnaFormaController) {
+        this.glavnaFormaController = glavnaFormaController;
+    }
     
     
     

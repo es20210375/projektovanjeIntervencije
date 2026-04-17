@@ -142,7 +142,12 @@ public class Karton implements ApstraktniDomenskiObjekat{
         int idKarton = rs.getInt("karton.idKarton");
 
         Date datumOtvaranja = new Date(rs.getDate("karton.datumOtvaranja").getTime());
-        Date datumArhiviranja = new Date(rs.getDate("karton.datumArhiviranja").getTime());
+        java.sql.Date sqlDatumArhiviranja = rs.getDate("karton.datumArhiviranja");
+        Date datumArhiviranja = null;
+
+        if (sqlDatumArhiviranja != null) {
+           datumArhiviranja = new Date(sqlDatumArhiviranja.getTime());
+           }
 
         StatusKartona status = StatusKartona.valueOf(rs.getString("karton.statusKartona"));
 
@@ -164,7 +169,7 @@ public class Karton implements ApstraktniDomenskiObjekat{
 
         Date datumRodjenja = new Date(rs.getDate("pacijent.datumRodjenja").getTime());
 
-        int idOsiguranje = rs.getInt("osiguranje.idOsiguranje");
+        int idOsiguranje = rs.getInt("osiguranje.idOsiguranja");
         String statusOs = rs.getString("osiguranje.statusOsiguranja");
 
         Osiguranje o = new Osiguranje(idOsiguranje, statusOs);
@@ -184,7 +189,15 @@ public class Karton implements ApstraktniDomenskiObjekat{
 
     @Override
     public String vratiVrednostiZaUbacivanje() {
-       return "'"+datumOtvaranja+"','"+statusKartona+",'"+datumArhiviranja+"',"+medicinskiRadnik.getIdMedicinskiRadnik()+","+pacijent.getIdPacijent();
+        java.sql.Date sqlDatumOtvaranja = new java.sql.Date(datumOtvaranja.getTime());
+
+    String datumArh = "null";
+    if (datumArhiviranja != null) {
+        datumArh = "'" + new java.sql.Date(datumArhiviranja.getTime()) + "'";
+    }
+
+    return "'" + sqlDatumOtvaranja + "','" + statusKartona + "'," + datumArh + "," +
+            medicinskiRadnik.getIdMedicinskiRadnik() + "," + pacijent.getIdPacijent();
     }
 
     @Override
@@ -199,7 +212,18 @@ public class Karton implements ApstraktniDomenskiObjekat{
 
     @Override
     public String vratiVrednostiZaIzmenu() {
-        return "datumOtvaranja='"+datumOtvaranja+"' statusKartova='"+statusKartona+"' datumArhiviranja='"+datumArhiviranja+"' idMedicinskiRadnik="+medicinskiRadnik.getIdMedicinskiRadnik()+" idPacijent="+pacijent.getIdPacijent();
+        java.sql.Date sqlDatumOtvaranja = new java.sql.Date(datumOtvaranja.getTime());
+
+    String datumArh = "null";
+    if (datumArhiviranja != null) {
+        datumArh = "'" + new java.sql.Date(datumArhiviranja.getTime()) + "'";
+    }
+
+    return "datumOtvaranja='" + sqlDatumOtvaranja + "', " +
+           "statusKartona='" + statusKartona + "', " +
+           "datumArhiviranja=" + datumArh + ", " +
+           "idMedicinskiRadnik=" + medicinskiRadnik.getIdMedicinskiRadnik() + ", " +
+           "idPacijent=" + pacijent.getIdPacijent();
     }
   
 }

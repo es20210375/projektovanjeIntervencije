@@ -5,7 +5,10 @@
 package controllers;
 
 import cordinator.Cordinator;
+import domen.Karton;
 import forme.GlavnaForma;
+import java.util.List;
+import komunikacija.Komunikacija;
 
 /**
  *
@@ -23,10 +26,22 @@ public class GlavnaFormaController {
         
          gf.setVisible(true);
          gf.getjLabelUlogovani().setText(Cordinator.getInstance().getMr().getIme()+" "+Cordinator.getInstance().getMr().getPrezime());
+         pripremiFormu();
     }
 
     private void addActionLiseners() {
        
+    }
+
+    public void pripremiFormu() {
+        List<Karton>lista=Komunikacija.getInstance().ucitajKartone();
+        ModelTabeleKartoni mtk=new ModelTabeleKartoni(lista);
+        gf.getjTableKartoni().setModel(mtk);
+        
+    }
+
+    public GlavnaForma getGf() {
+        return gf;
     }
 
     

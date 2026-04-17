@@ -5,6 +5,7 @@
 package controller;
 
 import domen.Intervencija;
+import domen.Karton;
 import domen.Kvalifikacija;
 import domen.MedicinskiRadnik;
 import domen.Osiguranje;
@@ -14,6 +15,9 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import soperacije.intervencija.UcitajIntervencijeOperacija;
+import soperacije.karton.DodajKartonOperacija;
+import soperacije.karton.UcitajKartonOdredjenogOperacija;
+import soperacije.karton.UcitajKartoneOperacija;
 import soperacije.kvalifikacija.DodajKvalifikacijuOperacija;
 import soperacije.login.LogInOperacija;
 import soperacije.medicinskiradnik.UcitajMedicinskeRadnikeOperacija;
@@ -31,6 +35,7 @@ public class Controller {
     private static  Controller instance;
     List<Pacijent>listaPacijenata=new ArrayList<>();
     Pacijent pacijent;
+    List<Karton>listaKartona=new ArrayList<>();
     public static Controller getInstance(){
         if(instance==null){
             instance=new Controller();
@@ -89,18 +94,16 @@ public class Controller {
                 listaPacijenata.add(pac);
             }
         }
-            System.out.println("Klasa Controller listaPacijenata: "+listaPacijenata);
+            System.out.println("Klasa Controller listaPacijenataLOKALNO: "+listaPacijenata);
     }
 
-    public Pacijent kreirajPacijenta(Pacijent p) throws Exception {
-        List<Pacijent>lista=ucitajPacijente();
-        for (Pacijent pac : lista) {
-            if(p.equals(pac)){
-                throw new Exception("Sistem ne moze da kreira pacijenta");
-            }
-        }
+    public Pacijent kreirajPacijenta() throws Exception {
+        try{
          pacijent=new Pacijent();
                listaPacijenata.add(pacijent);
+        }catch(Exception e){
+            throw  new Exception("Sistem ne moze da kreira pacijenta");
+        }
                return null;
         
     }
@@ -121,6 +124,24 @@ public class Controller {
        UcitajIntervencijeOperacija uio=new UcitajIntervencijeOperacija();
        uio.izvrsi(null, null);
        return uio.getLista();
+    }
+
+    public List<Karton> ucitajKartone() throws Exception {
+       UcitajKartoneOperacija uko=new UcitajKartoneOperacija();
+       uko.izvrsi(null, null);
+       return uko.getLista();
+    }
+
+    public void dodajKarton(Karton k) throws Exception {
+        DodajKartonOperacija dko=new DodajKartonOperacija();
+        System.out.println("controller.Controller.dodajKarton()"+k);
+        dko.izvrsi(k, null);
+    }
+
+    public List<Karton> ucitajKartonOdredjenog(int id) throws Exception {
+        UcitajKartonOdredjenogOperacija ukoo=new UcitajKartonOdredjenogOperacija();
+        ukoo.izvrsi(id, null);
+        return ukoo.getLista();
     }
 
     

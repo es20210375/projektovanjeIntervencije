@@ -6,6 +6,7 @@ package komunikacija;
 
 import cordinator.Cordinator;
 import domen.Intervencija;
+import domen.Karton;
 import domen.Kvalifikacija;
 import domen.MedicinskiRadnik;
 import domen.Osiguranje;
@@ -115,8 +116,8 @@ public class Komunikacija {
 
    
 
-    public void kreirajPacijenta(Pacijent pac) {
-        Zahtev z=new Zahtev(Operacije.KREIRAJ_PACIJENTA,pac);
+    public void kreirajPacijenta() {
+        Zahtev z=new Zahtev(Operacije.KREIRAJ_PACIJENTA,null);
         posiljalac.posalji(z);
         Odgovor odg=(Odgovor) primalac.primi();
         if(odg.getOdgovor()==null){
@@ -154,6 +155,35 @@ public class Komunikacija {
         posiljalac.posalji(z);
         Odgovor odg=(Odgovor) primalac.primi();
         return (List<Intervencija>) odg.getOdgovor();
+    }
+
+    public List<Karton> ucitajKartone() {
+        Zahtev z=new Zahtev(Operacije.UCITAJ_KARTONE, null);
+        posiljalac.posalji(z);
+        Odgovor odg=(Odgovor) primalac.primi();
+        return (List<Karton>) odg.getOdgovor();
+    }
+
+    public void dodajKarton(Karton k) {
+        Zahtev z=new Zahtev(Operacije.DODAJ_KARTON, k);
+        posiljalac.posalji(z);
+        Odgovor odg=(Odgovor) primalac.primi();
+        if(odg.getOdgovor()==null){
+            JOptionPane.showMessageDialog(Cordinator.getInstance().getKreirajKartonController().getKkf(),"Sistem je zapamtio karton","Uspeh",JOptionPane.INFORMATION_MESSAGE);
+           Cordinator.getInstance().getGlavnaFormaController().pripremiFormu();
+           
+        }else{
+              JOptionPane.showMessageDialog(Cordinator.getInstance().getKreirajKartonController().getKkf(),"Sistem ne moze da zapamti karton","Greska",JOptionPane.ERROR_MESSAGE);
+              
+        }
+        
+    }
+
+    public List<Karton> ucitajKartonZaPacijenta(int idPacijent) {
+        Zahtev z=new Zahtev(Operacije.UCITAJ_ODREDJENI_KARTON, idPacijent);
+        posiljalac.posalji(z);
+        Odgovor odg=(Odgovor) primalac.primi();
+        return (List<Karton>) odg.getOdgovor();
     }
 
     

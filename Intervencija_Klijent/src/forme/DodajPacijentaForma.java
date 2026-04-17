@@ -101,6 +101,11 @@ public class DodajPacijentaForma extends javax.swing.JFrame {
         jLabel5.setText("Osiguranje (DA/NE) : ");
 
         jButtonUbaci.setText("Ubaci");
+        jButtonUbaci.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonUbaciActionPerformed(evt);
+            }
+        });
 
         jButtonKreiraj.setText("Kreiraj");
         jButtonKreiraj.addActionListener(new java.awt.event.ActionListener() {
@@ -179,6 +184,10 @@ public class DodajPacijentaForma extends javax.swing.JFrame {
     private void jButtonKreirajActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonKreirajActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jButtonKreirajActionPerformed
+
+    private void jButtonUbaciActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonUbaciActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButtonUbaciActionPerformed
 
    
     // Variables declaration - do not modify//GEN-BEGIN:variables
