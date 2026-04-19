@@ -11,6 +11,7 @@ import domen.Kvalifikacija;
 import domen.MedicinskiRadnik;
 import domen.Osiguranje;
 import domen.Pacijent;
+import domen.StavkaKartona;
 import java.io.IOException;
 import java.net.Socket;
 import java.util.ArrayList;
@@ -164,8 +165,51 @@ public class Komunikacija {
         return (List<Karton>) odg.getOdgovor();
     }
 
-    public void dodajKarton(Karton k) {
+    public Karton dodajKarton(Karton k) {
         Zahtev z=new Zahtev(Operacije.DODAJ_KARTON, k);
+        posiljalac.posalji(z);
+        Odgovor odg=(Odgovor) primalac.primi();
+        /*if(odg.getOdgovor()==null){
+            JOptionPane.showMessageDialog(Cordinator.getInstance().getKreirajKartonController().getKkf(),"Sistem je zapamtio karton","Uspeh",JOptionPane.INFORMATION_MESSAGE);
+           Cordinator.getInstance().getGlavnaFormaController().pripremiFormu();
+           
+        }else{
+              JOptionPane.showMessageDialog(Cordinator.getInstance().getKreirajKartonController().getKkf(),"Sistem ne moze da zapamti karton","Greska",JOptionPane.ERROR_MESSAGE);
+              
+        }*/
+        return (Karton) odg.getOdgovor();
+    }
+
+    public List<Karton> ucitajKartonZaPacijenta(int idPacijent) {
+        Zahtev z=new Zahtev(Operacije.UCITAJ_ODREDJENI_KARTON, idPacijent);
+        posiljalac.posalji(z);
+        Odgovor odg=(Odgovor) primalac.primi();
+        return (List<Karton>) odg.getOdgovor();
+    }
+
+    public void dodajIntervenciju(Intervencija inter) {
+        Zahtev z=new Zahtev(Operacije.DODAJ_INTERVENCIJU, inter);
+        posiljalac.posalji(z);
+        Odgovor odg=(Odgovor) primalac.primi();
+        if(odg.getOdgovor()==null){
+            JOptionPane.showMessageDialog(Cordinator.getInstance().getDodajIntervencijuController().getDif(),"Sistem je zapamtio intervenciju","Uspeh",JOptionPane.INFORMATION_MESSAGE);
+           Cordinator.getInstance().getKreirajKartonController().pripremiFormu();
+           
+        }else{
+              JOptionPane.showMessageDialog(Cordinator.getInstance().getDodajIntervencijuController().getDif(),"Sistem ne moze da zapamti intervenciju","Greska",JOptionPane.ERROR_MESSAGE);
+              
+        }
+    }
+
+    public List<StavkaKartona> ucitajStavkeKartona() {
+        Zahtev z=new Zahtev(Operacije.UCITAJ_STAVKE_KARTONA, null);
+        posiljalac.posalji(z);
+        Odgovor odg=(Odgovor) primalac.primi();
+        return (List<StavkaKartona>) odg.getOdgovor();
+    }
+
+    public void dodajStavkuKartona(StavkaKartona stakvak) {
+        Zahtev z=new Zahtev(Operacije.DODAJ_STAVKU_KARTONA, stakvak);
         posiljalac.posalji(z);
         Odgovor odg=(Odgovor) primalac.primi();
         if(odg.getOdgovor()==null){
@@ -177,13 +221,6 @@ public class Komunikacija {
               
         }
         
-    }
-
-    public List<Karton> ucitajKartonZaPacijenta(int idPacijent) {
-        Zahtev z=new Zahtev(Operacije.UCITAJ_ODREDJENI_KARTON, idPacijent);
-        posiljalac.posalji(z);
-        Odgovor odg=(Odgovor) primalac.primi();
-        return (List<Karton>) odg.getOdgovor();
     }
 
     

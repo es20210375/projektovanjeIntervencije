@@ -93,7 +93,7 @@ public class Karton implements ApstraktniDomenskiObjekat{
 
     @Override
     public String toString() {
-        return "Karton{" + "datumOtvaranja=" + datumOtvaranja + ", statusKartona=" + statusKartona + ", datumArhiviranja=" + datumArhiviranja + ", medicinskiRadnik=" + medicinskiRadnik + ", pacijent=" + pacijent + ", stavkaKartona=" + stavkaKartona + '}';
+        return "Karton{" + "datumOtvaranja=" + datumOtvaranja + ", statusKartona=" + statusKartona + ", datumArhiviranja=" + datumArhiviranja + ", medicinskiRadnik=" + medicinskiRadnik + ", pacijent=" + pacijent + '}';
     }
 
     @Override
@@ -224,6 +224,11 @@ public class Karton implements ApstraktniDomenskiObjekat{
            "datumArhiviranja=" + datumArh + ", " +
            "idMedicinskiRadnik=" + medicinskiRadnik.getIdMedicinskiRadnik() + ", " +
            "idPacijent=" + pacijent.getIdPacijent();
+    }
+
+    @Override
+    public void postaviGenerisaniKljuc(int id) {
+        this.idKarton = id;
     }
   
 }

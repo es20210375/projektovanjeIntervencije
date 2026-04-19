@@ -167,6 +167,7 @@ public class StavkaKartona implements ApstraktniDomenskiObjekat{
         List<ApstraktniDomenskiObjekat> lista = new ArrayList<>();
 
     while (rs.next()) {
+
         int id = rs.getInt("stavkaKartona.idStavkeKartona");
 
         String dijagnoza = rs.getString("stavkaKartona.dijagnoza");
@@ -177,9 +178,11 @@ public class StavkaKartona implements ApstraktniDomenskiObjekat{
         boolean dodatna = rs.getBoolean("stavkaKartona.dodatnaDokumentacija");
         boolean anestezija = rs.getBoolean("stavkaKartona.anestezija");
 
-        Date datum = new Date(rs.getDate("stavkaKartona.datumIntervencije").getTime());
+        // 🔥 DATUM SIGURNO
+        java.sql.Date sqlDatum = rs.getDate("stavkaKartona.datumIntervencije");
+        Date datum = (sqlDatum != null) ? new Date(sqlDatum.getTime()) : null;
 
-        // Intervencija FULL
+        // Intervencija
         int idIntervencija = rs.getInt("intervencija.idIntervencija");
         String naziv = rs.getString("intervencija.naziv");
         String opis = rs.getString("intervencija.opis");
@@ -187,10 +190,15 @@ public class StavkaKartona implements ApstraktniDomenskiObjekat{
 
         Intervencija i = new Intervencija(idIntervencija, naziv, opis, snimak);
 
-        // Karton FULL
-        int idKarton = rs.getInt("karton.idKarton");
-        Date datumOtvaranja = new Date(rs.getDate("karton.datumOtvaranja").getTime());
-        Date datumArhiviranja = new Date(rs.getDate("karton.datumArhiviranja").getTime());
+        // Karton
+        int idKarton = rs.getInt("idKarton");
+
+        java.sql.Date sqlDO = rs.getDate("karton.datumOtvaranja");
+        Date datumOtvaranja = (sqlDO != null) ? new Date(sqlDO.getTime()) : null;
+
+        java.sql.Date sqlDA = rs.getDate("karton.datumArhiviranja");
+        Date datumArhiviranja = (sqlDA != null) ? new Date(sqlDA.getTime()) : null;
+
         StatusKartona status = StatusKartona.valueOf(rs.getString("karton.statusKartona"));
 
         // MR
@@ -208,9 +216,11 @@ public class StavkaKartona implements ApstraktniDomenskiObjekat{
         String imeP = rs.getString("pacijent.ime");
         String prezimeP = rs.getString("pacijent.prezime");
         String kontakt = rs.getString("pacijent.kontaktInformacije");
-        Date datumRodjenja = new Date(rs.getDate("pacijent.datumRodjenja").getTime());
 
-        int idOsiguranje = rs.getInt("osiguranje.idOsiguranje");
+        java.sql.Date sqlDR = rs.getDate("pacijent.datumRodjenja");
+        Date datumRodjenja = (sqlDR != null) ? new Date(sqlDR.getTime()) : null;
+
+        int idOsiguranje = rs.getInt("osiguranje.idOsiguranja");
         String statusOs = rs.getString("osiguranje.statusOsiguranja");
 
         Osiguranje o = new Osiguranje(idOsiguranje, statusOs);
@@ -218,8 +228,18 @@ public class StavkaKartona implements ApstraktniDomenskiObjekat{
 
         Karton k = new Karton(idKarton, datumOtvaranja, status, datumArhiviranja, mr, p);
 
-        StavkaKartona sk = new StavkaKartona(id, dijagnoza, materijal, terapija, naznaka,
-                dodatna, anestezija, datum, i, k);
+        StavkaKartona sk = new StavkaKartona(
+                id,
+                dijagnoza,
+                materijal,
+                terapija,
+                naznaka,
+                dodatna,
+                anestezija,
+                datum,
+                i,
+                k
+        );
 
         lista.add(sk);
     }
@@ -228,17 +248,28 @@ public class StavkaKartona implements ApstraktniDomenskiObjekat{
 
     @Override
     public String vratiKoloneZaUbacivanje() {
-        return "idKarton,dijagnoza,korisceniMaterijal,terapija,dodatnaDokumentacija,naznaka,anestezija,datumIntervencije,idIntervencija,";
+        return "idKarton,dijagnoza,korisceniMaterijal,terapija,naznaka,dodatnaDokumentacija,anestezija,datumIntervencije,idIntervencija";
     }
 
     @Override
     public String vratiVrednostiZaUbacivanje() {
-        return karton.getIdKarton()+",'"+dijagnoza+"','"+korisceniMaterijal+"','"+terapija+"',"+dodatnaDokumentacija+",'"+naznaka+"',"+anestezija+",'"+datumIntervencije+"',"+intervencija.getIdIntervencija();
+        java.text.SimpleDateFormat sdf = new java.text.SimpleDateFormat("yyyy-MM-dd");
+    String datum = sdf.format(datumIntervencije);
+
+    return karton.getIdKarton() + ","
+            + "'" + dijagnoza + "',"
+            + "'" + korisceniMaterijal + "',"
+            + "'" + terapija + "',"
+            + "'" + naznaka + "',"
+            + (dodatnaDokumentacija ? 1 : 0) + ","
+            + (anestezija ? 1 : 0) + ","
+            + "'" + datum + "',"
+            + intervencija.getIdIntervencija();
     }
 
     @Override
     public String vratiPrimarniKljuc() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        return "idStavkeKartona=" + idStavkaKartona + " AND idKarton=" + karton.getIdKarton();
     }
 
     @Override
@@ -248,7 +279,23 @@ public class StavkaKartona implements ApstraktniDomenskiObjekat{
 
     @Override
     public String vratiVrednostiZaIzmenu() {
-       return "idKarton="+karton.getIdKarton()+" dijagnoza='"+dijagnoza+"' korisceniMaterijal='"+korisceniMaterijal+"' terapija='"+terapija+"' dodatnaDokumentacija="+dodatnaDokumentacija+" naznaka='"+naznaka+"' anestezija="+anestezija+" datumIntervencije='"+datumIntervencije+"' idIntervencija="+intervencija.getIdIntervencija();
+       java.text.SimpleDateFormat sdf = new java.text.SimpleDateFormat("yyyy-MM-dd");
+    String datum = sdf.format(datumIntervencije);
+
+    return "idKarton=" + karton.getIdKarton() + ", "
+            + "dijagnoza='" + dijagnoza + "', "
+            + "korisceniMaterijal='" + korisceniMaterijal + "', "
+            + "terapija='" + terapija + "', "
+            + "naznaka='" + naznaka + "', "
+            + "dodatnaDokumentacija=" + (dodatnaDokumentacija ? 1 : 0) + ", "
+            + "anestezija=" + (anestezija ? 1 : 0) + ", "
+            + "datumIntervencije='" + datum + "', "
+            + "idIntervencija=" + intervencija.getIdIntervencija();
+    }
+
+    @Override
+    public void postaviGenerisaniKljuc(int id) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
     
     

@@ -4,6 +4,8 @@
  */
 package repository.db.impl;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
 import domen.ApstraktniDomenskiObjekat;
 import java.sql.Statement;
 import java.sql.ResultSet;
@@ -64,10 +66,36 @@ public class DbRepositoryGeneric implements DbRepository<ApstraktniDomenskiObjek
         st.executeUpdate(upit);
         st.close();
     }
+     
+    @Override
+    public ApstraktniDomenskiObjekat addAndReturn(ApstraktniDomenskiObjekat param) throws Exception {
+
+    String upit = "INSERT INTO " + param.vratiNazivTabele() +
+            " (" + param.vratiKoloneZaUbacivanje() + ") VALUES (" +
+            param.vratiVrednostiZaUbacivanje() + ")";
+
+    System.out.println(upit);
+
+    Connection conn = DbConnectionFactory.getInstacne().getConnection();
+
+    PreparedStatement ps = conn.prepareStatement(upit, Statement.RETURN_GENERATED_KEYS);
+    ps.executeUpdate();
+
+    ResultSet rs = ps.getGeneratedKeys();
+
+    if (rs.next()) {
+        int id = rs.getInt(1);
+        param.postaviGenerisaniKljuc(id); // 🔥 OVO JE KLJUČ
+    }
+
+    rs.close();
+    ps.close();
+
+    return param;
+}
 
     @Override
     public List<ApstraktniDomenskiObjekat> getAll() {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
-    
 }

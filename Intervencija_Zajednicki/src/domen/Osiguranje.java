@@ -114,5 +114,10 @@ public class Osiguranje implements ApstraktniDomenskiObjekat{
     public String vratiVrednostiZaIzmenu() {
       return "statusOsiguranja='"+statusOsiguranja+"'";
     }
+
+    @Override
+    public void postaviGenerisaniKljuc(int id) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
     
 }

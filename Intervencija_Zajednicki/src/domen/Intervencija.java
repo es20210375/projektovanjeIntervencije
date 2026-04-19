@@ -109,13 +109,13 @@ public class Intervencija implements ApstraktniDomenskiObjekat{
 
     @Override
     public String vratiKoloneZaUbacivanje() {
-        return "opis,snimakZuba,naziv";
+         return "naziv,opis,snimakZuba";
     }
 
     @Override
     public String vratiVrednostiZaUbacivanje() {
         //'naziv','opis',snimakzuba;
-        return "'"+naziv+"','"+opis+"',"+snimakZuba;
+       return "'" + naziv + "','" + opis + "'," + (snimakZuba ? 1 : 0);
     }
 
     @Override
@@ -130,7 +130,12 @@ public class Intervencija implements ApstraktniDomenskiObjekat{
 
     @Override
     public String vratiVrednostiZaIzmenu() {
-    return "opis='"+opis+"' snimakZuba="+snimakZuba+" naziv='"+naziv+"'";
+    return "naziv='" + naziv + "', opis='" + opis + "', snimakZuba=" + (snimakZuba ? 1 : 0);
+    }
+
+    @Override
+    public void postaviGenerisaniKljuc(int id) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
    
 }

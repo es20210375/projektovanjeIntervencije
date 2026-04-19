@@ -4,6 +4,7 @@
  */
 package forme;
 
+import cordinator.Cordinator;
 import domen.MedicinskiRadnik;
 import domen.Pacijent;
 import domen.StatusKartona;
@@ -67,6 +68,63 @@ public class KreirajKartonForma extends javax.swing.JFrame {
         this.jTableIntervencije = jTableIntervencije;
     }
 
+    public JTextField getjTextFieldAnestezija() {
+        return jTextFieldAnestezija;
+    }
+
+    public void setjTextFieldAnestezija(JTextField jTextFieldAnestezija) {
+        this.jTextFieldAnestezija = jTextFieldAnestezija;
+    }
+
+    public JTextField getjTextFieldDijagnoza() {
+        return jTextFieldDijagnoza;
+    }
+
+    public void setjTextFieldDijagnoza(JTextField jTextFieldDijagnoza) {
+        this.jTextFieldDijagnoza = jTextFieldDijagnoza;
+    }
+
+    public JTextField getjTextFieldDodatnaDokumentacija() {
+        return jTextFieldDodatnaDokumentacija;
+    }
+
+    public void setjTextFieldDodatnaDokumentacija(JTextField jTextFieldDodatnaDokumentacija) {
+        this.jTextFieldDodatnaDokumentacija = jTextFieldDodatnaDokumentacija;
+    }
+
+    public JTextField getjTextFieldKorMaterijal() {
+        return jTextFieldKorMaterijal;
+    }
+
+    public void setjTextFieldKorMaterijal(JTextField jTextFieldKorMaterijal) {
+        this.jTextFieldKorMaterijal = jTextFieldKorMaterijal;
+    }
+
+    public JTextField getjTextFieldNaznaka() {
+        return jTextFieldNaznaka;
+    }
+
+    public void setjTextFieldNaznaka(JTextField jTextFieldNaznaka) {
+        this.jTextFieldNaznaka = jTextFieldNaznaka;
+    }
+
+    public JTextField getjTextFieldTerapija() {
+        return jTextFieldTerapija;
+    }
+
+    public void setjTextFieldTerapija(JTextField jTextFieldTerapija) {
+        this.jTextFieldTerapija = jTextFieldTerapija;
+    }
+
+    public JTextField getjTextFieldDatumIntervencije() {
+        return jTextFieldDatumIntervencije;
+    }
+
+    public void setjTextFieldDatumIntervencije(JTextField jTextFieldDatumIntervencije) {
+        this.jTextFieldDatumIntervencije = jTextFieldDatumIntervencije;
+    }
+    
+
      
 
     /**
@@ -90,6 +148,22 @@ public class KreirajKartonForma extends javax.swing.JFrame {
         jButtonSacuvaj = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTableIntervencije = new javax.swing.JTable();
+        jLabel5 = new javax.swing.JLabel();
+        jButtonDodajIntervenciju = new javax.swing.JButton();
+        jLabel6 = new javax.swing.JLabel();
+        jTextFieldDijagnoza = new javax.swing.JTextField();
+        jLabel7 = new javax.swing.JLabel();
+        jTextFieldKorMaterijal = new javax.swing.JTextField();
+        jLabel8 = new javax.swing.JLabel();
+        jTextFieldTerapija = new javax.swing.JTextField();
+        jLabel9 = new javax.swing.JLabel();
+        jTextFieldNaznaka = new javax.swing.JTextField();
+        jLabel10 = new javax.swing.JLabel();
+        jTextFieldAnestezija = new javax.swing.JTextField();
+        jLabel11 = new javax.swing.JLabel();
+        jTextFieldDodatnaDokumentacija = new javax.swing.JTextField();
+        jLabel12 = new javax.swing.JLabel();
+        jTextFieldDatumIntervencije = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -127,6 +201,29 @@ public class KreirajKartonForma extends javax.swing.JFrame {
         ));
         jScrollPane1.setViewportView(jTableIntervencije);
 
+        jLabel5.setText("Intervencije : ");
+
+        jButtonDodajIntervenciju.setText("Dodaj intervenciju ");
+        jButtonDodajIntervenciju.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonDodajIntervencijuActionPerformed(evt);
+            }
+        });
+
+        jLabel6.setText("Dijagnoza : ");
+
+        jLabel7.setText("Korisceni materijal : ");
+
+        jLabel8.setText("Terapija : ");
+
+        jLabel9.setText("Naznaka : ");
+
+        jLabel10.setText("Anestezija : ");
+
+        jLabel11.setText("Dodatna dokumentacija : ");
+
+        jLabel12.setText("Datum intervencije(dd.MM.yyyy) : ");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -134,6 +231,34 @@ public class KreirajKartonForma extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(19, 19, 19)
+                        .addComponent(jButtonKreiraj)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jButtonSacuvaj)
+                        .addGap(33, 33, 33))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(jTextFieldDijagnoza, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(jLabel7)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(jTextFieldKorMaterijal)))
+                                .addGap(18, 18, 18))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(jTextFieldTerapija, javax.swing.GroupLayout.PREFERRED_SIZE, 197, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 45, Short.MAX_VALUE)))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 392, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(47, 47, 47))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
@@ -147,23 +272,32 @@ public class KreirajKartonForma extends javax.swing.JFrame {
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(18, 18, 18)
-                                .addComponent(jTextFieldDatumOtvaranja, javax.swing.GroupLayout.PREFERRED_SIZE, 198, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addContainerGap(100, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jComboBoxStatus, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(19, 19, 19)
-                        .addComponent(jButtonKreiraj)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jButtonSacuvaj)
-                        .addGap(33, 33, 33))))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 392, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(47, 47, 47))
+                                .addComponent(jTextFieldDatumOtvaranja, javax.swing.GroupLayout.PREFERRED_SIZE, 198, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jComboBoxStatus, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(jTextFieldAnestezija, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(jTextFieldDodatnaDokumentacija, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                                        .addComponent(jLabel12)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(jTextFieldDatumIntervencije, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                                        .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(jTextFieldNaznaka, javax.swing.GroupLayout.PREFERRED_SIZE, 197, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addGap(58, 58, 58)
+                                .addComponent(jButtonDodajIntervenciju)))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -178,13 +312,51 @@ public class KreirajKartonForma extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel4)
                     .addComponent(jTextFieldDatumOtvaranja, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(19, 19, 19)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(19, 19, 19)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel3)
+                            .addComponent(jComboBoxStatus, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(21, 21, 21))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabel5)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jButtonDodajIntervenciju))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel6)
+                            .addComponent(jTextFieldDijagnoza, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel7)
+                            .addComponent(jTextFieldKorMaterijal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel8)
+                            .addComponent(jTextFieldTerapija, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel9)
+                            .addComponent(jTextFieldNaznaka, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel3)
-                    .addComponent(jComboBoxStatus, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(21, 21, 21)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 178, Short.MAX_VALUE)
+                    .addComponent(jLabel10)
+                    .addComponent(jTextFieldAnestezija, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel11)
+                    .addComponent(jTextFieldDodatnaDokumentacija, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel12)
+                    .addComponent(jTextFieldDatumIntervencije, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 31, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButtonKreiraj)
                     .addComponent(jButtonSacuvaj))
@@ -198,21 +370,41 @@ public class KreirajKartonForma extends javax.swing.JFrame {
        
     }//GEN-LAST:event_jButtonSacuvajActionPerformed
 
+    private void jButtonDodajIntervencijuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonDodajIntervencijuActionPerformed
+        Cordinator.getInstance().otvoriDodajIntervencijuForma();
+    }//GEN-LAST:event_jButtonDodajIntervencijuActionPerformed
+
     
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jButtonDodajIntervenciju;
     private javax.swing.JButton jButtonKreiraj;
     private javax.swing.JButton jButtonSacuvaj;
     private javax.swing.JComboBox<MedicinskiRadnik> jComboBoxMradnik;
     private javax.swing.JComboBox<Pacijent> jComboBoxPacijent;
     private javax.swing.JComboBox<StatusKartona> jComboBoxStatus;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTableIntervencije;
+    private javax.swing.JTextField jTextFieldAnestezija;
+    private javax.swing.JTextField jTextFieldDatumIntervencije;
     private javax.swing.JTextField jTextFieldDatumOtvaranja;
+    private javax.swing.JTextField jTextFieldDijagnoza;
+    private javax.swing.JTextField jTextFieldDodatnaDokumentacija;
+    private javax.swing.JTextField jTextFieldKorMaterijal;
+    private javax.swing.JTextField jTextFieldNaznaka;
+    private javax.swing.JTextField jTextFieldTerapija;
     // End of variables declaration//GEN-END:variables
 
     public void sacuvajActionLisener(ActionListener actionListener) {

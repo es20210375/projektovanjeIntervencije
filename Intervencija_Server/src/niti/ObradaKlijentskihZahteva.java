@@ -11,6 +11,7 @@ import domen.Kvalifikacija;
 import domen.MedicinskiRadnik;
 import domen.Osiguranje;
 import domen.Pacijent;
+import domen.StavkaKartona;
 import java.net.Socket;
 import java.util.List;
 import java.util.logging.Level;
@@ -152,8 +153,8 @@ public class ObradaKlijentskihZahteva extends Thread {
                     case DODAJ_KARTON:
                         try{
                             Karton k=(Karton) zahtev.getParametar();
-                            Controller.getInstance().dodajKarton(k);
-                            odgovor.setOdgovor(null);
+                            k=Controller.getInstance().dodajKarton(k);
+                            odgovor.setOdgovor(k);
                         }catch(Exception e){
                             odgovor.setOdgovor(e);
                         }
@@ -169,8 +170,33 @@ public class ObradaKlijentskihZahteva extends Thread {
                     
                         
                         break;
-
-
+                    case DODAJ_INTERVENCIJU:
+                        try{
+                            Intervencija inter=(Intervencija) zahtev.getParametar();
+                            Controller.getInstance().dodajIntervenciju(inter);
+                            odgovor.setOdgovor(null);
+                        }catch(Exception e){
+                            odgovor.setOdgovor(e);
+                        }
+                    break;
+                    case UCITAJ_STAVKE_KARTONA:
+                    
+                        try {
+                            List<StavkaKartona>lista=Controller.getInstance().ucitajStavkeKartona();
+                            odgovor.setOdgovor(lista);
+                        } catch (Exception ex) {
+                            Logger.getLogger(ObradaKlijentskihZahteva.class.getName()).log(Level.SEVERE, null, ex);
+                        }
+                     break;
+                    case DODAJ_STAVKU_KARTONA:
+                        try{
+                            StavkaKartona s=(StavkaKartona) zahtev.getParametar();
+                            Controller.getInstance().dodajStavkuKartona(s);
+                            odgovor.setOdgovor(null);
+                        }catch(Exception e){
+                            odgovor.setOdgovor(e);
+                        }
+                        break;
                     default:
                         System.out.println("Greska, izabrana operacija ne postoji");
                 }

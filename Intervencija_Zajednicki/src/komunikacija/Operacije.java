@@ -24,4 +24,7 @@ public enum Operacije  implements Serializable{
     UCITAJ_KARTONE,
     DODAJ_KARTON, 
     UCITAJ_ODREDJENI_KARTON,
+    DODAJ_INTERVENCIJU, 
+    UCITAJ_STAVKE_KARTONA, 
+    DODAJ_STAVKU_KARTONA,
 }

@@ -180,6 +180,11 @@ public class Pacijent implements ApstraktniDomenskiObjekat{
            "datumRodjenja='" + sqlDatum + "', " +
            "idOsiguranje=" + osiguranje.getIdOsiguranje();
     }
+
+    @Override
+    public void postaviGenerisaniKljuc(int id) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
     
     
     

@@ -6,6 +6,7 @@ package controllers;
 
 
 import domen.Karton;
+import domen.StavkaKartona;
 import java.text.SimpleDateFormat;
 import java.util.List;
 import javax.swing.table.AbstractTableModel;
@@ -14,11 +15,11 @@ import javax.swing.table.AbstractTableModel;
  *
  * @author Emilija
  */
-public class ModelTabeleKartoni extends AbstractTableModel {
-List<Karton>lista;
-    String[]kolone={"Pacijent","Medicinski radnik","Datum otvaranja","Datum arhiviranja","Status"};
+public class ModelTabeleStavkeKartona extends AbstractTableModel {
+List<StavkaKartona>lista;
+    String[]kolone={"Pacijent","Medicinski radnik","Datum otvaranja","Datum arhiviranja","Status","Naziv intervencije"};
     
-    public ModelTabeleKartoni(List<Karton> lista) {
+    public ModelTabeleStavkeKartona(List<StavkaKartona> lista) {
         this.lista = lista;
     }
     
@@ -39,31 +40,33 @@ List<Karton>lista;
     
     @Override
     public Object getValueAt(int rowIndex, int columnIndex) {
-        Karton k=lista.get(rowIndex);
+        StavkaKartona k=lista.get(rowIndex);
         switch (columnIndex) {
             case 0:
-                return k.getPacijent().getIme()+" "+k.getPacijent().getPrezime();
+                return k.getKarton().getPacijent().getIme()+" "+k.getKarton().getPacijent().getPrezime();
             case 1:
-                return k.getMedicinskiRadnik().getIme()+" "+k.getMedicinskiRadnik().getPrezime();
+                return k.getKarton().getMedicinskiRadnik().getIme()+" "+k.getKarton().getMedicinskiRadnik().getPrezime();
             case 2:
                 SimpleDateFormat datum=new SimpleDateFormat("dd.MM.yyyy");
-                return datum.format(k.getDatumOtvaranja());
+                return datum.format(k.getKarton().getDatumOtvaranja());
             case 3:
-                if(k.getDatumArhiviranja()==null){
+                if(k.getKarton().getDatumArhiviranja()==null){
                     return " ";
                 }else{
                     SimpleDateFormat datum1=new SimpleDateFormat("dd.MM.yyyy");
-                    return datum1.format(k.getDatumArhiviranja());
+                    return datum1.format(k.getKarton().getDatumArhiviranja());
                 }
             case 4:
-                return k.getStatusKartona();
+                return k.getKarton().getStatusKartona();
+            case 5:
+                return k.getIntervencija().getNaziv();
             default:
                 throw new AssertionError();
         }
         
     }
 
-    public List<Karton> getLista() {
+    public List<StavkaKartona> getLista() {
         return lista;
     }
 }

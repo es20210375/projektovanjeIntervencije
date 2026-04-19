@@ -155,6 +155,11 @@ public class MedicinskiRadnik implements ApstraktniDomenskiObjekat{
     public String vratiVrednostiZaIzmenu() {
          return "ime='"+ime+"' prezime='"+prezime+"' iskustvo="+iskustvo+" lozinka='"+lozinka+"' email='"+email+"'";
     }
+
+    @Override
+    public void postaviGenerisaniKljuc(int id) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
     
     
     

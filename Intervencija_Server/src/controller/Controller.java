@@ -10,10 +10,12 @@ import domen.Kvalifikacija;
 import domen.MedicinskiRadnik;
 import domen.Osiguranje;
 import domen.Pacijent;
+import domen.StavkaKartona;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import soperacije.intervencija.DodajIntervencijuOperacija;
 import soperacije.intervencija.UcitajIntervencijeOperacija;
 import soperacije.karton.DodajKartonOperacija;
 import soperacije.karton.UcitajKartonOdredjenogOperacija;
@@ -26,6 +28,8 @@ import soperacije.pacijent.DodajPacijentaOperacija;
 import soperacije.pacijent.IzbrisiPacijentaOperacija;
 import soperacije.pacijent.IzmeniPacijentaOperacija;
 import soperacije.pacijent.UcitajPacijenteOperacija;
+import soperacije.stavkaKartona.DodajStavkuKartona;
+import soperacije.stavkaKartona.UcitajStavkeKartonaOperacija;
 
 /**
  *
@@ -132,16 +136,35 @@ public class Controller {
        return uko.getLista();
     }
 
-    public void dodajKarton(Karton k) throws Exception {
+    public Karton dodajKarton(Karton k) throws Exception {
         DodajKartonOperacija dko=new DodajKartonOperacija();
         System.out.println("controller.Controller.dodajKarton()"+k);
         dko.izvrsi(k, null);
+        return dko.getK();
     }
 
     public List<Karton> ucitajKartonOdredjenog(int id) throws Exception {
         UcitajKartonOdredjenogOperacija ukoo=new UcitajKartonOdredjenogOperacija();
         ukoo.izvrsi(id, null);
         return ukoo.getLista();
+    }
+
+    public void dodajIntervenciju(Intervencija inter) throws Exception {
+        DodajIntervencijuOperacija dio=new DodajIntervencijuOperacija();
+        System.out.println("controller.Controller.dodajIntervenciju()" + inter);
+        dio.izvrsi(inter, null);
+    }
+
+    public List<StavkaKartona> ucitajStavkeKartona() throws Exception {
+        UcitajStavkeKartonaOperacija usko=new UcitajStavkeKartonaOperacija();
+        usko.izvrsi(null, null);
+        return usko.getLista();
+    }
+
+    public void dodajStavkuKartona(StavkaKartona s) throws Exception {
+        DodajStavkuKartona dsk=new DodajStavkuKartona();
+        System.out.println("controller.Controller.dodajStavkuKartona()"+s);
+        dsk.izvrsi(s, null);
     }
 
     

@@ -12,7 +12,7 @@ import soperacije.ApstraktnaGenerickaOperacija;
  * @author Emilija
  */
 public class DodajKartonOperacija extends ApstraktnaGenerickaOperacija{
-
+    Karton k;
     @Override
     protected void preduslovi(Object param) throws Exception {
         if(param==null||!(param instanceof Karton)){
@@ -22,8 +22,16 @@ public class DodajKartonOperacija extends ApstraktnaGenerickaOperacija{
 
     @Override
     protected void izvrsiOperaciju(Object objekat, String kljuc) throws Exception {
-        broker.add((Karton)objekat);
+         k = (Karton) broker.addAndReturn((Karton) objekat);
         System.out.println("soperacije.karton.DodajKartonOperacija.izvrsiOperaciju()"+(Karton)objekat);
+    }
+
+    public Karton getK() {
+        return k;
+    }
+
+    public void setK(Karton k) {
+        this.k = k;
     }
     
 }

@@ -4,6 +4,7 @@
  */
 package cordinator;
 
+import controllers.DodajIntervencijuController;
 import controllers.DodajKvalifikacijuController;
 import controllers.GlavnaFormaController;
 import controllers.LoginController;
@@ -16,6 +17,7 @@ import controllers.UcitajOsiguranjeController;
 import controllers.UcitajPacijenteController;
 import domen.Pacijent;
 import forme.DetaljiIzabranogPacijentaForma;
+import forme.DodajIntervencijuForma;
 import forme.DodajKvalifikacijuForma;
 import forme.DodajPacijentaForma;
 import forme.LoginForma;
@@ -40,6 +42,7 @@ public class Cordinator {
     private IzmeniPacijentaController izmeniPacijentaController;
     private KreirajKartonController kreirajKartonController;
     private UcitajKartonOdredjenogController ucitajKartonOdredjenogController;
+    private DodajIntervencijuController dodajIntervencijuController;
     public static Cordinator getInstance(){
         if(instacne==null){
             instacne=new Cordinator();
@@ -151,6 +154,19 @@ public class Cordinator {
     public void otvoriFormuDetaljiIzabranog(Pacijent p) {
         ucitajKartonOdredjenogController=new UcitajKartonOdredjenogController(new DetaljiIzabranogPacijentaForma(p));
         ucitajKartonOdredjenogController.otvoriFormu(p);
+    }
+
+    public void otvoriDodajIntervencijuForma() {
+       dodajIntervencijuController=new DodajIntervencijuController(new DodajIntervencijuForma());
+       dodajIntervencijuController.otvoriFormu();
+    }
+
+    public DodajIntervencijuController getDodajIntervencijuController() {
+        return dodajIntervencijuController;
+    }
+
+    public void setDodajIntervencijuController(DodajIntervencijuController dodajIntervencijuController) {
+        this.dodajIntervencijuController = dodajIntervencijuController;
     }
     
     

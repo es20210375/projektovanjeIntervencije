@@ -4,6 +4,7 @@
  */
 package repository;
 
+import domen.Karton;
 import java.util.List;
 
 /**
@@ -15,5 +16,8 @@ public interface Repository <T> {
     void add(T param)throws Exception;
     void edit(T param)throws Exception;
     void delete(T param)throws Exception;
+     T addAndReturn(T param) throws Exception; 
     List<T>getAll();
+
+   
 }

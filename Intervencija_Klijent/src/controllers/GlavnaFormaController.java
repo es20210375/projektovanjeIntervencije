@@ -6,6 +6,7 @@ package controllers;
 
 import cordinator.Cordinator;
 import domen.Karton;
+import domen.StavkaKartona;
 import forme.GlavnaForma;
 import java.util.List;
 import komunikacija.Komunikacija;
@@ -34,9 +35,9 @@ public class GlavnaFormaController {
     }
 
     public void pripremiFormu() {
-        List<Karton>lista=Komunikacija.getInstance().ucitajKartone();
-        ModelTabeleKartoni mtk=new ModelTabeleKartoni(lista);
-        gf.getjTableKartoni().setModel(mtk);
+        List<StavkaKartona>stavke=Komunikacija.getInstance().ucitajStavkeKartona();
+        ModelTabeleStavkeKartona mtsk=new ModelTabeleStavkeKartona(stavke);
+        gf.getjTableKartoni().setModel(mtsk);
         
     }
 
