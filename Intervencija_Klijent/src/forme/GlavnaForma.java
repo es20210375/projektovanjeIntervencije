@@ -4,9 +4,17 @@
  */
 package forme;
 
+import controllers.ModelTabelePacijenti;
+import controllers.ModelTabeleStavkeKartona;
 import cordinator.Cordinator;
+import domen.StavkaKartona;
+import java.awt.event.ActionListener;
+import javax.swing.JButton;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JRadioButton;
 import javax.swing.JTable;
+import javax.swing.JTextField;
 
 /**
  *
@@ -36,6 +44,63 @@ public class GlavnaForma extends javax.swing.JFrame {
     public void setjTableKartoni(JTable jTableKartoni) {
         this.jTableKartoni = jTableKartoni;
     }
+
+    public JButton getjButtonFiltriraj() {
+        return jButtonFiltriraj;
+    }
+
+    public void setjButtonFiltriraj(JButton jButtonFiltriraj) {
+        this.jButtonFiltriraj = jButtonFiltriraj;
+    }
+
+    public JButton getjButtonResetuj() {
+        return jButtonResetuj;
+    }
+
+    public void setjButtonResetuj(JButton jButtonResetuj) {
+        this.jButtonResetuj = jButtonResetuj;
+    }
+
+    public JRadioButton getjRadioButtonIntervencija() {
+        return jRadioButtonIntervencija;
+    }
+
+    public void setjRadioButtonIntervencija(JRadioButton jRadioButtonIntervencija) {
+        this.jRadioButtonIntervencija = jRadioButtonIntervencija;
+    }
+
+    public JRadioButton getjRadioButtonMedicinskiRadnik() {
+        return jRadioButtonMedicinskiRadnik;
+    }
+
+    public void setjRadioButtonMedicinskiRadnik(JRadioButton jRadioButtonMedicinskiRadnik) {
+        this.jRadioButtonMedicinskiRadnik = jRadioButtonMedicinskiRadnik;
+    }
+
+    public JRadioButton getjRadioButtonPacijent() {
+        return jRadioButtonPacijent;
+    }
+
+    public void setjRadioButtonPacijent(JRadioButton jRadioButtonPacijent) {
+        this.jRadioButtonPacijent = jRadioButtonPacijent;
+    }
+
+    public JRadioButton getjRadioButtonGodinaOtvaranja() {
+        return jRadioButtonGodinaOtvaranja;
+    }
+
+    public void setjRadioButtonGodinaOtvaranja(JRadioButton jRadioButtonGodinaOtvaranja) {
+        this.jRadioButtonGodinaOtvaranja = jRadioButtonGodinaOtvaranja;
+    }
+
+    public JButton getjButtonOdjava() {
+        return jButtonOdjava;
+    }
+
+    public void setjButtonOdjava(JButton jButtonOdjava) {
+        this.jButtonOdjava = jButtonOdjava;
+    }
+    
     
     /**
      * This method is called from within the constructor to initialize the form.
@@ -53,6 +118,17 @@ public class GlavnaForma extends javax.swing.JFrame {
         jTableKartoni = new javax.swing.JTable();
         jLabel4 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
+        jRadioButtonPacijent = new javax.swing.JRadioButton();
+        jRadioButtonMedicinskiRadnik = new javax.swing.JRadioButton();
+        jRadioButtonIntervencija = new javax.swing.JRadioButton();
+        jLabel2 = new javax.swing.JLabel();
+        jTextFieldPretrazi = new javax.swing.JTextField();
+        jButtonFiltriraj = new javax.swing.JButton();
+        jButtonResetuj = new javax.swing.JButton();
+        jButtonDetalji = new javax.swing.JButton();
+        jButton2 = new javax.swing.JButton();
+        jRadioButtonGodinaOtvaranja = new javax.swing.JRadioButton();
+        jButtonOdjava = new javax.swing.JButton();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jMenuItem2 = new javax.swing.JMenuItem();
@@ -87,6 +163,36 @@ public class GlavnaForma extends javax.swing.JFrame {
                 jButton1ActionPerformed(evt);
             }
         });
+
+        jRadioButtonPacijent.setText("Pacijent");
+
+        jRadioButtonMedicinskiRadnik.setText("Medicinski radnik ");
+
+        jRadioButtonIntervencija.setText("Intervencija");
+
+        jLabel2.setText("Pretrazi : ");
+
+        jButtonFiltriraj.setText("Filtriraj");
+
+        jButtonResetuj.setText("Resetuj tabelu");
+
+        jButtonDetalji.setText("Detalji");
+        jButtonDetalji.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonDetaljiActionPerformed(evt);
+            }
+        });
+
+        jButton2.setText("Izmeni karton");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
+
+        jRadioButtonGodinaOtvaranja.setText("Godina otvaranja");
+
+        jButtonOdjava.setText("Odjavi se");
 
         jMenu1.setText("Pacijent");
 
@@ -126,38 +232,84 @@ public class GlavnaForma extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                        .addGap(64, 64, 64)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jTextFieldPretrazi, javax.swing.GroupLayout.PREFERRED_SIZE, 204, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jRadioButtonGodinaOtvaranja)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jRadioButtonPacijent)
+                                .addGap(18, 18, 18)
+                                .addComponent(jRadioButtonMedicinskiRadnik)))
+                        .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 499, Short.MAX_VALUE))
-                            .addComponent(jScrollPane1)))
-                    .addGroup(layout.createSequentialGroup()
-                        .addContainerGap(525, Short.MAX_VALUE)
+                                .addComponent(jButtonFiltriraj)
+                                .addGap(44, 44, 44)
+                                .addComponent(jButtonResetuj)
+                                .addGap(48, 48, 48)
+                                .addComponent(jButtonDetalji, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(0, 0, Short.MAX_VALUE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jRadioButtonIntervencija)
+                                .addGap(49, 49, 49)
+                                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jLabelUlogovani, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jButton1)
-                            .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addGap(18, 18, 18)
-                .addComponent(jLabelUlogovani, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(0, 0, Short.MAX_VALUE)
+                                .addComponent(jButtonOdjava))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jScrollPane1)
+                                    .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jButton1)
+                                    .addComponent(jButton2))))
+                        .addGap(10, 10, 10)))
+                .addGap(37, 37, 37))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jLabelUlogovani, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(29, 29, 29)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jRadioButtonPacijent)
+                        .addComponent(jRadioButtonMedicinskiRadnik)
+                        .addComponent(jRadioButtonIntervencija)
+                        .addComponent(jLabel1)
+                        .addComponent(jRadioButtonGodinaOtvaranja))
+                    .addComponent(jLabelUlogovani, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 18, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel2)
+                    .addComponent(jTextFieldPretrazi, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButtonFiltriraj)
+                    .addComponent(jButtonResetuj)
+                    .addComponent(jButtonDetalji))
+                .addGap(28, 28, 28)
                 .addComponent(jLabel4)
-                .addGap(18, 18, 18)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(jButton1)
-                .addContainerGap(37, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(34, 34, 34))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jButton1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jButton2)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jButtonOdjava)
+                        .addContainerGap())))
         );
 
         pack();
@@ -179,14 +331,56 @@ public class GlavnaForma extends javax.swing.JFrame {
         Cordinator.getInstance().otvoriFormuKreirajKarton();
     }//GEN-LAST:event_jButton1ActionPerformed
 
+    private void jButtonDetaljiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonDetaljiActionPerformed
+        int izabraniRed=jTableKartoni.getSelectedRow();
+           if(izabraniRed==-1){
+               JOptionPane.showMessageDialog(this, "Sistem ne moze da nadje kartom", "Greska",JOptionPane.ERROR_MESSAGE);
+               return;
+           }else{
+               JOptionPane.showMessageDialog(this, "Sistem je nasao karton", "Uspeh",JOptionPane.INFORMATION_MESSAGE);
+               ModelTabeleStavkeKartona mtp=(ModelTabeleStavkeKartona)getjTableKartoni().getModel();
+               StavkaKartona sk=mtp.getLista().get(izabraniRed);
+               Cordinator.getInstance().otvoriFormuIzabraneStavke(sk);
+               
+           }
+    }//GEN-LAST:event_jButtonDetaljiActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        int izabraniRed=jTableKartoni.getSelectedRow();
+           if(izabraniRed==-1){
+               JOptionPane.showMessageDialog(this, "Sistem ne moze da nadje kartom", "Greska",JOptionPane.ERROR_MESSAGE);
+               return;
+           }else{
+               JOptionPane.showMessageDialog(this, "Sistem je nasao karton", "Uspeh",JOptionPane.INFORMATION_MESSAGE);
+               ModelTabeleStavkeKartona mtp=(ModelTabeleStavkeKartona)getjTableKartoni().getModel();
+               StavkaKartona sk=mtp.getLista().get(izabraniRed);
+               Cordinator.getInstance().otvoriFormuIzmeniKarton(sk);
+               
+           }
+    }//GEN-LAST:event_jButton2ActionPerformed
+   
     /**
      * @param args the command line arguments
      */
+
+    public JTextField getjTextFieldPretrazi() {
+        return jTextFieldPretrazi;
+    }
+
+    public void setjTextFieldPretrazi(JTextField jTextFieldPretrazi) {
+        this.jTextFieldPretrazi = jTextFieldPretrazi;
+    }
     
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButtonDetalji;
+    private javax.swing.JButton jButtonFiltriraj;
+    private javax.swing.JButton jButtonOdjava;
+    private javax.swing.JButton jButtonResetuj;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabelUlogovani;
     private javax.swing.JMenu jMenu1;
@@ -196,7 +390,16 @@ public class GlavnaForma extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenuItem jMenuItem4;
+    private javax.swing.JRadioButton jRadioButtonGodinaOtvaranja;
+    private javax.swing.JRadioButton jRadioButtonIntervencija;
+    private javax.swing.JRadioButton jRadioButtonMedicinskiRadnik;
+    private javax.swing.JRadioButton jRadioButtonPacijent;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTableKartoni;
+    private javax.swing.JTextField jTextFieldPretrazi;
     // End of variables declaration//GEN-END:variables
+
+    public void odjavaAddActionLisener(ActionListener actionListener) {
+        jButtonOdjava.addActionListener(actionListener);
+    }
 }

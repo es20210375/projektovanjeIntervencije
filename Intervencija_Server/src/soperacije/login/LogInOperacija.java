@@ -16,7 +16,9 @@ public class LogInOperacija extends ApstraktnaGenerickaOperacija{
     MedicinskiRadnik mr;
     @Override
     protected void preduslovi(Object param) throws Exception {
-      
+      if(param==null||!(param instanceof MedicinskiRadnik)){
+           throw new Exception("Sistem ne moze da prijavi radnika");
+       }
     }
 
     @Override

@@ -4,24 +4,29 @@
  */
 package cordinator;
 
+import controllers.DetaljiIzabranogKartonaController;
 import controllers.DodajIntervencijuController;
 import controllers.DodajKvalifikacijuController;
 import controllers.GlavnaFormaController;
 import controllers.LoginController;
 import domen.MedicinskiRadnik;
 import controllers.DodajPacijentaController;
+import controllers.IzmeniKartonController;
 import controllers.IzmeniPacijentaController;
 import controllers.KreirajKartonController;
 import controllers.UcitajKartonOdredjenogController;
 import controllers.UcitajOsiguranjeController;
 import controllers.UcitajPacijenteController;
 import domen.Pacijent;
+import domen.StavkaKartona;
+import forme.DetaljiIzabranogKartonaForma;
 import forme.DetaljiIzabranogPacijentaForma;
 import forme.DodajIntervencijuForma;
 import forme.DodajKvalifikacijuForma;
 import forme.DodajPacijentaForma;
 import forme.LoginForma;
 import forme.GlavnaForma;
+import forme.IzmeniKartonForma;
 import forme.IzmeniPacijentaForma;
 import forme.KreirajKartonForma;
 import forme.UcitajPacijenteForma;
@@ -43,6 +48,8 @@ public class Cordinator {
     private KreirajKartonController kreirajKartonController;
     private UcitajKartonOdredjenogController ucitajKartonOdredjenogController;
     private DodajIntervencijuController dodajIntervencijuController;
+    private DetaljiIzabranogKartonaController detaljiIzabranogKartonaController;
+    private IzmeniKartonController izmeniKartonController;
     public static Cordinator getInstance(){
         if(instacne==null){
             instacne=new Cordinator();
@@ -167,6 +174,32 @@ public class Cordinator {
 
     public void setDodajIntervencijuController(DodajIntervencijuController dodajIntervencijuController) {
         this.dodajIntervencijuController = dodajIntervencijuController;
+    }
+
+    public void otvoriFormuIzabraneStavke(StavkaKartona sk) {
+        detaljiIzabranogKartonaController=new DetaljiIzabranogKartonaController(new DetaljiIzabranogKartonaForma(sk));
+        detaljiIzabranogKartonaController.otvoriFormu(sk);
+    }
+
+    public void otvoriFormuIzmeniKarton(StavkaKartona sk) {
+       izmeniKartonController =new IzmeniKartonController(new IzmeniKartonForma(sk));
+       izmeniKartonController.otvoriFormu(sk);
+    }
+
+    public IzmeniKartonController getIzmeniKartonController() {
+        return izmeniKartonController;
+    }
+
+    public void setIzmeniKartonController(IzmeniKartonController izmeniKartonController) {
+        this.izmeniKartonController = izmeniKartonController;
+    }
+
+    public LoginController getLoginController() {
+        return loginController;
+    }
+
+    public void setLoginController(LoginController loginController) {
+        this.loginController = loginController;
     }
     
     

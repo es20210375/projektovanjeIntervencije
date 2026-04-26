@@ -35,6 +35,7 @@ public class PokretanjeServera extends javax.swing.JFrame {
         jButtonZaustavi = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         jLabelStatus = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jMenuItem1 = new javax.swing.JMenuItem();
@@ -60,6 +61,8 @@ public class PokretanjeServera extends javax.swing.JFrame {
         jLabel1.setText("Status servera:");
 
         jLabelStatus.setText("jLabel2");
+
+        jLabel2.setText("SAMO JEDAN RADNIK MOZE DA BUDE PRIJAVLJEN U SMENI");
 
         jMenu1.setText("KONFIGURACIJA");
 
@@ -100,6 +103,10 @@ public class PokretanjeServera extends javax.swing.JFrame {
                 .addGap(42, 42, 42)
                 .addComponent(jLabelStatus, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(34, 34, 34))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(112, 112, 112)
+                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 376, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -108,7 +115,9 @@ public class PokretanjeServera extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
                     .addComponent(jLabelStatus))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 175, Short.MAX_VALUE)
+                .addGap(50, 50, 50)
+                .addComponent(jLabel2)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 109, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButtonPokreni)
                     .addComponent(jButtonZaustavi))
@@ -149,6 +158,7 @@ public class PokretanjeServera extends javax.swing.JFrame {
     private javax.swing.JButton jButtonPokreni;
     private javax.swing.JButton jButtonZaustavi;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabelStatus;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;

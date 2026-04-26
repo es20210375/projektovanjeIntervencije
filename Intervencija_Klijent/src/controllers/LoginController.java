@@ -45,21 +45,26 @@ public class LoginController {
               }
                Komunikacija.getInstance().komunikacija();
                MedicinskiRadnik ulogovani= Komunikacija.getInstance().logIn(email,password);
-               if(ulogovani==null){
+               /*if(ulogovani==null){
                    JOptionPane.showMessageDialog(lf, "Korisnicko ime i sifra nisu ispravni", "GRESKA",JOptionPane.ERROR_MESSAGE);
                    JOptionPane.showMessageDialog(lf, "Ne moze da se otvori glavna forma i meni", "GRESKA",JOptionPane.ERROR_MESSAGE);
-               }else{
+               }
+               else{
                   JOptionPane.showMessageDialog(lf, "Korisnicko ime i sifra su ispravni", "USPEH",JOptionPane.INFORMATION_MESSAGE); 
                    Cordinator.getInstance().setMr(ulogovani);
                    Cordinator.getInstance().otvoriGlavnuFormu();
                   lf.dispose();
-               }
+               }*/
            }
        });
     }
 
     public void otvoriFormu() {
         lf.setVisible(true);
+    }
+
+    public LoginForma getLf() {
+        return lf;
     }
     
     

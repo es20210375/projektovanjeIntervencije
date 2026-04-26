@@ -15,18 +15,23 @@ import java.util.logging.Logger;
  * @author Emilija
  */
 public class Posiljalac {
-    private Socket socket;
+    private ObjectOutputStream oos;
 
     public Posiljalac(Socket socket) {
-        this.socket = socket;
-    }
-    public void posalji(Object obj){
         try {
-            ObjectOutputStream oos=new ObjectOutputStream(socket.getOutputStream());
+            this.oos = new ObjectOutputStream(socket.getOutputStream());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void posalji(Object obj) {
+        try {
             oos.writeObject(obj);
             oos.flush();
+            oos.reset(); // VAŽNO
         } catch (IOException ex) {
-           ex.printStackTrace();
+            ex.printStackTrace();
         }
     }
 }

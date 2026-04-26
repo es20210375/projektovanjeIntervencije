@@ -6,6 +6,7 @@ package controllers;
 
 import domen.Pacijent;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.List;
 import javax.swing.table.AbstractTableModel;
 
@@ -14,7 +15,7 @@ import javax.swing.table.AbstractTableModel;
  * @author Emilija
  */
 public class ModelTabelePacijenti extends AbstractTableModel {
-    List<Pacijent>lista;
+    List<Pacijent>lista=new ArrayList<>();
     String[]kolone={"Ime","Prezime","Kontakt informacije","Datum rodjenja","Status osiguranja"};
     
     public ModelTabelePacijenti(List<Pacijent> lista) {

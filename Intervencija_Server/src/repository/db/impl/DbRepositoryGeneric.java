@@ -85,7 +85,7 @@ public class DbRepositoryGeneric implements DbRepository<ApstraktniDomenskiObjek
 
     if (rs.next()) {
         int id = rs.getInt(1);
-        param.postaviGenerisaniKljuc(id); // 🔥 OVO JE KLJUČ
+        param.postaviGenerisaniKljuc(id); 
     }
 
     rs.close();

@@ -4,6 +4,7 @@
  */
 package server;
 
+import controller.Controller;
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
@@ -27,6 +28,7 @@ public class Server extends Thread{
                 Socket socket=serverskiSoket.accept();
                 System.out.println("Klijent je uspesno povezan");
                 ObradaKlijentskihZahteva okz=new ObradaKlijentskihZahteva(socket);
+                Controller.getInstance().getOkz().add(okz);
                 okz.start();
             }
         } catch (IOException ex) {

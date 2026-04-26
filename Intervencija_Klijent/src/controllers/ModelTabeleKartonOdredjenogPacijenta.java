@@ -6,6 +6,7 @@ package controllers;
 
 import domen.Karton;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.List;
 import javax.swing.table.AbstractTableModel;
 
@@ -14,7 +15,7 @@ import javax.swing.table.AbstractTableModel;
  * @author Emilija
  */
 public class ModelTabeleKartonOdredjenogPacijenta extends AbstractTableModel{
-    List<Karton>lista;
+    List<Karton>lista=new ArrayList<>();
     String[]kolone={"Pacijent","Medicinski radnik","Datum otvaranja","Datum arhiviranja","Status"};
     
     public ModelTabeleKartonOdredjenogPacijenta(List<Karton> lista) {

@@ -21,6 +21,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 import komunikacija.Komunikacija;
 
 /**
@@ -29,19 +30,23 @@ import komunikacija.Komunikacija;
  */
 public class KreirajKartonController {
     KreirajKartonForma kkf;
+    
+    
 
     public KreirajKartonController(KreirajKartonForma kkf) {
         this.kkf = kkf;
     }
 
     public void otvoriFormu() {
-         pripremiFormu();
+        
+        pripremiFormu();
          kkf.setVisible(true);
          addActionLiseners();
     }
 
     public void pripremiFormu() {
-       List<Pacijent>listaPacijenata=Komunikacija.getInstance().ucitajPacijente();
+        
+         List<Pacijent>listaPacijenata=Komunikacija.getInstance().ucitajPacijente();
        kkf.getjComboBoxPacijent().removeAllItems();
         for (Pacijent pacijent : listaPacijenata) {
             kkf.getjComboBoxPacijent().addItem(pacijent);
@@ -58,6 +63,13 @@ public class KreirajKartonController {
        kkf.getjTableIntervencije().setModel(mti);
        kkf.getjTextFieldAnestezija().setEnabled(false);
        kkf.getjTextFieldDodatnaDokumentacija().setEnabled(false);
+       
+       kkf.getjButtonKreiraj().setVisible(true);
+       kkf.getjButtonSacuvaj().setVisible(true);
+       
+         
+        
+       
     }
 
     private void addActionLiseners() {
@@ -73,6 +85,10 @@ public class KreirajKartonController {
 
             private void sacuvaj(ActionEvent e) throws ParseException {
                 int red=kkf.getjTableIntervencije().getSelectedRow();
+                if (red == -1) {
+                       JOptionPane.showMessageDialog(kkf, "Morate izabrati intervenciju iz tabele!");
+                                return;
+                        }
                 ModelTabeleIntervencija mti=(ModelTabeleIntervencija) kkf.getjTableIntervencije().getModel();
                 Intervencija i=mti.getLista().get(red);
                 MedicinskiRadnik mr=(MedicinskiRadnik) kkf.getjComboBoxMradnik().getSelectedItem();
@@ -106,7 +122,30 @@ public class KreirajKartonController {
                 Komunikacija.getInstance().dodajStavkuKartona(stakvak);
             }
         });
+        
+        kkf.kreirajLActionLisener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                
+                    kreirajL(e);
+                
+            }
+
+            private void kreirajL(ActionEvent e) {
+                Komunikacija.getInstance().kreirajKarton();
+            }
+    });
+
     }
+    /*public void setStavkaZaIzmenu(StavkaKartona stavka) {
+    this.stavkaZaIzmenu = stavka;
+    this.kartonZaIzmenu = stavka.getKarton();
+    }*/
+ 
+
+    
+    
+
 
     public KreirajKartonForma getKkf() {
         return kkf;
@@ -115,6 +154,4 @@ public class KreirajKartonController {
     public void setKkf(KreirajKartonForma kkf) {
         this.kkf = kkf;
     }
-    
-    
 }

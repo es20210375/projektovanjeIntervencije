@@ -8,6 +8,7 @@ package controllers;
 import domen.Karton;
 import domen.StavkaKartona;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.List;
 import javax.swing.table.AbstractTableModel;
 
@@ -16,8 +17,8 @@ import javax.swing.table.AbstractTableModel;
  * @author Emilija
  */
 public class ModelTabeleStavkeKartona extends AbstractTableModel {
-List<StavkaKartona>lista;
-    String[]kolone={"Pacijent","Medicinski radnik","Datum otvaranja","Datum arhiviranja","Status","Naziv intervencije"};
+List<StavkaKartona>lista=new ArrayList<>();
+    String[]kolone={"Pacijent","Medicinski radnik","Datum otvaranja","Naziv intervencije"};
     
     public ModelTabeleStavkeKartona(List<StavkaKartona> lista) {
         this.lista = lista;
@@ -49,16 +50,8 @@ List<StavkaKartona>lista;
             case 2:
                 SimpleDateFormat datum=new SimpleDateFormat("dd.MM.yyyy");
                 return datum.format(k.getKarton().getDatumOtvaranja());
+            
             case 3:
-                if(k.getKarton().getDatumArhiviranja()==null){
-                    return " ";
-                }else{
-                    SimpleDateFormat datum1=new SimpleDateFormat("dd.MM.yyyy");
-                    return datum1.format(k.getKarton().getDatumArhiviranja());
-                }
-            case 4:
-                return k.getKarton().getStatusKartona();
-            case 5:
                 return k.getIntervencija().getNaziv();
             default:
                 throw new AssertionError();

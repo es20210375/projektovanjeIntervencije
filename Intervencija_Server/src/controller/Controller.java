@@ -15,9 +15,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import niti.ObradaKlijentskihZahteva;
 import soperacije.intervencija.DodajIntervencijuOperacija;
 import soperacije.intervencija.UcitajIntervencijeOperacija;
 import soperacije.karton.DodajKartonOperacija;
+import soperacije.karton.IzmeniKartonOperacija;
 import soperacije.karton.UcitajKartonOdredjenogOperacija;
 import soperacije.karton.UcitajKartoneOperacija;
 import soperacije.kvalifikacija.DodajKvalifikacijuOperacija;
@@ -29,6 +31,7 @@ import soperacije.pacijent.IzbrisiPacijentaOperacija;
 import soperacije.pacijent.IzmeniPacijentaOperacija;
 import soperacije.pacijent.UcitajPacijenteOperacija;
 import soperacije.stavkaKartona.DodajStavkuKartona;
+import soperacije.stavkaKartona.IzmeniStavkuKartonaOperacija;
 import soperacije.stavkaKartona.UcitajStavkeKartonaOperacija;
 
 /**
@@ -40,6 +43,13 @@ public class Controller {
     List<Pacijent>listaPacijenata=new ArrayList<>();
     Pacijent pacijent;
     List<Karton>listaKartona=new ArrayList<>();
+    List<ObradaKlijentskihZahteva>okz=new ArrayList();
+    List<Intervencija>listaIntervencija=new ArrayList<>();
+    List<StavkaKartona>listaStavki=new ArrayList<>();
+    Intervencija inter;
+    StavkaKartona st;
+    Karton k;
+    
     public static Controller getInstance(){
         if(instance==null){
             instance=new Controller();
@@ -81,6 +91,9 @@ public class Controller {
     public List<Pacijent> ucitajPacijente() throws Exception {
        UcitajPacijenteOperacija upo=new UcitajPacijenteOperacija();
        upo.izvrsi(null, null);
+       if (upo.getLista() == null) {
+        return new ArrayList<>();
+    }
        return upo.getLista();
     }
 
@@ -139,6 +152,7 @@ public class Controller {
     public Karton dodajKarton(Karton k) throws Exception {
         DodajKartonOperacija dko=new DodajKartonOperacija();
         System.out.println("controller.Controller.dodajKarton()"+k);
+        dodajUListuKartona(k);
         dko.izvrsi(k, null);
         return dko.getK();
     }
@@ -152,6 +166,7 @@ public class Controller {
     public void dodajIntervenciju(Intervencija inter) throws Exception {
         DodajIntervencijuOperacija dio=new DodajIntervencijuOperacija();
         System.out.println("controller.Controller.dodajIntervenciju()" + inter);
+        dodajUListuIntervencija(inter);
         dio.izvrsi(inter, null);
     }
 
@@ -164,10 +179,86 @@ public class Controller {
     public void dodajStavkuKartona(StavkaKartona s) throws Exception {
         DodajStavkuKartona dsk=new DodajStavkuKartona();
         System.out.println("controller.Controller.dodajStavkuKartona()"+s);
+        dodajUListuStavki(s);
         dsk.izvrsi(s, null);
     }
 
+    public List<ObradaKlijentskihZahteva> getOkz() {
+        return okz;
+    }
+
+    public void setOkz(List<ObradaKlijentskihZahteva> okz) {
+        this.okz = okz;
+    }
+
+    public void kreirajKarton() throws Exception {
+        try{
+         k=new Karton();
+         inter=new Intervencija();
+         st=new StavkaKartona();
+        }catch(Exception e){
+            throw  new Exception("Sistem ne moze da kreira karton");
+        }
+           
+        
+       
+    }
+
+    private void dodajUListuKartona(Karton k) {
+    for (Karton kar : listaKartona) {
+            if(kar==null){
+                kar=k;
+                listaKartona.add(kar);
+            }
+        }
+            System.out.println("Klasa Controller listaKartonaLOKALNO: "+listaKartona);
+    }
+
+    private void dodajUListuIntervencija(Intervencija inter) {
+      for (Intervencija in : listaIntervencija) {
+            if(in==null){
+                in=inter;
+                listaIntervencija.add(in);
+            }
+        }
+            System.out.println("Klasa Controller listaIntervencijaLOKALNO: "+listaIntervencija);
+    }
     
+
+    private void dodajUListuStavki(StavkaKartona s) {
+         for (StavkaKartona stav : listaStavki) {
+            if(stav==null){
+                stav=s;
+                listaStavki.add(stav);
+            }
+        }
+            System.out.println("Klasa Controller listaStavkiLOKALNO: "+listaStavki);
+    }
+
+    public void izmeniKarton(Karton k) throws Exception {
+        IzmeniKartonOperacija iko=new IzmeniKartonOperacija();
+        System.out.println("controller.Controller.izmeniKarton()"+k);
+      iko.izvrsi(k,null);
+    }
+
+    public void izmeniStavku(StavkaKartona s) throws Exception {
+        IzmeniStavkuKartonaOperacija isko=new IzmeniStavkuKartonaOperacija();
+        System.out.println("controller.Controller.izmeniStavku()"+s);
+        isko.izvrsi(s,null);
+    }
+
+    public boolean odjavi(MedicinskiRadnik odjava) {
+        for (int i = 0; i < okz.size(); i++) {
+            if(okz.get(i).getPrijavljeni() != null && okz.get(i).getPrijavljeni().equals(odjava)){
+                System.out.println("controller.Controller.odjavi()"+i);
+                okz.remove(i);
+                return true;
+            }
+        }
+        return false;
+    }
+
     
+
     
 }

@@ -8,8 +8,10 @@ import cordinator.Cordinator;
 import domen.MedicinskiRadnik;
 import domen.Pacijent;
 import domen.StatusKartona;
+import domen.StavkaKartona;
 import java.awt.event.ActionListener;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JTable;
 import javax.swing.JTextField;
@@ -27,6 +29,26 @@ public class KreirajKartonForma extends javax.swing.JFrame {
     public KreirajKartonForma() {
         initComponents();
     }
+
+    
+
+    public JButton getjButtonKreiraj() {
+        return jButtonKreiraj;
+    }
+
+    public void setjButtonKreiraj(JButton jButtonKreiraj) {
+        this.jButtonKreiraj = jButtonKreiraj;
+    }
+
+    public JButton getjButtonSacuvaj() {
+        return jButtonSacuvaj;
+    }
+
+    public void setjButtonSacuvaj(JButton jButtonSacuvaj) {
+        this.jButtonSacuvaj = jButtonSacuvaj;
+    }
+
+    
 
     public JComboBox<MedicinskiRadnik> getjComboBoxMradnik() {
         return jComboBoxMradnik;
@@ -408,6 +430,18 @@ public class KreirajKartonForma extends javax.swing.JFrame {
     // End of variables declaration//GEN-END:variables
 
     public void sacuvajActionLisener(ActionListener actionListener) {
+         for (ActionListener al : jButtonSacuvaj.getActionListeners()) {
+        jButtonSacuvaj.removeActionListener(al);
+    }
         jButtonSacuvaj.addActionListener(actionListener);
+    }
+
+    
+
+    public void kreirajLActionLisener(ActionListener actionListener) {
+        for (ActionListener al : jButtonKreiraj.getActionListeners()) {
+        jButtonKreiraj.removeActionListener(al);
+    }
+        jButtonKreiraj.addActionListener(actionListener);
     }
 }

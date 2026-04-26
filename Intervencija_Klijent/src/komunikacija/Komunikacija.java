@@ -51,12 +51,49 @@ public class Komunikacija {
     }
 
     public MedicinskiRadnik logIn(String email, String password) {
-       MedicinskiRadnik mr=new MedicinskiRadnik(-1, null, null, true, email, password);
-       Zahtev z=new Zahtev(Operacije.LOGIN, mr);
-       posiljalac.posalji(z);
-       Odgovor odg=(Odgovor) primalac.primi();
-       mr=(MedicinskiRadnik) odg.getOdgovor();
-       return mr;
+       MedicinskiRadnik mr = new MedicinskiRadnik(-1, null, null, true, email, password);
+
+    Zahtev z = new Zahtev(Operacije.LOGIN, mr);
+    posiljalac.posalji(z);
+
+    Odgovor odg = (Odgovor) primalac.primi();
+
+    if (odg.getOdgovor() instanceof String) {
+        JOptionPane.showMessageDialog(
+                Cordinator.getInstance().getLoginController().getLf(),
+                odg.getOdgovor().toString(),
+                "GRESKA",
+                JOptionPane.ERROR_MESSAGE
+        );
+
+        Cordinator.getInstance().getLoginController().getLf().dispose();
+        return null;
+
+    } else if (odg.getOdgovor() == null) {
+        JOptionPane.showMessageDialog(
+                Cordinator.getInstance().getLoginController().getLf(),
+                "Korisnicko ime i sifra nisu ispravni",
+                "GRESKA",
+                JOptionPane.ERROR_MESSAGE
+        );
+        return null;
+
+    } else {
+        mr = (MedicinskiRadnik) odg.getOdgovor();
+
+        JOptionPane.showMessageDialog(
+                Cordinator.getInstance().getLoginController().getLf(),
+                "Korisnicko ime i sifra su ispravni",
+                "USPEH",
+                JOptionPane.INFORMATION_MESSAGE
+        );
+
+        Cordinator.getInstance().setMr(mr);
+        Cordinator.getInstance().otvoriGlavnuFormu();
+        Cordinator.getInstance().getLoginController().getLf().dispose();
+
+        return mr;
+    }
     }
 
     public void dodajPacijenta(Pacijent pac) {
@@ -90,7 +127,7 @@ public class Komunikacija {
         }else{
               JOptionPane.showMessageDialog(Cordinator.getInstance().getDodajKvalifikacijuController().getDkf(),"Sistem ne moze da zapamti kvalifikaciju","Greska",JOptionPane.ERROR_MESSAGE);
         }
-       // Cordinator.getInstance().zatvoriFormuDodajKvalifikaciju();
+       
     }
 
     public List<Pacijent> ucitajPacijente() {
@@ -99,6 +136,7 @@ public class Komunikacija {
        posiljalac.posalji(z);
        Odgovor odg=(Odgovor) primalac.primi();
         System.out.println("Klasa komunikacija ucitaj pacijente: "+(List<Pacijent>) odg.getOdgovor());
+        
        return (List<Pacijent>) odg.getOdgovor();
         
     }
@@ -169,14 +207,7 @@ public class Komunikacija {
         Zahtev z=new Zahtev(Operacije.DODAJ_KARTON, k);
         posiljalac.posalji(z);
         Odgovor odg=(Odgovor) primalac.primi();
-        /*if(odg.getOdgovor()==null){
-            JOptionPane.showMessageDialog(Cordinator.getInstance().getKreirajKartonController().getKkf(),"Sistem je zapamtio karton","Uspeh",JOptionPane.INFORMATION_MESSAGE);
-           Cordinator.getInstance().getGlavnaFormaController().pripremiFormu();
-           
-        }else{
-              JOptionPane.showMessageDialog(Cordinator.getInstance().getKreirajKartonController().getKkf(),"Sistem ne moze da zapamti karton","Greska",JOptionPane.ERROR_MESSAGE);
-              
-        }*/
+       
         return (Karton) odg.getOdgovor();
     }
 
@@ -221,6 +252,52 @@ public class Komunikacija {
               
         }
         
+    }
+
+    public void kreirajKarton() {
+        Zahtev z=new Zahtev(Operacije.KREIRAJ_KARTON, null);
+        posiljalac.posalji(z);
+        Odgovor odg=(Odgovor) primalac.primi();
+        if(odg.getOdgovor()==null){
+            JOptionPane.showMessageDialog(Cordinator.getInstance().getKreirajKartonController().getKkf(),"Sistem je kreirao karton","Uspeh",JOptionPane.INFORMATION_MESSAGE);
+           
+           
+        }else{
+              JOptionPane.showMessageDialog(Cordinator.getInstance().getKreirajKartonController().getKkf(),"Sistem ne moze da kreira karton","Greska",JOptionPane.ERROR_MESSAGE);
+              
+        }
+    }
+
+    public void izmeniKarton(Karton k) {
+        Zahtev z=new Zahtev(Operacije.IZMENI_KARTON, k);
+        posiljalac.posalji(z);
+       Odgovor odg=(Odgovor) primalac.primi();
+    }
+
+    public void izmeniStavkuKartona(StavkaKartona stakvak) {
+       Zahtev z=new Zahtev(Operacije.IZMENI_STAVKU,stakvak);
+       posiljalac.posalji(z);
+       Odgovor odg=(Odgovor) primalac.primi();
+        if(odg.getOdgovor()==null){
+            JOptionPane.showMessageDialog(Cordinator.getInstance().getIzmeniKartonController().getIkf(),"Sistem je zapamtio karton","Uspeh",JOptionPane.INFORMATION_MESSAGE);
+           Cordinator.getInstance().getGlavnaFormaController().osveziTabelu();
+           
+        }else{
+              JOptionPane.showMessageDialog(Cordinator.getInstance().getIzmeniKartonController().getIkf(),"Sistem ne moze da zapamti karton","Greska",JOptionPane.ERROR_MESSAGE);
+              
+        }
+    }
+
+    public void odjavi(MedicinskiRadnik mr) {
+        Zahtev z=new Zahtev(Operacije.LOGOUT, mr);
+        posiljalac.posalji(z);
+        Odgovor odg=(Odgovor) primalac.primi();
+        System.out.println("komunikacija.Komunikacija.odjavi()"+odg.getOdgovor());
+        if((boolean)odg.getOdgovor()!=false){
+            Cordinator.getInstance().getGlavnaFormaController().ugasiFormu();
+        }else{
+            System.out.println("komunikacija.Komunikacija.odjavi()+ NEMOGUCA ODJAVA"+mr);
+        }
     }
 
     

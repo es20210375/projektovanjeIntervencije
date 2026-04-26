@@ -153,7 +153,8 @@ public class MedicinskiRadnik implements ApstraktniDomenskiObjekat{
 
     @Override
     public String vratiVrednostiZaIzmenu() {
-         return "ime='"+ime+"' prezime='"+prezime+"' iskustvo="+iskustvo+" lozinka='"+lozinka+"' email='"+email+"'";
+         return "ime='"+ime+"', prezime='"+prezime+"', iskustvo="+iskustvo+
+       ", lozinka='"+lozinka+"', email='"+email+"'";
     }
 
     @Override

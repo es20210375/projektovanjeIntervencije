@@ -15,18 +15,22 @@ import java.util.logging.Logger;
  * @author Emilija
  */
 public class Primalac {
-    Socket socket;
+    private ObjectInputStream ois;
 
     public Primalac(Socket socket) {
-        this.socket = socket;
-    }
-    public Object primi(){
         try {
-            ObjectInputStream ois=new ObjectInputStream(socket.getInputStream());
+            this.ois = new ObjectInputStream(socket.getInputStream());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public Object primi() {
+        try {
             return ois.readObject();
         } catch (Exception ex) {
             ex.printStackTrace();
-        } 
+        }
         return null;
     }
 }

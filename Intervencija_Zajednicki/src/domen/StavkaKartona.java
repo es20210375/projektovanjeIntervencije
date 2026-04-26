@@ -178,7 +178,7 @@ public class StavkaKartona implements ApstraktniDomenskiObjekat{
         boolean dodatna = rs.getBoolean("stavkaKartona.dodatnaDokumentacija");
         boolean anestezija = rs.getBoolean("stavkaKartona.anestezija");
 
-        // 🔥 DATUM SIGURNO
+       
         java.sql.Date sqlDatum = rs.getDate("stavkaKartona.datumIntervencije");
         Date datum = (sqlDatum != null) ? new Date(sqlDatum.getTime()) : null;
 
@@ -190,7 +190,7 @@ public class StavkaKartona implements ApstraktniDomenskiObjekat{
 
         Intervencija i = new Intervencija(idIntervencija, naziv, opis, snimak);
 
-        // Karton
+        
         int idKarton = rs.getInt("idKarton");
 
         java.sql.Date sqlDO = rs.getDate("karton.datumOtvaranja");
@@ -201,7 +201,7 @@ public class StavkaKartona implements ApstraktniDomenskiObjekat{
 
         StatusKartona status = StatusKartona.valueOf(rs.getString("karton.statusKartona"));
 
-        // MR
+        
         int idMR = rs.getInt("medicinskiRadnik.idMedicinskiRadnik");
         String imeMR = rs.getString("medicinskiRadnik.ime");
         String prezimeMR = rs.getString("medicinskiRadnik.prezime");
@@ -211,7 +211,7 @@ public class StavkaKartona implements ApstraktniDomenskiObjekat{
 
         MedicinskiRadnik mr = new MedicinskiRadnik(idMR, imeMR, prezimeMR, iskustvo, email, lozinka);
 
-        // Pacijent
+        
         int idP = rs.getInt("pacijent.idPacijent");
         String imeP = rs.getString("pacijent.ime");
         String prezimeP = rs.getString("pacijent.prezime");
