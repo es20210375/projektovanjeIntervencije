@@ -258,6 +258,115 @@ public class ObradaKlijentskihZahteva extends Thread {
                     }
 
                     break;
+                case VRATI_STAVKU_ODREDJENOG_KARTONA:
+                    int id=(int)zahtev.getParametar();
+                
+                    try {
+                        List<StavkaKartona> stavka=Controller.getInstance().vratiStavkuOdredjenogKartona(id);
+                        odgovor.setOdgovor(stavka);
+                    } catch (Exception ex) {
+                        Logger.getLogger(ObradaKlijentskihZahteva.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                
+                    break;
+                case VRATI_PACIJENTE_SA_DA:
+                    try{
+                        List<Pacijent>listaSaDa=Controller.getInstance().vratiPacijenteSaKriterijumomStatusDa();
+                        odgovor.setOdgovor(listaSaDa);
+                    }catch(Exception e){
+                        odgovor.setOdgovor(null);
+                    }
+                
+                    break;
+                case VRATI_PACIJENTE_SA_NE:
+                    try{
+                        List<Pacijent>listaSaNe=Controller.getInstance().vratiPacijenteSaKriterijumomStatusNe();
+                        odgovor.setOdgovor(listaSaNe);
+                    }catch(Exception e){
+                        odgovor.setOdgovor(null);
+                    }
+                
+                    break;
+                case VRATI_PACIJENTE_IME:
+                    try{
+                        String ime=(String) zahtev.getParametar();
+                        List<Pacijent>listaIme=Controller.getInstance().vratiPacijenteKriterijumIme(ime);
+                        odgovor.setOdgovor(listaIme);
+                    }catch(Exception e){
+                        odgovor.setOdgovor(null);
+                    }
+                
+                    break;
+                case VRATI_PACIJENTE_IME_PREZIME:
+                    try{
+                        String tekst=(String) zahtev.getParametar();
+                        List<Pacijent>listaImePrezime=Controller.getInstance().vratiPacijenteKriterijumImePrezime(tekst);
+                        odgovor.setOdgovor(listaImePrezime);
+                    }catch(Exception e){
+                        odgovor.setOdgovor(null);
+                    }
+                
+                    break;
+                case VRATI_KARTONE_KRITERIJUM_KARTON:
+                    try{
+                        int godina=(int) zahtev.getParametar();
+                        List<Karton>listaKartonGodina=Controller.getInstance().vratiKartoneKriterijumKarton(godina);
+                        odgovor.setOdgovor(listaKartonGodina);
+                    }catch(Exception e){
+                        odgovor.setOdgovor(null);
+                    }
+                
+                    break;
+                case VRATI_KARTONE_KRITERIJUM_PACIJENT_IME:
+                  try{
+                        String ime=(String) zahtev.getParametar();
+                        List<Karton>listaKartonIme=Controller.getInstance().vratiKartoneKriterijumKarton(ime);
+                        odgovor.setOdgovor(listaKartonIme);
+                    }catch(Exception e){
+                        odgovor.setOdgovor(null);
+                    }
+                
+                    break;  
+                case VRATI_KARTONE_KRITERIJUM_PACIJENT_IME_PREZIME:
+                    try{
+                        String tekst=(String) zahtev.getParametar();
+                        List<Karton>listaKartonImePrezime=Controller.getInstance().vratiKartoneKriterijumKartonImePrezime(tekst);
+                        odgovor.setOdgovor(listaKartonImePrezime);
+                    }catch(Exception e){
+                        odgovor.setOdgovor(null);
+                    }
+                
+                    break;
+                case VRATI_KARTONE_KRITERIJUM_MEDICINSKI_RADNIK_IME:
+                    try{
+                        String ime=(String) zahtev.getParametar();
+                        List<Karton>listaKartonIme=Controller.getInstance().vratiKartoneKriterijumMedicinskiRadnikIme(ime);
+                        odgovor.setOdgovor(listaKartonIme);
+                    }catch(Exception e){
+                        odgovor.setOdgovor(null);
+                    }
+                
+                    break; 
+                case VRATI_KARTONE_KRITERIJUM_MEDICINSKI_RADNIK_IME_PREZIME:
+                   try{
+                        String tekst=(String) zahtev.getParametar();
+                        List<Karton>listaKartonImePrezime=Controller.getInstance().vratiKartoneKriterijumMedicinskiRadnikImePrezime(tekst);
+                        odgovor.setOdgovor(listaKartonImePrezime);
+                    }catch(Exception e){
+                        odgovor.setOdgovor(null);
+                    }
+                
+                    break; 
+                case VRATI_KARTONE_KRITERIJUM_INTERVENCIJA:
+                    try{
+                        String tekst=(String) zahtev.getParametar();
+                        List<Karton>listaKartonIntervencija=Controller.getInstance().vratiKartoneKriterijumIntervencija(tekst);
+                        odgovor.setOdgovor(listaKartonIntervencija);
+                    }catch(Exception e){
+                        odgovor.setOdgovor(null);
+                    }
+                    break;
+
                 case LOGOUT:
                     MedicinskiRadnik odjava = (MedicinskiRadnik) zahtev.getParametar();
                     System.out.println("niti.ObradaKlijentskihZahteva.run()" + odjava);
@@ -274,6 +383,7 @@ public class ObradaKlijentskihZahteva extends Thread {
                     }
 
                     return;
+               
 
                 default:
                     System.out.println("Greska, izabrana operacija ne postoji");

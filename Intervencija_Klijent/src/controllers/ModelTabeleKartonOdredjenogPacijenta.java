@@ -16,7 +16,7 @@ import javax.swing.table.AbstractTableModel;
  */
 public class ModelTabeleKartonOdredjenogPacijenta extends AbstractTableModel{
     List<Karton>lista=new ArrayList<>();
-    String[]kolone={"Pacijent","Medicinski radnik","Datum otvaranja","Datum arhiviranja","Status"};
+    String[]kolone={"Medicinski radnik","Datum otvaranja","Datum arhiviranja","Status"};
     
     public ModelTabeleKartonOdredjenogPacijenta(List<Karton> lista) {
         this.lista = lista;
@@ -41,21 +41,20 @@ public class ModelTabeleKartonOdredjenogPacijenta extends AbstractTableModel{
     public Object getValueAt(int rowIndex, int columnIndex) {
         Karton k=lista.get(rowIndex);
         switch (columnIndex) {
+            
             case 0:
-                return k.getPacijent().getIme()+" "+k.getPacijent().getPrezime();
-            case 1:
                 return k.getMedicinskiRadnik().getIme()+" "+k.getMedicinskiRadnik().getPrezime();
-            case 2:
+            case 1:
                 SimpleDateFormat datum=new SimpleDateFormat("dd.MM.yyyy");
                 return datum.format(k.getDatumOtvaranja());
-            case 3:
+            case 2:
                 if(k.getDatumArhiviranja()==null){
                     return " ";
                 }else{
                     SimpleDateFormat datum1=new SimpleDateFormat("dd.MM.yyyy");
                     return datum1.format(k.getDatumArhiviranja());
                 }
-            case 4:
+            case 3:
                 return k.getStatusKartona();
             default:
                 throw new AssertionError();

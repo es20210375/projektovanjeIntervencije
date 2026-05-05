@@ -77,21 +77,16 @@ public class UcitajPacijenteController {
     }
 
     private void filtrirajPoOsiguranju() {
-      List<Pacijent> svi = Komunikacija.getInstance().ucitajPacijente();
-    List<Pacijent> filtrirani = new ArrayList<>();
-
-    for (Pacijent p : svi) {
+      
+     List<Pacijent>filtriraj=new ArrayList<>();
+    
         if (upf.getjRadioButtonDA().isSelected()) {
-            if (p.getOsiguranje().getStatusOsiguranja().equalsIgnoreCase("DA")) {
-                filtrirani.add(p);
-            }
+            filtriraj=Komunikacija.getInstance().vratipacijenteKriterijumStatusaDA();
         } else if (upf.getjRadioButtonNE().isSelected()) {
-            if (p.getOsiguranje().getStatusOsiguranja().equalsIgnoreCase("NE")) {
-                filtrirani.add(p);
-            }
+            filtriraj=Komunikacija.getInstance().vratiPacijenteKriterijumStatusNe();
         }
-    }
-    prikaziRezultat(filtrirani);
+    
+    prikaziRezultat(filtriraj);
     bg.clearSelection();
     }
 
@@ -114,33 +109,27 @@ public class UcitajPacijenteController {
     }
 
     private void filtrirajPoImenu() {
-         List<Pacijent> svi = Komunikacija.getInstance().ucitajPacijente();
     List<Pacijent> filtrirani = new ArrayList<>();
 
-    String tekst = upf.getjTextFieldImePrezime().getText().trim().toLowerCase();
+    String tekst = upf.getjTextFieldImePrezime().getText().trim();
     String[] delovi = tekst.split(" ");
 
-    for (Pacijent p : svi) {
-        String ime = p.getIme().toLowerCase();
-        String prezime = p.getPrezime().toLowerCase();
+    
+        String ime = delovi[0];
+        
 
         
         if (delovi.length == 1) {
-            if (ime.equals(delovi[0]) || prezime.equals(delovi[0])) {
-                filtrirani.add(p);
-            }
+            filtrirani=Komunikacija.getInstance().VratiPacijenteKriterijumIme(ime);
         }
 
        
         else if (delovi.length == 2) {
-            if (ime.equals(delovi[0]) && prezime.equals(delovi[1])) {
-                filtrirani.add(p);
-            }
-        }
-    }
+         filtrirani=Komunikacija.getInstance().vratiPacijenteKriterijumImePrezime(tekst);
+         }
 
     prikaziRezultat(filtrirani);
-    }
     
     
-}
+    }}
+

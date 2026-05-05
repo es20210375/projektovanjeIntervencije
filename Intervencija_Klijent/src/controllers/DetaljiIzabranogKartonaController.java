@@ -4,6 +4,7 @@
  */
 package controllers;
 
+import domen.Karton;
 import domen.StatusKartona;
 import domen.StavkaKartona;
 import forme.DetaljiIzabranogKartonaForma;

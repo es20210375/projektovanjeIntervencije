@@ -9,6 +9,7 @@ import domen.Karton;
 import domen.Pacijent;
 import java.util.List;
 import javax.swing.JTable;
+import javax.swing.JTextField;
 import komunikacija.Komunikacija;
 
 /**
@@ -26,6 +27,22 @@ public class DetaljiIzabranogPacijentaForma extends javax.swing.JFrame {
        /* List<Karton>lista=Komunikacija.getInstance().ucitajKartonZaPacijenta(pac.getIdPacijent());
         ModelTabeleKartonOdredjenogPacijenta mtkop=new ModelTabeleKartonOdredjenogPacijenta(lista);
         jTablePacijentDetalji.setModel(mtkop);*/
+    }
+
+    public JTextField getjTextFieldIme() {
+        return jTextFieldIme;
+    }
+
+    public void setjTextFieldIme(JTextField jTextFieldIme) {
+        this.jTextFieldIme = jTextFieldIme;
+    }
+
+    public JTextField getjTextFieldPrezime() {
+        return jTextFieldPrezime;
+    }
+
+    public void setjTextFieldPrezime(JTextField jTextFieldPrezime) {
+        this.jTextFieldPrezime = jTextFieldPrezime;
     }
 
     public JTable getjTablePacijentDetalji() {
@@ -47,6 +64,10 @@ public class DetaljiIzabranogPacijentaForma extends javax.swing.JFrame {
 
         jScrollPane1 = new javax.swing.JScrollPane();
         jTablePacijentDetalji = new javax.swing.JTable();
+        jLabel1 = new javax.swing.JLabel();
+        jTextFieldIme = new javax.swing.JTextField();
+        jTextFieldPrezime = new javax.swing.JTextField();
+        jLabel2 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -63,21 +84,40 @@ public class DetaljiIzabranogPacijentaForma extends javax.swing.JFrame {
         ));
         jScrollPane1.setViewportView(jTablePacijentDetalji);
 
+        jLabel1.setText("Ime : ");
+
+        jLabel2.setText("Prezime : ");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(54, 54, 54)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 566, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(58, Short.MAX_VALUE))
+                .addGap(47, 47, 47)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jTextFieldIme, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(57, 57, 57)
+                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jTextFieldPrezime, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 566, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(65, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(83, 83, 83)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGap(42, 42, 42)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel1)
+                    .addComponent(jTextFieldIme, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jTextFieldPrezime, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel2))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 98, Short.MAX_VALUE)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(124, Short.MAX_VALUE))
+                .addGap(45, 45, 45))
         );
 
         pack();
@@ -86,7 +126,11 @@ public class DetaljiIzabranogPacijentaForma extends javax.swing.JFrame {
     
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTablePacijentDetalji;
+    private javax.swing.JTextField jTextFieldIme;
+    private javax.swing.JTextField jTextFieldPrezime;
     // End of variables declaration//GEN-END:variables
 }

@@ -280,7 +280,7 @@ public class Komunikacija {
        Odgovor odg=(Odgovor) primalac.primi();
         if(odg.getOdgovor()==null){
             JOptionPane.showMessageDialog(Cordinator.getInstance().getIzmeniKartonController().getIkf(),"Sistem je zapamtio karton","Uspeh",JOptionPane.INFORMATION_MESSAGE);
-           Cordinator.getInstance().getGlavnaFormaController().osveziTabelu();
+           Cordinator.getInstance().getGlavnaFormaController().pripremiFormu();
            
         }else{
               JOptionPane.showMessageDialog(Cordinator.getInstance().getIzmeniKartonController().getIkf(),"Sistem ne moze da zapamti karton","Greska",JOptionPane.ERROR_MESSAGE);
@@ -299,6 +299,92 @@ public class Komunikacija {
             System.out.println("komunikacija.Komunikacija.odjavi()+ NEMOGUCA ODJAVA"+mr);
         }
     }
+
+    public List<StavkaKartona> vratiStavkuKartona(int idKarton) {
+        Zahtev z=new Zahtev(Operacije.VRATI_STAVKU_ODREDJENOG_KARTONA,idKarton);
+        posiljalac.posalji(z);
+        Odgovor odg=(Odgovor) primalac.primi();
+        return (List<StavkaKartona>) odg.getOdgovor();
+    }
+
+    public List<Pacijent> vratipacijenteKriterijumStatusaDA() {
+         Zahtev z=new Zahtev(Operacije.VRATI_PACIJENTE_SA_DA, null);
+         posiljalac.posalji(z);
+         Odgovor odg=(Odgovor) primalac.primi();
+         return (List<Pacijent>) odg.getOdgovor();
+         
+    }
+
+    public List<Pacijent> vratiPacijenteKriterijumStatusNe() {
+        Zahtev z=new Zahtev(Operacije.VRATI_PACIJENTE_SA_NE, null);
+         posiljalac.posalji(z);
+         Odgovor odg=(Odgovor) primalac.primi();
+         return (List<Pacijent>) odg.getOdgovor();
+    }
+
+    public List<Pacijent> VratiPacijenteKriterijumIme(String ime) {
+         Zahtev z=new Zahtev(Operacije.VRATI_PACIJENTE_IME, ime);
+         posiljalac.posalji(z);
+         Odgovor odg=(Odgovor) primalac.primi();
+         return (List<Pacijent>) odg.getOdgovor();
+    }
+
+    public List<Pacijent> vratiPacijenteKriterijumImePrezime(String tekst) {
+        Zahtev z=new Zahtev(Operacije.VRATI_PACIJENTE_IME_PREZIME, tekst);
+         posiljalac.posalji(z);
+         Odgovor odg=(Odgovor) primalac.primi();
+         return (List<Pacijent>) odg.getOdgovor();
+    }
+
+    public List<Karton> vratiListuKartonKriterijumKarton(int unetaGodina) {
+        Zahtev z=new Zahtev(Operacije.VRATI_KARTONE_KRITERIJUM_KARTON,unetaGodina);
+         posiljalac.posalji(z);
+         Odgovor odg=(Odgovor) primalac.primi();
+         System.out.println("komunikacija.Komunikacija.vratiListuKartonKriterijumKarton()"+(List<Karton>) odg.getOdgovor());
+         return (List<Karton>) odg.getOdgovor();
+    }
+
+    public List<Karton> vratiListuKartonaKriterijumPacijentIme(String ime) {
+        Zahtev z=new Zahtev(Operacije.VRATI_KARTONE_KRITERIJUM_PACIJENT_IME,ime);
+         posiljalac.posalji(z);
+         Odgovor odg=(Odgovor) primalac.primi();
+         System.out.println("komunikacija.Komunikacija.vratiListuKartonKriterijumKarton()"+(List<Karton>) odg.getOdgovor());
+         return (List<Karton>) odg.getOdgovor();
+    }
+
+    public List<Karton> vratiListuKartonKriterijumPacijentImePrezime(String tekst) {
+        Zahtev z=new Zahtev(Operacije.VRATI_KARTONE_KRITERIJUM_PACIJENT_IME_PREZIME,tekst);
+         posiljalac.posalji(z);
+         Odgovor odg=(Odgovor) primalac.primi();
+         System.out.println("komunikacija.Komunikacija.vratiListuKartonKriterijumKarton()"+(List<Karton>) odg.getOdgovor());
+         return (List<Karton>) odg.getOdgovor();
+    }
+
+    public List<Karton> vratiListuKartonaKriterijumMedicinskiRadnikIme(String ime) {
+        Zahtev z=new Zahtev(Operacije.VRATI_KARTONE_KRITERIJUM_MEDICINSKI_RADNIK_IME,ime);
+         posiljalac.posalji(z);
+         Odgovor odg=(Odgovor) primalac.primi();
+         System.out.println("komunikacija.Komunikacija.vratiListuKartonKriterijumKarton()"+(List<Karton>) odg.getOdgovor());
+         return (List<Karton>) odg.getOdgovor();
+    }
+
+    public List<Karton> vratiListuKartonKriterijumMedicinskiRadnikImePrezime(String tekst) {
+        Zahtev z=new Zahtev(Operacije.VRATI_KARTONE_KRITERIJUM_MEDICINSKI_RADNIK_IME_PREZIME,tekst);
+         posiljalac.posalji(z);
+         Odgovor odg=(Odgovor) primalac.primi();
+         System.out.println("komunikacija.Komunikacija.vratiListuKartonKriterijumKarton()"+(List<Karton>) odg.getOdgovor());
+         return (List<Karton>) odg.getOdgovor();
+    }
+
+    public List<Karton> vratiListuKartonKriterijumIntervencija(String tekst) {
+        Zahtev z=new Zahtev(Operacije.VRATI_KARTONE_KRITERIJUM_INTERVENCIJA,tekst);
+         posiljalac.posalji(z);
+         Odgovor odg=(Odgovor) primalac.primi();
+         System.out.println("komunikacija.Komunikacija.vratiListuKartonKriterijumKarton()"+(List<Karton>) odg.getOdgovor());
+         return (List<Karton>) odg.getOdgovor();
+    }
+
+    
 
     
 

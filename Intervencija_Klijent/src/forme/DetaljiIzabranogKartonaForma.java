@@ -4,6 +4,7 @@
  */
 package forme;
 
+import domen.Karton;
 import domen.StavkaKartona;
 import javax.swing.JTextField;
 

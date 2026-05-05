@@ -21,9 +21,14 @@ public class UcitajKartoneOperacija extends ApstraktnaGenerickaOperacija{
 
     @Override
     protected void izvrsiOperaciju(Object objekat, String kljuc) throws Exception {
-        lista=broker.getAll(new Karton()," JOIN pacijent ON karton.idPacijent = pacijent.idPacijent\n" +
-"JOIN medicinskiRadnik ON karton.idMedicinskiRadnik = medicinskiRadnik.idMedicinskiRadnik\n" +
-"JOIN osiguranje ON pacijent.idOsiguranje = osiguranje.idOsiguranja GROUP BY pacijent.idpacijent;");
+        String uslov = " karton\n" +
+"JOIN pacijent pacijent ON karton.idPacijent = pacijent.idPacijent \n" +
+"JOIN medicinskiRadnik medicinskiRadnik ON karton.idMedicinskiRadnik = medicinskiRadnik.idMedicinskiRadnik \n" +
+"JOIN osiguranje osiguranje ON pacijent.idOsiguranje = osiguranje.idOsiguranja \n" +
+"LEFT JOIN stavkaKartona stavkaKartona ON karton.idKarton = stavkaKartona.idKarton \n" +
+"LEFT JOIN intervencija intervencija ON stavkaKartona.idIntervencija = intervencija.idIntervencija";
+
+            lista = broker.getAll(new Karton(), uslov);
     }
 
     public List<Karton> getLista() {

@@ -17,6 +17,7 @@ import controllers.KreirajKartonController;
 import controllers.UcitajKartonOdredjenogController;
 import controllers.UcitajOsiguranjeController;
 import controllers.UcitajPacijenteController;
+import domen.Karton;
 import domen.Pacijent;
 import domen.StavkaKartona;
 import forme.DetaljiIzabranogKartonaForma;
@@ -176,9 +177,9 @@ public class Cordinator {
         this.dodajIntervencijuController = dodajIntervencijuController;
     }
 
-    public void otvoriFormuIzabraneStavke(StavkaKartona sk) {
-        detaljiIzabranogKartonaController=new DetaljiIzabranogKartonaController(new DetaljiIzabranogKartonaForma(sk));
-        detaljiIzabranogKartonaController.otvoriFormu(sk);
+    public void otvoriFormuIzabraneStavke(StavkaKartona k) {
+        detaljiIzabranogKartonaController=new DetaljiIzabranogKartonaController(new DetaljiIzabranogKartonaForma(k));
+        detaljiIzabranogKartonaController.otvoriFormu(k);
     }
 
     public void otvoriFormuIzmeniKarton(StavkaKartona sk) {

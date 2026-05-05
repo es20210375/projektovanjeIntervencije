@@ -5,7 +5,6 @@
 package soperacije.pacijent;
 
 import domen.Pacijent;
-import java.util.ArrayList;
 import java.util.List;
 import soperacije.ApstraktnaGenerickaOperacija;
 
@@ -13,7 +12,7 @@ import soperacije.ApstraktnaGenerickaOperacija;
  *
  * @author Emilija
  */
-public class UcitajPacijenteOperacija extends ApstraktnaGenerickaOperacija{
+public class VratiPacijenteKriterijumImeOperacija extends ApstraktnaGenerickaOperacija{
     List<Pacijent>lista;
     @Override
     protected void preduslovi(Object param) throws Exception {
@@ -22,11 +21,10 @@ public class UcitajPacijenteOperacija extends ApstraktnaGenerickaOperacija{
 
     @Override
     protected void izvrsiOperaciju(Object objekat, String kljuc) throws Exception {
-       lista= broker.getAll(new Pacijent(), " pacijent JOIN osiguranje osiguranje ON pacijent.idOsiguranje=osiguranje.idOsiguranja GROUP BY pacijent.idPacijent");
-       if (lista == null) {
-         lista = new ArrayList<>();
-            }
-        System.out.println("klasa ucitajPacijenteOperacija :"+lista);
+        String ime=(String)objekat;
+        String uslov=" pacijent JOIN osiguranje osiguranje ON pacijent.idOsiguranje=osiguranje.idOsiguranja\n" +
+" WHERE pacijent.ime LIKE '"+ime+"'";
+         lista=broker.getAll(new Pacijent(),uslov);
     }
 
     public List<Pacijent> getLista() {

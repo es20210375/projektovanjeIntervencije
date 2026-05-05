@@ -22,6 +22,12 @@ import soperacije.karton.DodajKartonOperacija;
 import soperacije.karton.IzmeniKartonOperacija;
 import soperacije.karton.UcitajKartonOdredjenogOperacija;
 import soperacije.karton.UcitajKartoneOperacija;
+import soperacije.karton.VratiListuKartonKriterijumIntervencijaOperacija;
+import soperacije.karton.VratiListuKartonKriterijumKartonOpertacija;
+import soperacije.karton.VratiListuKartonKriterijumMedicinskiRadnikImeOperacija;
+import soperacije.karton.VratiListuKartonKriterijumMedicinskiRadnikImePrezimeOperacija;
+import soperacije.karton.VratiListuKartonKriterijumPacijentImeOperacija;
+import soperacije.karton.VratiListuKartonKriterijumPacijentImePrezimeOperacija;
 import soperacije.kvalifikacija.DodajKvalifikacijuOperacija;
 import soperacije.login.LogInOperacija;
 import soperacije.medicinskiradnik.UcitajMedicinskeRadnikeOperacija;
@@ -30,9 +36,14 @@ import soperacije.pacijent.DodajPacijentaOperacija;
 import soperacije.pacijent.IzbrisiPacijentaOperacija;
 import soperacije.pacijent.IzmeniPacijentaOperacija;
 import soperacije.pacijent.UcitajPacijenteOperacija;
+import soperacije.pacijent.VratiPacijenteKriterijumImeOperacija;
+import soperacije.pacijent.VratiPacijenteKriterijumImePrezimeOperacija;
+import soperacije.pacijent.VratiPacijenteKriterijumStatusDaOperacija;
+import soperacije.pacijent.VratiPacijenteKriterijumStatusNeOperacija;
 import soperacije.stavkaKartona.DodajStavkuKartona;
 import soperacije.stavkaKartona.IzmeniStavkuKartonaOperacija;
 import soperacije.stavkaKartona.UcitajStavkeKartonaOperacija;
+import soperacije.stavkaKartona.VratiStavkuKartonaOdredjenogOperacija;
 
 /**
  *
@@ -256,6 +267,80 @@ public class Controller {
             }
         }
         return false;
+    }
+
+    public List<StavkaKartona> vratiStavkuOdredjenogKartona(int id) throws Exception {
+        VratiStavkuKartonaOdredjenogOperacija vskoo=new VratiStavkuKartonaOdredjenogOperacija();
+        vskoo.izvrsi(id, null);
+        return vskoo.getStavka();
+        
+         
+    }
+
+    public List<Pacijent> vratiPacijenteSaKriterijumomStatusDa() throws Exception {
+         VratiPacijenteKriterijumStatusDaOperacija vpk=new VratiPacijenteKriterijumStatusDaOperacija();
+         vpk.izvrsi(null, null);
+         return vpk.getLista();
+    }
+
+    public List<Pacijent> vratiPacijenteSaKriterijumomStatusNe() throws Exception {
+        VratiPacijenteKriterijumStatusNeOperacija vpksn=new VratiPacijenteKriterijumStatusNeOperacija();
+        vpksn.izvrsi(null, null);
+        return vpksn.getLista();
+    }
+
+    
+
+    public List<Pacijent> vratiPacijenteKriterijumIme(String ime) throws Exception {
+        VratiPacijenteKriterijumImeOperacija vpki=new VratiPacijenteKriterijumImeOperacija();
+        vpki.izvrsi(ime, null);
+        return vpki.getLista();
+    }
+
+    public List<Pacijent> vratiPacijenteKriterijumImePrezime(String tekst) throws Exception {
+        VratiPacijenteKriterijumImePrezimeOperacija vpkip=new VratiPacijenteKriterijumImePrezimeOperacija();
+        vpkip.izvrsi(tekst, null);
+        return vpkip.getLista();
+    }
+
+    public List<Karton> vratiKartoneKriterijumKarton(int godina) throws Exception {
+        VratiListuKartonKriterijumKartonOpertacija vlkkko=new VratiListuKartonKriterijumKartonOpertacija();
+        vlkkko.izvrsi(godina, null);
+        return vlkkko.getLista();
+    }
+
+    public List<Karton> vratiKartoneKriterijumKarton(String ime) throws Exception {
+        VratiListuKartonKriterijumPacijentImeOperacija vlkkio=new VratiListuKartonKriterijumPacijentImeOperacija();
+        vlkkio.izvrsi(ime, null);
+        return vlkkio.getLista();
+    }
+
+    public List<Karton> vratiKartoneKriterijumKartonImePrezime(String tekst) throws Exception {
+        VratiListuKartonKriterijumPacijentImePrezimeOperacija vpkipo=new VratiListuKartonKriterijumPacijentImePrezimeOperacija();
+        vpkipo.izvrsi(tekst, null);
+        return vpkipo.getLista();
+    }
+
+    public List<Karton> vratiKartoneKriterijumMedicinskiRadnikIme(String ime) throws Exception {
+        VratiListuKartonKriterijumMedicinskiRadnikImeOperacija vlkkmr=new VratiListuKartonKriterijumMedicinskiRadnikImeOperacija();
+        vlkkmr.izvrsi(ime, null);
+        return vlkkmr.getLista();
+    
+    }
+
+    public List<Karton> vratiKartoneKriterijumMedicinskiRadnikImePrezime(String tekst) throws Exception {
+        VratiListuKartonKriterijumMedicinskiRadnikImePrezimeOperacija vlkkimo=new VratiListuKartonKriterijumMedicinskiRadnikImePrezimeOperacija();
+        vlkkimo.izvrsi(tekst, null);
+        return vlkkimo.getLista();
+    
+    
+    }
+
+    public List<Karton> vratiKartoneKriterijumIntervencija(String tekst) throws Exception {
+        VratiListuKartonKriterijumIntervencijaOperacija vlkio=new VratiListuKartonKriterijumIntervencijaOperacija();
+        vlkio.izvrsi(tekst, null);
+        return vlkio.getLista();
+    
     }
 
     

@@ -30,6 +30,8 @@ public class UcitajKartonOdredjenogController {
         List<Karton>lista=Komunikacija.getInstance().ucitajKartonZaPacijenta(p.getIdPacijent());
         ModelTabeleKartonOdredjenogPacijenta mtkop=new ModelTabeleKartonOdredjenogPacijenta(lista);
         dipf.getjTablePacijentDetalji().setModel(mtkop);
+        dipf.getjTextFieldIme().setText(p.getIme());
+        dipf.getjTextFieldPrezime().setText(p.getPrezime());
     }
     
     

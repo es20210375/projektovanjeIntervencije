@@ -5,16 +5,19 @@
 package forme;
 
 import controllers.ModelTabelePacijenti;
-import controllers.ModelTabeleStavkeKartona;
+import controllers.ModelTabeleKartoni;
 import cordinator.Cordinator;
+import domen.Karton;
 import domen.StavkaKartona;
 import java.awt.event.ActionListener;
+import java.util.List;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JRadioButton;
 import javax.swing.JTable;
 import javax.swing.JTextField;
+import komunikacija.Komunikacija;
 
 /**
  *
@@ -100,8 +103,7 @@ public class GlavnaForma extends javax.swing.JFrame {
     public void setjButtonOdjava(JButton jButtonOdjava) {
         this.jButtonOdjava = jButtonOdjava;
     }
-    
-    
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -332,17 +334,20 @@ public class GlavnaForma extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButtonDetaljiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonDetaljiActionPerformed
-        int izabraniRed=jTableKartoni.getSelectedRow();
-           if(izabraniRed==-1){
-               JOptionPane.showMessageDialog(this, "Sistem ne moze da nadje kartom", "Greska",JOptionPane.ERROR_MESSAGE);
-               return;
-           }else{
-               JOptionPane.showMessageDialog(this, "Sistem je nasao karton", "Uspeh",JOptionPane.INFORMATION_MESSAGE);
-               ModelTabeleStavkeKartona mtp=(ModelTabeleStavkeKartona)getjTableKartoni().getModel();
-               StavkaKartona sk=mtp.getLista().get(izabraniRed);
-               Cordinator.getInstance().otvoriFormuIzabraneStavke(sk);
-               
-           }
+        int izabraniRed = jTableKartoni.getSelectedRow();
+        if (izabraniRed == -1) {
+            JOptionPane.showMessageDialog(this, "Sistem ne moze da nadje kartom", "Greska", JOptionPane.ERROR_MESSAGE);
+            return;
+        } else {
+            JOptionPane.showMessageDialog(this, "Sistem je nasao karton", "Uspeh", JOptionPane.INFORMATION_MESSAGE);
+            ModelTabeleKartoni mtp = (ModelTabeleKartoni) getjTableKartoni().getModel();
+            Karton k = mtp.getLista().get(izabraniRed);
+
+            StavkaKartona sk = Komunikacija.getInstance().vratiStavkuKartona(k.getIdKarton()).get(0);
+
+            Cordinator.getInstance().otvoriFormuIzabraneStavke(sk);
+
+        }
     }//GEN-LAST:event_jButtonDetaljiActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
@@ -352,17 +357,18 @@ public class GlavnaForma extends javax.swing.JFrame {
                return;
            }else{
                JOptionPane.showMessageDialog(this, "Sistem je nasao karton", "Uspeh",JOptionPane.INFORMATION_MESSAGE);
-               ModelTabeleStavkeKartona mtp=(ModelTabeleStavkeKartona)getjTableKartoni().getModel();
-               StavkaKartona sk=mtp.getLista().get(izabraniRed);
+               ModelTabeleKartoni mtp=(ModelTabeleKartoni)getjTableKartoni().getModel();
+               Karton k=mtp.getLista().get(izabraniRed);
+               List<StavkaKartona> stavke =Komunikacija.getInstance().vratiStavkuKartona(k.getIdKarton());
+               StavkaKartona sk = stavke.get(0);
                Cordinator.getInstance().otvoriFormuIzmeniKarton(sk);
                
            }
     }//GEN-LAST:event_jButton2ActionPerformed
-   
+
     /**
      * @param args the command line arguments
      */
-
     public JTextField getjTextFieldPretrazi() {
         return jTextFieldPretrazi;
     }
@@ -370,7 +376,7 @@ public class GlavnaForma extends javax.swing.JFrame {
     public void setjTextFieldPretrazi(JTextField jTextFieldPretrazi) {
         this.jTextFieldPretrazi = jTextFieldPretrazi;
     }
-    
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;

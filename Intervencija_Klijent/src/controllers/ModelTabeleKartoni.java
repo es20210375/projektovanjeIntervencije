@@ -11,16 +11,18 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.table.AbstractTableModel;
+import komunikacija.Komunikacija;
 
 /**
  *
  * @author Emilija
  */
-public class ModelTabeleStavkeKartona extends AbstractTableModel {
-List<StavkaKartona>lista=new ArrayList<>();
+public class ModelTabeleKartoni extends AbstractTableModel {
+    List<Karton>lista=new ArrayList<>();
+    
     String[]kolone={"Pacijent","Medicinski radnik","Datum otvaranja","Naziv intervencije"};
     
-    public ModelTabeleStavkeKartona(List<StavkaKartona> lista) {
+    public ModelTabeleKartoni(List<Karton> lista) {
         this.lista = lista;
     }
     
@@ -41,25 +43,31 @@ List<StavkaKartona>lista=new ArrayList<>();
     
     @Override
     public Object getValueAt(int rowIndex, int columnIndex) {
-        StavkaKartona k=lista.get(rowIndex);
+        Karton k=lista.get(rowIndex);
+        
+        
+        
         switch (columnIndex) {
             case 0:
-                return k.getKarton().getPacijent().getIme()+" "+k.getKarton().getPacijent().getPrezime();
+                return k.getPacijent().getIme()+" "+k.getPacijent().getPrezime();
             case 1:
-                return k.getKarton().getMedicinskiRadnik().getIme()+" "+k.getKarton().getMedicinskiRadnik().getPrezime();
+                return k.getMedicinskiRadnik().getIme()+" "+k.getMedicinskiRadnik().getPrezime();
             case 2:
                 SimpleDateFormat datum=new SimpleDateFormat("dd.MM.yyyy");
-                return datum.format(k.getKarton().getDatumOtvaranja());
+                return datum.format(k.getDatumOtvaranja());
             
             case 3:
-                return k.getIntervencija().getNaziv();
+                if (!k.getStavkaKartona().isEmpty()) {
+                return k.getStavkaKartona().get(0).getIntervencija().getNaziv();
+            }
+            return "/";
             default:
                 throw new AssertionError();
         }
         
     }
 
-    public List<StavkaKartona> getLista() {
+    public List<Karton> getLista() {
         return lista;
     }
 }
