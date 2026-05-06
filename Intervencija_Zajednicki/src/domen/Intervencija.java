@@ -29,6 +29,8 @@ public class Intervencija implements ApstraktniDomenskiObjekat{
         this.snimakZuba = snimakZuba;
     }
 
+    
+
     public int getIdIntervencija() {
         return idIntervencija;
     }

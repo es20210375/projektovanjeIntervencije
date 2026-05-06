@@ -342,8 +342,10 @@ public class GlavnaForma extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Sistem je nasao karton", "Uspeh", JOptionPane.INFORMATION_MESSAGE);
             ModelTabeleKartoni mtp = (ModelTabeleKartoni) getjTableKartoni().getModel();
             Karton k = mtp.getLista().get(izabraniRed);
-
-            StavkaKartona sk = Komunikacija.getInstance().vratiStavkuKartona(k.getIdKarton()).get(0);
+            int id=k.getIdKarton();
+            k=Komunikacija.getInstance().pretraziKarton(id);
+            System.out.println("forme.GlavnaForma.jButtonDetaljiActionPerformed()"+k.getStavkaKartona().get(0));
+            StavkaKartona sk = k.getStavkaKartona().get(0);//Komunikacija.getInstance().vratiStavkuKartona(k.getIdKarton()).get(0);
 
             Cordinator.getInstance().otvoriFormuIzabraneStavke(sk);
 

@@ -167,7 +167,26 @@ public class Pacijent implements ApstraktniDomenskiObjekat{
 
     @Override
     public ApstraktniDomenskiObjekat vratiObjekatIzRs(ResultSet rs) throws Exception {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    if (rs.next()) {
+
+        int id = rs.getInt("pacijent.idPacijent");
+        String ime = rs.getString("pacijent.ime");
+        String prezime = rs.getString("pacijent.prezime");
+        String kontakt = rs.getString("pacijent.kontaktInformacije");
+
+        Date datumRodjenja = new Date(
+                rs.getDate("pacijent.datumRodjenja").getTime()
+        );
+
+        Osiguranje o = new Osiguranje(
+                rs.getInt("osiguranje.idOsiguranja"),
+                rs.getString("osiguranje.statusOsiguranja")
+        );
+
+        return new Pacijent(id, ime, prezime, kontakt, datumRodjenja, o);
+    }
+
+    return null;
     }
 
     @Override

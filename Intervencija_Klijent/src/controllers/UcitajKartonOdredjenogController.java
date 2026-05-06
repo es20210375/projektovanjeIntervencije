@@ -7,6 +7,7 @@ package controllers;
 import domen.Karton;
 import domen.Pacijent;
 import forme.DetaljiIzabranogPacijentaForma;
+import java.text.SimpleDateFormat;
 import java.util.List;
 import komunikacija.Komunikacija;
 
@@ -15,6 +16,7 @@ import komunikacija.Komunikacija;
  * @author Emilija
  */
 public class UcitajKartonOdredjenogController {
+
     DetaljiIzabranogPacijentaForma dipf;
 
     public UcitajKartonOdredjenogController(DetaljiIzabranogPacijentaForma dipf) {
@@ -27,12 +29,12 @@ public class UcitajKartonOdredjenogController {
     }
 
     private void pripremiFormu(Pacijent p) {
-        List<Karton>lista=Komunikacija.getInstance().ucitajKartonZaPacijenta(p.getIdPacijent());
-        ModelTabeleKartonOdredjenogPacijenta mtkop=new ModelTabeleKartonOdredjenogPacijenta(lista);
-        dipf.getjTablePacijentDetalji().setModel(mtkop);
+        SimpleDateFormat datum = new SimpleDateFormat("dd.MM.yyyy");
+
+        dipf.getjTextFieldDatumRodjenja().setText(datum.format(p.getDatumRodjenja()));
+        dipf.getjTextFieldKontaktInformacije().setText(p.getKontaktInformacije());
         dipf.getjTextFieldIme().setText(p.getIme());
         dipf.getjTextFieldPrezime().setText(p.getPrezime());
     }
-    
-    
+
 }

@@ -384,6 +384,20 @@ public class Komunikacija {
          return (List<Karton>) odg.getOdgovor();
     }
 
+    public Karton pretraziKarton(int id) {
+        Zahtev z=new Zahtev(Operacije.VRATI_KARTON,id);
+        posiljalac.posalji(z);
+        Odgovor odg=(Odgovor) primalac.primi();
+        return (Karton) odg.getOdgovor();
+    }
+
+    public Pacijent pretraziPacijenta(int id) {
+         Zahtev z=new Zahtev(Operacije.VRATI_PACIJENTA,id);
+        posiljalac.posalji(z);
+        Odgovor odg=(Odgovor) primalac.primi();
+        return (Pacijent) odg.getOdgovor();
+    }
+
     
 
     

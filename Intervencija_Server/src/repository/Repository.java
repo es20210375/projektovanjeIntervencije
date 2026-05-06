@@ -18,6 +18,7 @@ public interface Repository <T> {
     void delete(T param)throws Exception;
      T addAndReturn(T param) throws Exception; 
     List<T>getAll();
+    T getById(T param,String uslov) throws Exception;
 
    
 }

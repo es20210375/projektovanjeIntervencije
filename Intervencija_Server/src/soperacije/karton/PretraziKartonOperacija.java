@@ -1,0 +1,43 @@
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+ */
+package soperacije.karton;
+
+import domen.Karton;
+import soperacije.ApstraktnaGenerickaOperacija;
+
+/**
+ *
+ * @author Emilija
+ */
+public class PretraziKartonOperacija extends ApstraktnaGenerickaOperacija{
+   Karton k;
+    @Override
+    protected void preduslovi(Object param) throws Exception {
+        
+    }
+
+    @Override
+    protected void izvrsiOperaciju(Object objekat, String kljuc) throws Exception {
+      int id=(int)objekat;
+      String uslov=" karton\n" +
+"JOIN pacijent pacijent ON karton.idPacijent = pacijent.idPacijent \n" +
+"JOIN medicinskiRadnik medicinskiRadnik ON karton.idMedicinskiRadnik = medicinskiRadnik.idMedicinskiRadnik \n" +
+"JOIN osiguranje osiguranje ON pacijent.idOsiguranje = osiguranje.idOsiguranja \n" +
+"LEFT JOIN stavkaKartona stavkaKartona ON karton.idKarton = stavkaKartona.idKarton \n" +
+"LEFT JOIN intervencija intervencija ON stavkaKartona.idIntervencija = intervencija.idIntervencija WHERE karton.idKarton= "+id;
+      k=(Karton) broker.getById(new Karton(),uslov);
+    
+    
+    }
+
+    public Karton getK() {
+        return k;
+    }
+
+    public void setK(Karton k) {
+        this.k = k;
+    }
+    
+}

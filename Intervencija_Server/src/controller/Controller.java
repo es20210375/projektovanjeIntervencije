@@ -20,6 +20,7 @@ import soperacije.intervencija.DodajIntervencijuOperacija;
 import soperacije.intervencija.UcitajIntervencijeOperacija;
 import soperacije.karton.DodajKartonOperacija;
 import soperacije.karton.IzmeniKartonOperacija;
+import soperacije.karton.PretraziKartonOperacija;
 import soperacije.karton.UcitajKartonOdredjenogOperacija;
 import soperacije.karton.UcitajKartoneOperacija;
 import soperacije.karton.VratiListuKartonKriterijumIntervencijaOperacija;
@@ -35,6 +36,7 @@ import soperacije.osiguranje.UcitajOsiguranjeOperacija;
 import soperacije.pacijent.DodajPacijentaOperacija;
 import soperacije.pacijent.IzbrisiPacijentaOperacija;
 import soperacije.pacijent.IzmeniPacijentaOperacija;
+import soperacije.pacijent.PretraziPacijentaOperacija;
 import soperacije.pacijent.UcitajPacijenteOperacija;
 import soperacije.pacijent.VratiPacijenteKriterijumImeOperacija;
 import soperacije.pacijent.VratiPacijenteKriterijumImePrezimeOperacija;
@@ -341,6 +343,19 @@ public class Controller {
         vlkio.izvrsi(tekst, null);
         return vlkio.getLista();
     
+    }
+
+    public Karton pretraziKarton(int id) throws Exception {
+        PretraziKartonOperacija pko=new PretraziKartonOperacija();
+        pko.izvrsi(id, null);
+        System.out.println("controller.Controller.pretraziKarton()"+pko.getK());
+        return pko.getK();
+    }
+
+    public Pacijent pretraziPacijenta(int idp) throws Exception {
+        PretraziPacijentaOperacija ppo=new PretraziPacijentaOperacija();
+        ppo.izvrsi(idp, null);
+        return ppo.getPac();
     }
 
     
