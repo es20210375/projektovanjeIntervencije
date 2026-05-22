@@ -51,22 +51,17 @@ public class Osiguranje implements ApstraktniDomenskiObjekat{
     }
 
     @Override
-    public boolean equals(Object obj) {
-        if (this == obj) {
-            return true;
-        }
-        if (obj == null) {
-            return false;
-        }
-        if (getClass() != obj.getClass()) {
-            return false;
-        }
-        final Osiguranje other = (Osiguranje) obj;
-        if (this.idOsiguranje != other.idOsiguranje) {
-            return false;
-        }
-        return this.statusOsiguranja == other.statusOsiguranja;
+   public boolean equals(Object obj) {
+    if (this == obj) {
+        return true;
     }
+    if (obj == null || getClass() != obj.getClass()) {
+        return false;
+    }
+
+    Osiguranje other = (Osiguranje) obj;
+    return this.idOsiguranje == other.idOsiguranje;
+}
 
     @Override
     public String toString() {

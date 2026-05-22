@@ -5,33 +5,36 @@
 package soperacije.pacijent;
 
 import domen.Pacijent;
+import java.util.List;
 import soperacije.ApstraktnaGenerickaOperacija;
 
 /**
  *
  * @author Emilija
  */
-public class PretraziPacijentaOperacija extends ApstraktnaGenerickaOperacija{
-    Pacijent pac;
+public class VratiPacijenteKriterijumImeOsiguranjeDaOperacija extends ApstraktnaGenerickaOperacija{
+    List<Pacijent> pac;
     @Override
     protected void preduslovi(Object param) throws Exception {
-       
+        
     }
 
     @Override
     protected void izvrsiOperaciju(Object objekat, String kljuc) throws Exception {
-        int id=(int) objekat;
-        String upit=" pacijent JOIN osiguranje osiguranje ON pacijent.idOsiguranje=osiguranje.idOsiguranja WHERE pacijent.idPacijent="+id;
-        pac=(Pacijent) broker.getById(new Pacijent(), upit);
-        System.out.println("soperacije.pacijent.PretraziPacijentaOperacija.izvrsiOperaciju()"+pac.getOsiguranje().getStatusOsiguranja());
+        String ime=(String)objekat;
+        String uslov=" pacijent JOIN osiguranje osiguranje ON pacijent.idOsiguranje=osiguranje.idOsiguranja\n" +
+" WHERE pacijent.ime LIKE '"+ime+"' AND osiguranje.statusOsiguranja LIKE 'DA' ";
+         pac=broker.getAll(new Pacijent(),uslov);
     }
 
-    public Pacijent getPac() {
+    public List<Pacijent> getPac() {
         return pac;
     }
 
-    public void setPac(Pacijent pac) {
+    public void setPac(List<Pacijent> pac) {
         this.pac = pac;
     }
+
+   
     
 }

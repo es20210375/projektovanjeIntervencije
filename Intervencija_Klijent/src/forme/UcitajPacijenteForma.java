@@ -83,8 +83,6 @@ public class UcitajPacijenteForma extends javax.swing.JFrame {
         jScrollBar1 = new javax.swing.JScrollBar();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTablePacijent = new javax.swing.JTable();
-        jButton1 = new javax.swing.JButton();
-        jButtonIzmeni = new javax.swing.JButton();
         jRadioButtonDA = new javax.swing.JRadioButton();
         jRadioButtonNE = new javax.swing.JRadioButton();
         jLabel1 = new javax.swing.JLabel();
@@ -107,20 +105,6 @@ public class UcitajPacijenteForma extends javax.swing.JFrame {
             }
         ));
         jScrollPane1.setViewportView(jTablePacijent);
-
-        jButton1.setText("Izbrisi");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
-            }
-        });
-
-        jButtonIzmeni.setText("Izmeni");
-        jButtonIzmeni.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonIzmeniActionPerformed(evt);
-            }
-        });
 
         jRadioButtonDA.setText("Status osiguranja DA");
 
@@ -163,11 +147,6 @@ public class UcitajPacijenteForma extends javax.swing.JFrame {
                         .addGap(65, 65, 65)
                         .addComponent(jButton2))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(33, 33, 33)
-                        .addComponent(jButton1)
-                        .addGap(26, 26, 26)
-                        .addComponent(jButtonIzmeni))
-                    .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 558, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(42, Short.MAX_VALUE))
@@ -193,35 +172,11 @@ public class UcitajPacijenteForma extends javax.swing.JFrame {
                             .addComponent(jRadioButtonNE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(38, 38, 38)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton1)
-                    .addComponent(jButtonIzmeni))
-                .addGap(30, 30, 30))
+                .addGap(93, 93, 93))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        
-    }//GEN-LAST:event_jButton1ActionPerformed
-
-    private void jButtonIzmeniActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonIzmeniActionPerformed
-        int izabraniRed=jTablePacijent.getSelectedRow();
-           if(izabraniRed==-1){
-               JOptionPane.showMessageDialog(this, "Sistem ne moze da nadje pacijenta", "Greska",JOptionPane.ERROR_MESSAGE);
-               return;
-           }else{
-               JOptionPane.showMessageDialog(this, "Sistem je nasao pacijenta", "Uspeh",JOptionPane.INFORMATION_MESSAGE);
-               ModelTabelePacijenti mtp=(ModelTabelePacijenti)getjTablePacijent().getModel();
-               Pacijent p=mtp.getLista().get(izabraniRed);
-              Cordinator.getInstance().otvoriIzmeniPacijentaFormu(p);
-           }
-        
-        
-        
-    }//GEN-LAST:event_jButtonIzmeniActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         int izabraniRed=jTablePacijent.getSelectedRow();
@@ -259,10 +214,8 @@ public class UcitajPacijenteForma extends javax.swing.JFrame {
    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButtonFiltriraj;
-    private javax.swing.JButton jButtonIzmeni;
     private javax.swing.JButton jButtonResetuj;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JRadioButton jRadioButtonDA;
@@ -273,9 +226,7 @@ public class UcitajPacijenteForma extends javax.swing.JFrame {
     private javax.swing.JTextField jTextFieldImePrezime;
     // End of variables declaration//GEN-END:variables
 
-    public void izbrisiAddActionLisener(ActionListener actionListener) {
-       jButton1.addActionListener(actionListener);
-    }
+    
 
     
 }

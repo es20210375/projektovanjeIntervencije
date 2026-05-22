@@ -128,7 +128,6 @@ public class GlavnaForma extends javax.swing.JFrame {
         jButtonFiltriraj = new javax.swing.JButton();
         jButtonResetuj = new javax.swing.JButton();
         jButtonDetalji = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
         jRadioButtonGodinaOtvaranja = new javax.swing.JRadioButton();
         jButtonOdjava = new javax.swing.JButton();
         jMenuBar1 = new javax.swing.JMenuBar();
@@ -159,7 +158,7 @@ public class GlavnaForma extends javax.swing.JFrame {
 
         jLabel4.setText("Kartoni : ");
 
-        jButton1.setText("Kreiraj karton");
+        jButton1.setText("Ubaci karton");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
@@ -182,13 +181,6 @@ public class GlavnaForma extends javax.swing.JFrame {
         jButtonDetalji.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonDetaljiActionPerformed(evt);
-            }
-        });
-
-        jButton2.setText("Izmeni karton");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
             }
         });
 
@@ -273,9 +265,8 @@ public class GlavnaForma extends javax.swing.JFrame {
                                     .addComponent(jScrollPane1)
                                     .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jButton1)
-                                    .addComponent(jButton2))))
+                                .addComponent(jButton1)
+                                .addGap(2, 2, 2)))
                         .addGap(10, 10, 10)))
                 .addGap(37, 37, 37))
         );
@@ -307,8 +298,6 @@ public class GlavnaForma extends javax.swing.JFrame {
                         .addGap(34, 34, 34))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jButton1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton2)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jButtonOdjava)
                         .addContainerGap())))
@@ -344,29 +333,10 @@ public class GlavnaForma extends javax.swing.JFrame {
             Karton k = mtp.getLista().get(izabraniRed);
             int id=k.getIdKarton();
             k=Komunikacija.getInstance().pretraziKarton(id);
-            System.out.println("forme.GlavnaForma.jButtonDetaljiActionPerformed()"+k.getStavkaKartona().get(0));
-            StavkaKartona sk = k.getStavkaKartona().get(0);//Komunikacija.getInstance().vratiStavkuKartona(k.getIdKarton()).get(0);
-
-            Cordinator.getInstance().otvoriFormuIzabraneStavke(sk);
+            Cordinator.getInstance().otvoriFormuIzabraneStavke(k);
 
         }
     }//GEN-LAST:event_jButtonDetaljiActionPerformed
-
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        int izabraniRed=jTableKartoni.getSelectedRow();
-           if(izabraniRed==-1){
-               JOptionPane.showMessageDialog(this, "Sistem ne moze da nadje kartom", "Greska",JOptionPane.ERROR_MESSAGE);
-               return;
-           }else{
-               JOptionPane.showMessageDialog(this, "Sistem je nasao karton", "Uspeh",JOptionPane.INFORMATION_MESSAGE);
-               ModelTabeleKartoni mtp=(ModelTabeleKartoni)getjTableKartoni().getModel();
-               Karton k=mtp.getLista().get(izabraniRed);
-               List<StavkaKartona> stavke =Komunikacija.getInstance().vratiStavkuKartona(k.getIdKarton());
-               StavkaKartona sk = stavke.get(0);
-               Cordinator.getInstance().otvoriFormuIzmeniKarton(sk);
-               
-           }
-    }//GEN-LAST:event_jButton2ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -382,7 +352,6 @@ public class GlavnaForma extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
     private javax.swing.JButton jButtonDetalji;
     private javax.swing.JButton jButtonFiltriraj;
     private javax.swing.JButton jButtonOdjava;

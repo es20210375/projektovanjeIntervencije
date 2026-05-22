@@ -6,8 +6,12 @@ package forme;
 
 import controllers.ModelTabeleKartonOdredjenogPacijenta;
 import domen.Karton;
+import domen.Osiguranje;
 import domen.Pacijent;
+import java.awt.event.ActionListener;
 import java.util.List;
+import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 import komunikacija.Komunikacija;
@@ -23,10 +27,31 @@ public class DetaljiIzabranogPacijentaForma extends javax.swing.JFrame {
      */
     public DetaljiIzabranogPacijentaForma(Pacijent pac) {
         initComponents();
-        //this.pac=pac;
-       /* List<Karton>lista=Komunikacija.getInstance().ucitajKartonZaPacijenta(pac.getIdPacijent());
-        ModelTabeleKartonOdredjenogPacijenta mtkop=new ModelTabeleKartonOdredjenogPacijenta(lista);
-        jTablePacijentDetalji.setModel(mtkop);*/
+        
+    }
+
+    public JButton getjButtonIzbrisi() {
+        return jButtonIzbrisi;
+    }
+
+    public void setjButtonIzbrisi(JButton jButtonIzbrisi) {
+        this.jButtonIzbrisi = jButtonIzbrisi;
+    }
+
+    public JButton getjButtonIzmeni() {
+        return jButtonIzmeni;
+    }
+
+    public void setjButtonIzmeni(JButton jButtonIzmeni) {
+        this.jButtonIzmeni = jButtonIzmeni;
+    }
+
+    public JComboBox<Osiguranje> getjComboBoxOsiguranje() {
+        return jComboBoxOsiguranje;
+    }
+
+    public void setjComboBoxOsiguranje(JComboBox<Osiguranje> jComboBoxOsiguranje) {
+        this.jComboBoxOsiguranje = jComboBoxOsiguranje;
     }
 
     public JTextField getjTextFieldIme() {
@@ -60,6 +85,15 @@ public class DetaljiIzabranogPacijentaForma extends javax.swing.JFrame {
     public void setjTextFieldKontaktInformacije(JTextField jTextFieldKontaktInformacije) {
         this.jTextFieldKontaktInformacije = jTextFieldKontaktInformacije;
     }
+
+    public JButton getjButtonOmoguciIzmenu() {
+        return jButtonOmoguciIzmenu;
+    }
+
+    public void setjButtonOmoguciIzmenu(JButton jButtonOmoguciIzmenu) {
+        this.jButtonOmoguciIzmenu = jButtonOmoguciIzmenu;
+    }
+    
     
     
     /**
@@ -80,6 +114,11 @@ public class DetaljiIzabranogPacijentaForma extends javax.swing.JFrame {
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         jTextFieldDatumRodjenja = new javax.swing.JTextField();
+        jButtonOmoguciIzmenu = new javax.swing.JButton();
+        jButtonIzmeni = new javax.swing.JButton();
+        jButtonIzbrisi = new javax.swing.JButton();
+        jLabel6 = new javax.swing.JLabel();
+        jComboBoxOsiguranje = new javax.swing.JComboBox<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -91,7 +130,15 @@ public class DetaljiIzabranogPacijentaForma extends javax.swing.JFrame {
 
         jLabel4.setText("jLabel4");
 
-        jLabel5.setText("Datum rodjenja : ");
+        jLabel5.setText("Datum rodjenja (dd.MM.yyyy): ");
+
+        jButtonOmoguciIzmenu.setText("Omoguci izmenu");
+
+        jButtonIzmeni.setText("Izmeni");
+
+        jButtonIzbrisi.setText("Izbrisi");
+
+        jLabel6.setText("Osiguranje (DA/NE) : ");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -101,32 +148,55 @@ public class DetaljiIzabranogPacijentaForma extends javax.swing.JFrame {
                 .addGap(47, 47, 47)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(31, 31, 31)
-                        .addComponent(jTextFieldPrezime, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel3)
-                        .addGap(7, 7, 7)
-                        .addComponent(jTextFieldKontaktInformacije, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(31, 31, 31)
+                                .addComponent(jTextFieldPrezime, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel3)
+                                .addGap(7, 7, 7)
+                                .addComponent(jTextFieldKontaktInformacije, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                    .addComponent(jButtonOmoguciIzmenu, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(jLabel5, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addGap(28, 28, 28)
+                                        .addComponent(jTextFieldDatumRodjenja, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 113, Short.MAX_VALUE)
+                                        .addComponent(jButtonIzmeni, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                        .addGap(86, 86, 86)
+                        .addComponent(jButtonIzbrisi, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(55, 55, 55))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(29, 29, 29)
-                        .addComponent(jTextFieldIme, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(28, 28, 28)
-                        .addComponent(jTextFieldDatumRodjenja, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(314, Short.MAX_VALUE))
+                        .addComponent(jTextFieldIme, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(167, 167, 167)
+                        .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jComboBoxOsiguranje, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addContainerGap())))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(42, 42, 42)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextFieldIme, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel1))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(42, 42, 42)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jTextFieldIme, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel1)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(27, 27, 27)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel6)
+                            .addComponent(jComboBoxOsiguranje, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addGap(54, 54, 54)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
@@ -140,7 +210,12 @@ public class DetaljiIzabranogPacijentaForma extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5)
                     .addComponent(jTextFieldDatumRodjenja, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(52, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 89, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButtonOmoguciIzmenu, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButtonIzmeni, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButtonIzbrisi, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(28, 28, 28))
         );
 
         pack();
@@ -149,14 +224,32 @@ public class DetaljiIzabranogPacijentaForma extends javax.swing.JFrame {
     
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jButtonIzbrisi;
+    private javax.swing.JButton jButtonIzmeni;
+    private javax.swing.JButton jButtonOmoguciIzmenu;
+    private javax.swing.JComboBox<Osiguranje> jComboBoxOsiguranje;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
     private javax.swing.JTextField jTextFieldDatumRodjenja;
     private javax.swing.JTextField jTextFieldIme;
     private javax.swing.JTextField jTextFieldKontaktInformacije;
     private javax.swing.JTextField jTextFieldPrezime;
     // End of variables declaration//GEN-END:variables
+
+    public void omoguciIzmenuActionLisener(ActionListener actionListener) {
+        jButtonOmoguciIzmenu.addActionListener(actionListener);
+    }
+
+    public void izmeniActionLisener(ActionListener actionListener) {
+       jButtonIzmeni.addActionListener(actionListener);
+    }
+
+    public void izbrisiActionLisener(ActionListener actionListener) {
+    jButtonIzbrisi.addActionListener(actionListener);
+    
+    }
 }

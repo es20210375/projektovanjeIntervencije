@@ -12,7 +12,7 @@ import soperacije.ApstraktnaGenerickaOperacija;
  *
  * @author Emilija
  */
-public class UcitajKartoneOperacija extends ApstraktnaGenerickaOperacija{
+public class VratiListuSviKartoniOperacija extends ApstraktnaGenerickaOperacija{
      List<Karton>lista;
     @Override
     protected void preduslovi(Object param) throws Exception {
@@ -21,12 +21,11 @@ public class UcitajKartoneOperacija extends ApstraktnaGenerickaOperacija{
 
     @Override
     protected void izvrsiOperaciju(Object objekat, String kljuc) throws Exception {
-        String uslov = " karton\n" +
-"JOIN pacijent pacijent ON karton.idPacijent = pacijent.idPacijent \n" +
-"JOIN medicinskiRadnik medicinskiRadnik ON karton.idMedicinskiRadnik = medicinskiRadnik.idMedicinskiRadnik \n" +
-"JOIN osiguranje osiguranje ON pacijent.idOsiguranje = osiguranje.idOsiguranja \n" +
-"LEFT JOIN stavkaKartona stavkaKartona ON karton.idKarton = stavkaKartona.idKarton \n" +
-"LEFT JOIN intervencija intervencija ON stavkaKartona.idIntervencija = intervencija.idIntervencija";
+        String uslov = " karton JOIN pacijent pacijent ON karton.idPacijent = pacijent.idPacijent"
+                + " JOIN medicinskiRadnik medicinskiRadnik ON karton.idMedicinskiRadnik = medicinskiRadnik.idMedicinskiRadnik"
+                + " JOIN osiguranje osiguranje ON pacijent.idOsiguranje = osiguranje.idOsiguranja"
+                + " LEFT JOIN stavkaKartona stavkaKartona ON karton.idKarton = stavkaKartona.idKarton"
+                + " LEFT JOIN intervencija intervencija ON stavkaKartona.idIntervencija = intervencija.idIntervencija";
 
             lista = broker.getAll(new Karton(), uslov);
     }

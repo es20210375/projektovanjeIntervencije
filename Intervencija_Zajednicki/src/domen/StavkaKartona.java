@@ -295,8 +295,8 @@ public class StavkaKartona implements ApstraktniDomenskiObjekat{
 
     @Override
     public void postaviGenerisaniKljuc(int id) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+         this.idStavkaKartona = id;
     }
-    
+   
     
 }

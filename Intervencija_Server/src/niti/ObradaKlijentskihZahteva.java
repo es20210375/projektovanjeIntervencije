@@ -23,8 +23,8 @@ import komunikacija.Odgovor;
 import komunikacija.Posiljalac;
 import komunikacija.Primalac;
 import komunikacija.Zahtev;
-import soperacije.karton.KreirajKarton;
-import soperacije.pacijent.KreirajPacijenta;
+
+
 
 /**
  *
@@ -84,7 +84,7 @@ public class ObradaKlijentskihZahteva extends Thread {
                 case DODAJ_PACIJENTA:
                         try {
                     Pacijent p = (Pacijent) zahtev.getParametar();
-                    Controller.getInstance().dodajPacijenta(p);
+                    Controller.getInstance().ubaciPacijenta(p);
                     odgovor.setOdgovor(null);
                     System.out.println();
                 } catch (Exception e) {
@@ -95,7 +95,7 @@ public class ObradaKlijentskihZahteva extends Thread {
                 break;
                 case UCITAJ_OSIGURANJE:
                         try {
-                    List<Osiguranje> lista1 = Controller.getInstance().ucitajOsiguranje();
+                    List<Osiguranje> lista1 = Controller.getInstance().vratiListuSviOsiguranje();
                     odgovor.setOdgovor(lista1);
                 } catch (Exception e) {
                     odgovor.setOdgovor(new ArrayList<>());
@@ -125,16 +125,6 @@ public class ObradaKlijentskihZahteva extends Thread {
                         try {
                     Pacijent p = (Pacijent) zahtev.getParametar();
                     Controller.getInstance().izbrisiPacijenta(p);
-                    odgovor.setOdgovor(null);
-                } catch (Exception e) {
-                    odgovor.setOdgovor(e);
-                }
-                break;
-                case KREIRAJ_PACIJENTA:
-                        try {
-
-                    KreirajPacijenta kp=new KreirajPacijenta();
-                    kp.kreirajPacijenta();
                     odgovor.setOdgovor(null);
                 } catch (Exception e) {
                     odgovor.setOdgovor(e);
@@ -205,17 +195,6 @@ public class ObradaKlijentskihZahteva extends Thread {
                     odgovor.setOdgovor(e);
                 }
                 break;
-                case UCITAJ_ODREDJENI_KARTON:
-                        try {
-                    int id = (int) zahtev.getParametar();
-                    List<Karton> lista6 = Controller.getInstance().ucitajKartonOdredjenog(id);
-                    odgovor.setOdgovor(lista6);
-                } catch (Exception ex) {
-                    odgovor.setOdgovor(new ArrayList<>());
-                    Logger.getLogger(ObradaKlijentskihZahteva.class.getName()).log(Level.SEVERE, null, ex);
-                }
-
-                break;
                 case VRATI_KARTON:
                     int id1=(int) zahtev.getParametar();
                 
@@ -239,36 +218,6 @@ public class ObradaKlijentskihZahteva extends Thread {
                     odgovor.setOdgovor(e);
                 }
                 break;
-                case UCITAJ_STAVKE_KARTONA:
-                    
-                        try {
-                    List<StavkaKartona> lista7 = Controller.getInstance().ucitajStavkeKartona();
-                    odgovor.setOdgovor(lista7);
-                } catch (Exception ex) {
-                    odgovor.setOdgovor(new ArrayList<>());
-                    Logger.getLogger(ObradaKlijentskihZahteva.class.getName()).log(Level.SEVERE, null, ex);
-                }
-                break;
-                case DODAJ_STAVKU_KARTONA:
-                        try {
-                    StavkaKartona s = (StavkaKartona) zahtev.getParametar();
-                    Controller.getInstance().dodajStavkuKartona(s);
-                    odgovor.setOdgovor(null);
-                } catch (Exception e) {
-                    odgovor.setOdgovor(e);
-                }
-                break;
-                case KREIRAJ_KARTON:
-                    
-                        try {
-                            KreirajKarton kk=new KreirajKarton();
-                            kk.kreirajKarton();
-                    odgovor.setOdgovor(null);
-                } catch (Exception ex) {
-                    odgovor.setOdgovor(ex);
-                }
-
-                break;
                 case IZMENI_KARTON:
                     Karton k = (Karton) zahtev.getParametar();
 
@@ -280,29 +229,34 @@ public class ObradaKlijentskihZahteva extends Thread {
                     }
 
                     break;
-                case IZMENI_STAVKU:
-                    StavkaKartona s = (StavkaKartona) zahtev.getParametar();
+                case IZMENI_KARTON_STAVKE:
+                    Karton karton = (Karton) zahtev.getParametar();
 
                     try {
-                        Controller.getInstance().izmeniStavku(s);
-                        odgovor.setOdgovor(null);
+                        karton =Controller.getInstance().izmeniKartonSaStavkama(karton);
+                        odgovor.setOdgovor(karton);
                     } catch (Exception ex) {
                         odgovor.setOdgovor(ex);
                         Logger.getLogger(ObradaKlijentskihZahteva.class.getName()).log(Level.SEVERE, null, ex);
                     }
-
+                    
                     break;
-                case VRATI_STAVKU_ODREDJENOG_KARTONA:
-                    int id=(int)zahtev.getParametar();
+                case SACUVAJ_KARTON:
+                    Karton k1=(Karton) zahtev.getParametar();
                 
                     try {
-                        List<StavkaKartona> stavka=Controller.getInstance().vratiStavkuOdredjenogKartona(id);
-                        odgovor.setOdgovor(stavka);
+                        k1=Controller.getInstance().sacuvajKarton(k1);
+                        odgovor.setOdgovor(k1);
                     } catch (Exception ex) {
+                        odgovor.setOdgovor(ex);
                         Logger.getLogger(ObradaKlijentskihZahteva.class.getName()).log(Level.SEVERE, null, ex);
                     }
                 
+                    
                     break;
+
+                
+                
                 case VRATI_PACIJENTE_SA_DA:
                     try{
                         List<Pacijent>listaSaDa=Controller.getInstance().vratiPacijenteSaKriterijumomStatusDa();
@@ -341,6 +295,27 @@ public class ObradaKlijentskihZahteva extends Thread {
                     }
                 
                     break;
+                case VRATI_PACIJENTE_IME_DA:
+                    try{
+                        String ime=(String) zahtev.getParametar();
+                        List<Pacijent>listaImeDa=Controller.getInstance().vratiPacijenteKriterijumImeOsiguranjeDa(ime);
+                        odgovor.setOdgovor(listaImeDa);
+                    }catch(Exception e){
+                        odgovor.setOdgovor(null);
+                    }
+                
+                    break;
+                    case VRATI_PACIJENTE_IME_NE:
+                    try{
+                        String ime=(String) zahtev.getParametar();
+                        List<Pacijent>listaImeNe=Controller.getInstance().vratiPacijenteKriterijumImeOsiguranjeNe(ime);
+                        odgovor.setOdgovor(listaImeNe);
+                    }catch(Exception e){
+                        odgovor.setOdgovor(null);
+                    }
+                
+                    break;
+                    
                 case VRATI_KARTONE_KRITERIJUM_KARTON:
                     try{
                         int godina=(int) zahtev.getParametar();
@@ -354,7 +329,7 @@ public class ObradaKlijentskihZahteva extends Thread {
                 case VRATI_KARTONE_KRITERIJUM_PACIJENT_IME:
                   try{
                         String ime=(String) zahtev.getParametar();
-                        List<Karton>listaKartonIme=Controller.getInstance().vratiKartoneKriterijumKarton(ime);
+                        List<Karton>listaKartonIme=Controller.getInstance().vratiKartoneKriterijumPacijentIme(ime);
                         odgovor.setOdgovor(listaKartonIme);
                     }catch(Exception e){
                         odgovor.setOdgovor(null);
@@ -364,7 +339,7 @@ public class ObradaKlijentskihZahteva extends Thread {
                 case VRATI_KARTONE_KRITERIJUM_PACIJENT_IME_PREZIME:
                     try{
                         String tekst=(String) zahtev.getParametar();
-                        List<Karton>listaKartonImePrezime=Controller.getInstance().vratiKartoneKriterijumKartonImePrezime(tekst);
+                        List<Karton>listaKartonImePrezime=Controller.getInstance().vratiKartoneKriterijumPacijentImePrezime(tekst);
                         odgovor.setOdgovor(listaKartonImePrezime);
                     }catch(Exception e){
                         odgovor.setOdgovor(null);

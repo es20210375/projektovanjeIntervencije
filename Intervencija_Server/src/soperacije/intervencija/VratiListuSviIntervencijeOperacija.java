@@ -2,28 +2,35 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package soperacije.pacijent;
+package soperacije.intervencija;
 
-import domen.Pacijent;
+import domen.Intervencija;
+import java.util.List;
 import soperacije.ApstraktnaGenerickaOperacija;
 
 /**
  *
  * @author Emilija
  */
-public class IzmeniPacijentaOperacija extends ApstraktnaGenerickaOperacija{
-
+public class VratiListuSviIntervencijeOperacija extends ApstraktnaGenerickaOperacija{
+   List<Intervencija>lista;
     @Override
     protected void preduslovi(Object param) throws Exception {
-        if(param==null||!(param instanceof Pacijent)){
-           throw new Exception("Sistem ne moze da zapamti pacijenta");
-       }
+        
     }
 
     @Override
     protected void izvrsiOperaciju(Object objekat, String kljuc) throws Exception {
-        broker.edit((Pacijent)objekat);
-        System.out.println("Klasa IzmeniPacijentaOperacija: "+(Pacijent)objekat);
+        lista=broker.getAll(new Intervencija(), null);
+        
+    }
+
+    public List<Intervencija> getLista() {
+        return lista;
+    }
+
+    public void setLista(List<Intervencija> lista) {
+        this.lista = lista;
     }
     
 }

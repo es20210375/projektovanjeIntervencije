@@ -5,6 +5,7 @@
 package repository;
 
 import domen.Karton;
+import domen.StavkaKartona;
 import java.util.List;
 
 /**
@@ -19,6 +20,8 @@ public interface Repository <T> {
      T addAndReturn(T param) throws Exception; 
     List<T>getAll();
     T getById(T param,String uslov) throws Exception;
+
+   
 
    
 }

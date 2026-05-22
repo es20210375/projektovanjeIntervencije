@@ -11,19 +11,19 @@ import soperacije.ApstraktnaGenerickaOperacija;
  *
  * @author Emilija
  */
-public class DodajPacijentaOperacija extends ApstraktnaGenerickaOperacija{
-    
+public class OzbrisiPacijentaOperacija extends ApstraktnaGenerickaOperacija{
+
     @Override
     protected void preduslovi(Object param) throws Exception {
-       if(param==null||!(param instanceof Pacijent)){
-           throw new Exception("Sistem ne moze da sacuva pacijenta");
+        if(param==null||!(param instanceof Pacijent)){
+           throw new Exception("Sistem ne moze da obrise pacijenta");
        }
     }
 
     @Override
     protected void izvrsiOperaciju(Object objekat, String kljuc) throws Exception {
-        System.out.println("Klasa DodajPacijentaOperacija: "+(Pacijent)objekat);
-       broker.add((Pacijent)objekat);
+        broker.delete((Pacijent)objekat);
+        System.out.println("Klasa IzbrisiPacijentaOperacija: "+(Pacijent)objekat);
     }
     
 }

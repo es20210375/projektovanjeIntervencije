@@ -7,6 +7,7 @@ package repository.db.impl;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import domen.ApstraktniDomenskiObjekat;
+import domen.StavkaKartona;
 import java.sql.Statement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
@@ -118,5 +119,7 @@ public class DbRepositoryGeneric implements DbRepository<ApstraktniDomenskiObjek
         return obj;
     }
 
+    
+    
     
 }

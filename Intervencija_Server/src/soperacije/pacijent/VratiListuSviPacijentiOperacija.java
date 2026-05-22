@@ -13,7 +13,7 @@ import soperacije.ApstraktnaGenerickaOperacija;
  *
  * @author Emilija
  */
-public class UcitajPacijenteOperacija extends ApstraktnaGenerickaOperacija{
+public class VratiListuSviPacijentiOperacija extends ApstraktnaGenerickaOperacija{
     List<Pacijent>lista;
     @Override
     protected void preduslovi(Object param) throws Exception {

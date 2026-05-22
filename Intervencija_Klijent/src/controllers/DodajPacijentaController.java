@@ -55,22 +55,53 @@ public class DodajPacijentaController {
          }
 
          private void dodaj(ActionEvent e) {
-             try {
-                 String ime=dp.getjTextFieldIme().getText().trim();
-                 String prezime=dp.getjTextFieldPrezime().getText().trim();
-                 String kontakt=dp.getjTextFieldInformacije().getText().trim();
-                 String datumString=dp.getjTextFieldDatum().getText().trim();
-                 Date datum=(new SimpleDateFormat("dd.MM.yyyy")).parse(datumString);
-                 Osiguranje osiguranje=(Osiguranje) dp.getjComboBoxOsiguranje().getSelectedItem();
-              /*if(osiguranje.equals("")){
-                  osiguranje=null;
-              }*/
-              Pacijent pac=new Pacijent(-1,ime,prezime,kontakt,datum,osiguranje);
-                 System.out.println("Klasa dodajPacijentaController: "+pac);
-                 Komunikacija.getInstance().dodajPacijenta(pac);
-             } catch (ParseException ex) {
-                 ex.printStackTrace();
-             }
+             Pacijent pac = null;
+
+    try {
+
+        String ime = dp.getjTextFieldIme().getText().trim();
+        String prezime = dp.getjTextFieldPrezime().getText().trim();
+        String kontakt = dp.getjTextFieldInformacije().getText().trim();
+        String datumString = dp.getjTextFieldDatum().getText().trim();
+
+        Osiguranje osiguranje =
+                (Osiguranje) dp.getjComboBoxOsiguranje().getSelectedItem();
+
+        
+        
+        if (ime.isEmpty()
+                || prezime.isEmpty()
+                || kontakt.isEmpty()
+                || datumString.isEmpty()
+                || osiguranje == null) {
+
+            pac = null;
+
+        } else {
+
+            Date datum =
+                    new SimpleDateFormat("dd.MM.yyyy")
+                            .parse(datumString);
+
+            pac = new Pacijent(
+                    -1,
+                    ime,
+                    prezime,
+                    kontakt,
+                    datum,
+                    osiguranje
+            );
+        }
+
+    } catch (Exception ex) {
+
+        
+        pac = null;
+    }
+
+    
+    
+    Komunikacija.getInstance().dodajPacijenta(pac);
               
                       
             
@@ -78,19 +109,7 @@ public class DodajPacijentaController {
          }
 
      });
-     dp.kreirajActionLisener(new ActionListener() {
-         @Override
-         public void actionPerformed(ActionEvent e) {
-             try {
-                 
-               
-                 Komunikacija.getInstance().kreirajPacijenta();
-             } catch (Exception ex) {
-                 ex.printStackTrace();
-             }
-            
-         }
-     });
+     
     }
    
     public void ugasiFormu() {

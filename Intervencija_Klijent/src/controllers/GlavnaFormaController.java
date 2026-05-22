@@ -75,10 +75,6 @@ public class GlavnaFormaController {
     public void pripremiFormu() {
 
         listaKartona = Komunikacija.getInstance().ucitajKartone();
-        for (Karton k : listaKartona) {
-            List<StavkaKartona> stavke = Komunikacija.getInstance().vratiStavkuKartona(k.getIdKarton());
-            k.setStavkaKartona(stavke);
-        }
         ModelTabeleKartoni mtsk = new ModelTabeleKartoni(listaKartona);
         gf.getjTableKartoni().setModel(mtsk);
 
@@ -146,10 +142,6 @@ public class GlavnaFormaController {
                     "Sistem je nasao kartone po zadatim kriterijumima",
                     "Uspeh",
                     JOptionPane.INFORMATION_MESSAGE);
-        }
-        for (Karton k : filtrirana) {
-            List<StavkaKartona> stavke = Komunikacija.getInstance().vratiStavkuKartona(k.getIdKarton());
-            k.setStavkaKartona(stavke);
         }
         gf.getjTableKartoni().setModel(
                 new ModelTabeleKartoni(filtrirana)

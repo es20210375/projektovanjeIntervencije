@@ -5,13 +5,14 @@
 package soperacije.karton;
 
 import domen.Karton;
+import domen.StavkaKartona;
 import soperacije.ApstraktnaGenerickaOperacija;
 
 /**
  *
  * @author Emilija
  */
-public class DodajKartonOperacija extends ApstraktnaGenerickaOperacija{
+public class UbaciKartonOperacija extends ApstraktnaGenerickaOperacija{
     Karton k;
     @Override
     protected void preduslovi(Object param) throws Exception {
@@ -21,8 +22,17 @@ public class DodajKartonOperacija extends ApstraktnaGenerickaOperacija{
     }
 
     @Override
-    protected void izvrsiOperaciju(Object objekat, String kljuc) throws Exception {
-         k = (Karton) broker.addAndReturn((Karton) objekat);
+    protected void izvrsiOperaciju(Object objekat, String kljuc) throws Exception { 
+         Karton k = (Karton) objekat;
+
+        k = (Karton) broker.addAndReturn(k);
+
+        for (StavkaKartona sk : k.getStavkaKartona()) {
+
+            sk.setKarton(k);
+
+            broker.add(sk);
+        }
         System.out.println("soperacije.karton.DodajKartonOperacija.izvrsiOperaciju()"+(Karton)objekat);
     }
 

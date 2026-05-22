@@ -138,11 +138,25 @@ public class Karton implements ApstraktniDomenskiObjekat {
     @Override
     public List<ApstraktniDomenskiObjekat> vratiListu(ResultSet rs) throws Exception {
         List<ApstraktniDomenskiObjekat> lista = new ArrayList<>();
+    List<Karton> kartoni = new ArrayList<>();
 
-        while (rs.next()) {
-            int idKarton = rs.getInt("karton.idKarton");
+    while (rs.next()) {
+
+        int idKarton = rs.getInt("karton.idKarton");
+
+        Karton k = null;
+
+        for (Karton postojeci : kartoni) {
+            if (postojeci.getIdKarton() == idKarton) {
+                k = postojeci;
+                break;
+            }
+        }
+
+        if (k == null) {
 
             Date datumOtvaranja = new Date(rs.getDate("karton.datumOtvaranja").getTime());
+
             java.sql.Date sqlDatumArhiviranja = rs.getDate("karton.datumArhiviranja");
             Date datumArhiviranja = null;
 
@@ -152,35 +166,83 @@ public class Karton implements ApstraktniDomenskiObjekat {
 
             StatusKartona status = StatusKartona.valueOf(rs.getString("karton.statusKartona"));
 
-            
-            int idMR = rs.getInt("medicinskiRadnik.idMedicinskiRadnik");
-            String imeMR = rs.getString("medicinskiRadnik.ime");
-            String prezimeMR = rs.getString("medicinskiRadnik.prezime");
-            String email = rs.getString("medicinskiRadnik.email");
-            String lozinka = rs.getString("medicinskiRadnik.lozinka");
-            boolean iskustvo = rs.getBoolean("medicinskiRadnik.iskustvo");
+            MedicinskiRadnik mr = new MedicinskiRadnik(
+                    rs.getInt("medicinskiRadnik.idMedicinskiRadnik"),
+                    rs.getString("medicinskiRadnik.ime"),
+                    rs.getString("medicinskiRadnik.prezime"),
+                    rs.getBoolean("medicinskiRadnik.iskustvo"),
+                    rs.getString("medicinskiRadnik.email"),
+                    rs.getString("medicinskiRadnik.lozinka")
+            );
 
-            MedicinskiRadnik mr = new MedicinskiRadnik(idMR, imeMR, prezimeMR, iskustvo, email, lozinka);
+            Osiguranje o = new Osiguranje(
+                    rs.getInt("osiguranje.idOsiguranja"),
+                    rs.getString("osiguranje.statusOsiguranja")
+            );
 
-            
-            int idP = rs.getInt("pacijent.idPacijent");
-            String imeP = rs.getString("pacijent.ime");
-            String prezimeP = rs.getString("pacijent.prezime");
-            String kontakt = rs.getString("pacijent.kontaktInformacije");
+            Pacijent p = new Pacijent(
+                    rs.getInt("pacijent.idPacijent"),
+                    rs.getString("pacijent.ime"),
+                    rs.getString("pacijent.prezime"),
+                    rs.getString("pacijent.kontaktInformacije"),
+                    new Date(rs.getDate("pacijent.datumRodjenja").getTime()),
+                    o
+            );
 
-            Date datumRodjenja = new Date(rs.getDate("pacijent.datumRodjenja").getTime());
+            k = new Karton(idKarton, datumOtvaranja, status, datumArhiviranja, mr, p);
+            k.setStavkaKartona(new ArrayList<>());
 
-            int idOsiguranje = rs.getInt("osiguranje.idOsiguranja");
-            String statusOs = rs.getString("osiguranje.statusOsiguranja");
-
-            Osiguranje o = new Osiguranje(idOsiguranje, statusOs);
-            Pacijent p = new Pacijent(idP, imeP, prezimeP, kontakt, datumRodjenja, o);
-
-            Karton k = new Karton(idKarton, datumOtvaranja, status, datumArhiviranja, mr, p);
-
+            kartoni.add(k);
             lista.add(k);
         }
-        return lista;
+
+        int idStavka = rs.getInt("stavkaKartona.idStavkeKartona");
+
+        if (!rs.wasNull()) {
+
+            boolean postoji = false;
+
+            for (StavkaKartona postojeca : k.getStavkaKartona()) {
+                if (postojeca.getIdStavkaKartona() == idStavka) {
+                    postoji = true;
+                    break;
+                }
+            }
+
+            if (!postoji) {
+
+                StavkaKartona sk = new StavkaKartona();
+                sk.setIdStavkaKartona(idStavka);
+                sk.setKarton(k);
+
+                sk.setDijagnoza(rs.getString("stavkaKartona.dijagnoza"));
+                sk.setTerapija(rs.getString("stavkaKartona.terapija"));
+                sk.setKorisceniMaterijal(rs.getString("stavkaKartona.korisceniMaterijal"));
+                sk.setNaznaka(rs.getString("stavkaKartona.naznaka"));
+                sk.setDodatnaDokumentacija(rs.getBoolean("stavkaKartona.dodatnaDokumentacija"));
+                sk.setAnestezija(rs.getBoolean("stavkaKartona.anestezija"));
+
+                java.sql.Date sqlDatum = rs.getDate("stavkaKartona.datumIntervencije");
+
+                if (sqlDatum != null) {
+                    sk.setDatumIntervencije(new Date(sqlDatum.getTime()));
+                }
+
+                Intervencija i = new Intervencija(
+                        rs.getInt("intervencija.idIntervencija"),
+                        rs.getString("intervencija.naziv"),
+                        rs.getString("intervencija.opis"),
+                        rs.getBoolean("intervencija.snimakZuba")
+                );
+
+                sk.setIntervencija(i);
+
+                k.getStavkaKartona().add(sk);
+            }
+        }
+    }
+
+    return lista;
     }
 
     @Override
@@ -208,66 +270,80 @@ public class Karton implements ApstraktniDomenskiObjekat {
 
     @Override
     public ApstraktniDomenskiObjekat vratiObjekatIzRs(ResultSet rs) throws Exception {
-        Karton k = null;
-        List<StavkaKartona> stavke = new ArrayList<>();
+         Karton k = null;
+    List<StavkaKartona> stavke = new ArrayList<>();
 
-        while (rs.next()) {
+    while (rs.next()) {
 
-            if (k == null) {
-                int idKarton = rs.getInt("karton.idKarton");
+        if (k == null) {
+            int idKarton = rs.getInt("karton.idKarton");
 
-                Date datumOtvaranja = new Date(rs.getDate("karton.datumOtvaranja").getTime());
+            Date datumOtvaranja = new Date(rs.getDate("karton.datumOtvaranja").getTime());
 
-                java.sql.Date sqlDatumArhiviranja = rs.getDate("karton.datumArhiviranja");
-                Date datumArhiviranja = null;
-                if (sqlDatumArhiviranja != null) {
-                    datumArhiviranja = new Date(sqlDatumArhiviranja.getTime());
-                }
-
-                StatusKartona status = StatusKartona.valueOf(rs.getString("karton.statusKartona"));
-
-                MedicinskiRadnik mr = new MedicinskiRadnik(
-                        rs.getInt("medicinskiRadnik.idMedicinskiRadnik"),
-                        rs.getString("medicinskiRadnik.ime"),
-                        rs.getString("medicinskiRadnik.prezime"),
-                        rs.getBoolean("medicinskiRadnik.iskustvo"),
-                        rs.getString("medicinskiRadnik.email"),
-                        rs.getString("medicinskiRadnik.lozinka")
-                );
-
-                Osiguranje o = new Osiguranje(
-                        rs.getInt("osiguranje.idOsiguranja"),
-                        rs.getString("osiguranje.statusOsiguranja")
-                );
-
-                Pacijent p = new Pacijent(
-                        rs.getInt("pacijent.idPacijent"),
-                        rs.getString("pacijent.ime"),
-                        rs.getString("pacijent.prezime"),
-                        rs.getString("pacijent.kontaktInformacije"),
-                        new Date(rs.getDate("pacijent.datumRodjenja").getTime()),
-                        o
-                );
-
-                k = new Karton(idKarton, datumOtvaranja, status, datumArhiviranja, mr, p);
+            java.sql.Date sqlDatumArhiviranja = rs.getDate("karton.datumArhiviranja");
+            Date datumArhiviranja = null;
+            if (sqlDatumArhiviranja != null) {
+                datumArhiviranja = new Date(sqlDatumArhiviranja.getTime());
             }
 
-            
-            int idStavka = rs.getInt("stavkaKartona.idStavkeKartona");
+            StatusKartona status = StatusKartona.valueOf(rs.getString("karton.statusKartona"));
 
-            if (idStavka != 0) {
+            MedicinskiRadnik mr = new MedicinskiRadnik(
+                    rs.getInt("medicinskiRadnik.idMedicinskiRadnik"),
+                    rs.getString("medicinskiRadnik.ime"),
+                    rs.getString("medicinskiRadnik.prezime"),
+                    rs.getBoolean("medicinskiRadnik.iskustvo"),
+                    rs.getString("medicinskiRadnik.email"),
+                    rs.getString("medicinskiRadnik.lozinka")
+            );
+
+            Osiguranje o = new Osiguranje(
+                    rs.getInt("osiguranje.idOsiguranja"),
+                    rs.getString("osiguranje.statusOsiguranja")
+            );
+
+            Pacijent p = new Pacijent(
+                    rs.getInt("pacijent.idPacijent"),
+                    rs.getString("pacijent.ime"),
+                    rs.getString("pacijent.prezime"),
+                    rs.getString("pacijent.kontaktInformacije"),
+                    new Date(rs.getDate("pacijent.datumRodjenja").getTime()),
+                    o
+            );
+
+            k = new Karton(idKarton, datumOtvaranja, status, datumArhiviranja, mr, p);
+        }
+
+        int idStavka = rs.getInt("stavkaKartona.idStavkeKartona");
+
+        if (!rs.wasNull()) {
+
+            boolean postoji = false;
+
+            for (StavkaKartona postojeca : stavke) {
+                if (postojeca.getIdStavkaKartona() == idStavka) {
+                    postoji = true;
+                    break;
+                }
+            }
+
+            if (!postoji) {
+
                 StavkaKartona sk = new StavkaKartona();
                 sk.setKarton(k);
                 sk.setIdStavkaKartona(idStavka);
-                 sk.setDijagnoza(rs.getString("stavkaKartona.dijagnoza"));
-            sk.setTerapija(rs.getString("stavkaKartona.terapija"));
-            sk.setKorisceniMaterijal(rs.getString("stavkaKartona.korisceniMaterijal"));
-            sk.setNaznaka(rs.getString("stavkaKartona.naznaka"));
-            sk.setDodatnaDokumentacija(rs.getBoolean("stavkaKartona.dodatnaDokumentacija"));
-            sk.setAnestezija(rs.getBoolean("stavkaKartona.anestezija"));
-            Date datumIntervencije = new Date(rs.getDate("stavkaKartona.datumIntervencije").getTime());
-            sk.setDatumIntervencije(datumIntervencije);
-            
+
+                sk.setDijagnoza(rs.getString("stavkaKartona.dijagnoza"));
+                sk.setTerapija(rs.getString("stavkaKartona.terapija"));
+                sk.setKorisceniMaterijal(rs.getString("stavkaKartona.korisceniMaterijal"));
+                sk.setNaznaka(rs.getString("stavkaKartona.naznaka"));
+                sk.setDodatnaDokumentacija(rs.getBoolean("stavkaKartona.dodatnaDokumentacija"));
+                sk.setAnestezija(rs.getBoolean("stavkaKartona.anestezija"));
+
+                java.sql.Date sqlDatum = rs.getDate("stavkaKartona.datumIntervencije");
+                if (sqlDatum != null) {
+                    sk.setDatumIntervencije(new Date(sqlDatum.getTime()));
+                }
 
                 Intervencija i = new Intervencija(
                         rs.getInt("intervencija.idIntervencija"),
@@ -281,12 +357,13 @@ public class Karton implements ApstraktniDomenskiObjekat {
                 stavke.add(sk);
             }
         }
+    }
 
-        if (k != null) {
-            k.setStavkaKartona(stavke);
-        }
+    if (k != null) {
+        k.setStavkaKartona(stavke);
+    }
 
-        return k;
+    return k;
     }
 
     @Override
@@ -309,5 +386,6 @@ public class Karton implements ApstraktniDomenskiObjekat {
     public void postaviGenerisaniKljuc(int id) {
         this.idKarton = id;
     }
+    
 
 }

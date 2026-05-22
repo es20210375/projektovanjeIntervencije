@@ -16,36 +16,35 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import niti.ObradaKlijentskihZahteva;
-import soperacije.intervencija.DodajIntervencijuOperacija;
-import soperacije.intervencija.UcitajIntervencijeOperacija;
-import soperacije.karton.DodajKartonOperacija;
+import soperacije.intervencija.UbaciIntervencijuOperacija;
+import soperacije.intervencija.VratiListuSviIntervencijeOperacija;
+import soperacije.karton.UbaciKartonOperacija;
 import soperacije.karton.IzmeniKartonOperacija;
+import soperacije.karton.IzmeniKartonSaStavkamaOperacija;
 import soperacije.karton.PretraziKartonOperacija;
-import soperacije.karton.UcitajKartonOdredjenogOperacija;
-import soperacije.karton.UcitajKartoneOperacija;
+import soperacije.karton.VratiListuSviKartoniOperacija;
 import soperacije.karton.VratiListuKartonKriterijumIntervencijaOperacija;
 import soperacije.karton.VratiListuKartonKriterijumKartonOpertacija;
 import soperacije.karton.VratiListuKartonKriterijumMedicinskiRadnikImeOperacija;
 import soperacije.karton.VratiListuKartonKriterijumMedicinskiRadnikImePrezimeOperacija;
 import soperacije.karton.VratiListuKartonKriterijumPacijentImeOperacija;
 import soperacije.karton.VratiListuKartonKriterijumPacijentImePrezimeOperacija;
-import soperacije.kvalifikacija.DodajKvalifikacijuOperacija;
+import soperacije.kvalifikacija.UbaciKvalifikacijuOperacija;
 import soperacije.login.LogInOperacija;
-import soperacije.medicinskiradnik.UcitajMedicinskeRadnikeOperacija;
-import soperacije.osiguranje.UcitajOsiguranjeOperacija;
-import soperacije.pacijent.DodajPacijentaOperacija;
-import soperacije.pacijent.IzbrisiPacijentaOperacija;
-import soperacije.pacijent.IzmeniPacijentaOperacija;
+import soperacije.medicinskiradnik.VratiListuSviMedicinskiRadnikOperacija;
+import soperacije.osiguranje.VratiListuSviOsiguranjeOperacija;
+import soperacije.pacijent.UbaciPacijentaOperacija;
+import soperacije.pacijent.OzbrisiPacijentaOperacija;
+import soperacije.pacijent.PromeniPacijentaOperacija;
 import soperacije.pacijent.PretraziPacijentaOperacija;
-import soperacije.pacijent.UcitajPacijenteOperacija;
+import soperacije.pacijent.VratiListuSviPacijentiOperacija;
 import soperacije.pacijent.VratiPacijenteKriterijumImeOperacija;
+import soperacije.pacijent.VratiPacijenteKriterijumImeOsiguranjeDaOperacija;
+import soperacije.pacijent.VratiPacijenteKriterijumImeOsiguranjeNeOperacija;
 import soperacije.pacijent.VratiPacijenteKriterijumImePrezimeOperacija;
 import soperacije.pacijent.VratiPacijenteKriterijumStatusDaOperacija;
 import soperacije.pacijent.VratiPacijenteKriterijumStatusNeOperacija;
-import soperacije.stavkaKartona.DodajStavkuKartona;
-import soperacije.stavkaKartona.IzmeniStavkuKartonaOperacija;
-import soperacije.stavkaKartona.UcitajStavkeKartonaOperacija;
-import soperacije.stavkaKartona.VratiStavkuKartonaOdredjenogOperacija;
+
 
 /**
  *
@@ -53,7 +52,7 @@ import soperacije.stavkaKartona.VratiStavkuKartonaOdredjenogOperacija;
  */
 public class Controller {
     private static  Controller instance;
-    List<Pacijent>listaPacijenata=new ArrayList<>();
+    
     Pacijent pacijent;
     List<Karton>listaKartona=new ArrayList<>();
     List<ObradaKlijentskihZahteva>okz=new ArrayList();
@@ -78,31 +77,28 @@ public class Controller {
        return lo.getMr();
     }
 
-    public void dodajPacijenta(Pacijent p) {
-        try {
-            DodajPacijentaOperacija dpo=new DodajPacijentaOperacija();
+    public void ubaciPacijenta(Pacijent p) throws Exception{
+        
+            UbaciPacijentaOperacija dpo=new UbaciPacijentaOperacija();
             dpo.izvrsi(p, null);
-            dodajPacijentaUlistu(p);
             
-        } catch (Exception ex) {
-            Logger.getLogger(Controller.class.getName()).log(Level.SEVERE, null, ex);
-        }
+       
         
     }
 
-    public List<Osiguranje> ucitajOsiguranje() throws Exception {
-        UcitajOsiguranjeOperacija uoo=new UcitajOsiguranjeOperacija();
+    public List<Osiguranje> vratiListuSviOsiguranje() throws Exception {
+        VratiListuSviOsiguranjeOperacija uoo=new VratiListuSviOsiguranjeOperacija();
         uoo.izvrsi(null, null);
         return uoo.getLista();
     }
 
     public void dodajKvalifikaciju(Kvalifikacija kv) throws Exception {
-       DodajKvalifikacijuOperacija dko=new DodajKvalifikacijuOperacija();
+       UbaciKvalifikacijuOperacija dko=new UbaciKvalifikacijuOperacija();
        dko.izvrsi(kv, null);
     }
 
     public List<Pacijent> ucitajPacijente() throws Exception {
-       UcitajPacijenteOperacija upo=new UcitajPacijenteOperacija();
+       VratiListuSviPacijentiOperacija upo=new VratiListuSviPacijentiOperacija();
        upo.izvrsi(null, null);
        if (upo.getLista() == null) {
         return new ArrayList<>();
@@ -111,90 +107,58 @@ public class Controller {
     }
 
     public void izbrisiPacijenta(Pacijent p) throws Exception {
-        IzbrisiPacijentaOperacija ipo=new IzbrisiPacijentaOperacija();
+        OzbrisiPacijentaOperacija ipo=new OzbrisiPacijentaOperacija();
         ipo.izvrsi(p, null);
         
     }
 
 
-    private void dodajPacijentaUlistu(Pacijent p) {
-        for (Pacijent pac : listaPacijenata) {
-            if(pac==null){
-                pac=p;
-                listaPacijenata.add(pac);
-            }
-        }
-            System.out.println("Klasa Controller listaPacijenataLOKALNO: "+listaPacijenata);
-    }
+    
 
-    public Pacijent kreirajPacijenta() throws Exception {
-        try{
-         pacijent=new Pacijent();
-               listaPacijenata.add(pacijent);
-        }catch(Exception e){
-            throw  new Exception("Sistem ne moze da kreira pacijenta");
-        }
-               return null;
-        
-    }
+    
 
     public void izmeniPacijenta(Pacijent p) throws Exception {
-        IzmeniPacijentaOperacija iop=new IzmeniPacijentaOperacija();
+        PromeniPacijentaOperacija iop=new PromeniPacijentaOperacija();
         iop.izvrsi(p, null);
     }
 
     public List<MedicinskiRadnik> ucitajMedicinskeRadnike() throws Exception {
-        UcitajMedicinskeRadnikeOperacija umro=new UcitajMedicinskeRadnikeOperacija();
+        VratiListuSviMedicinskiRadnikOperacija umro=new VratiListuSviMedicinskiRadnikOperacija();
         umro.izvrsi(null, null);
         return umro.getLista();
         
     }
 
     public List<Intervencija> ucitajIntervencije() throws Exception {
-       UcitajIntervencijeOperacija uio=new UcitajIntervencijeOperacija();
+       VratiListuSviIntervencijeOperacija uio=new VratiListuSviIntervencijeOperacija();
        uio.izvrsi(null, null);
        return uio.getLista();
     }
 
     public List<Karton> ucitajKartone() throws Exception {
-       UcitajKartoneOperacija uko=new UcitajKartoneOperacija();
+       VratiListuSviKartoniOperacija uko=new VratiListuSviKartoniOperacija();
        uko.izvrsi(null, null);
        return uko.getLista();
     }
 
     public Karton dodajKarton(Karton k) throws Exception {
-        DodajKartonOperacija dko=new DodajKartonOperacija();
+        UbaciKartonOperacija dko=new UbaciKartonOperacija();
         System.out.println("controller.Controller.dodajKarton()"+k);
-        dodajUListuKartona(k);
+        
         dko.izvrsi(k, null);
         return dko.getK();
     }
 
-    public List<Karton> ucitajKartonOdredjenog(int id) throws Exception {
-        UcitajKartonOdredjenogOperacija ukoo=new UcitajKartonOdredjenogOperacija();
-        ukoo.izvrsi(id, null);
-        return ukoo.getLista();
-    }
+    
 
     public void dodajIntervenciju(Intervencija inter) throws Exception {
-        DodajIntervencijuOperacija dio=new DodajIntervencijuOperacija();
+        UbaciIntervencijuOperacija dio=new UbaciIntervencijuOperacija();
         System.out.println("controller.Controller.dodajIntervenciju()" + inter);
-        dodajUListuIntervencija(inter);
+        
         dio.izvrsi(inter, null);
     }
 
-    public List<StavkaKartona> ucitajStavkeKartona() throws Exception {
-        UcitajStavkeKartonaOperacija usko=new UcitajStavkeKartonaOperacija();
-        usko.izvrsi(null, null);
-        return usko.getLista();
-    }
-
-    public void dodajStavkuKartona(StavkaKartona s) throws Exception {
-        DodajStavkuKartona dsk=new DodajStavkuKartona();
-        System.out.println("controller.Controller.dodajStavkuKartona()"+s);
-        dodajUListuStavki(s);
-        dsk.izvrsi(s, null);
-    }
+   
 
     public List<ObradaKlijentskihZahteva> getOkz() {
         return okz;
@@ -204,49 +168,13 @@ public class Controller {
         this.okz = okz;
     }
 
-    public void kreirajKarton() throws Exception {
-        try{
-         k=new Karton();
-         inter=new Intervencija();
-         st=new StavkaKartona();
-        }catch(Exception e){
-            throw  new Exception("Sistem ne moze da kreira karton");
-        }
-           
-        
-       
-    }
-
-    private void dodajUListuKartona(Karton k) {
-    for (Karton kar : listaKartona) {
-            if(kar==null){
-                kar=k;
-                listaKartona.add(kar);
-            }
-        }
-            System.out.println("Klasa Controller listaKartonaLOKALNO: "+listaKartona);
-    }
-
-    private void dodajUListuIntervencija(Intervencija inter) {
-      for (Intervencija in : listaIntervencija) {
-            if(in==null){
-                in=inter;
-                listaIntervencija.add(in);
-            }
-        }
-            System.out.println("Klasa Controller listaIntervencijaLOKALNO: "+listaIntervencija);
-    }
     
 
-    private void dodajUListuStavki(StavkaKartona s) {
-         for (StavkaKartona stav : listaStavki) {
-            if(stav==null){
-                stav=s;
-                listaStavki.add(stav);
-            }
-        }
-            System.out.println("Klasa Controller listaStavkiLOKALNO: "+listaStavki);
-    }
+   
+
+    
+
+    
 
     public void izmeniKarton(Karton k) throws Exception {
         IzmeniKartonOperacija iko=new IzmeniKartonOperacija();
@@ -254,11 +182,7 @@ public class Controller {
       iko.izvrsi(k,null);
     }
 
-    public void izmeniStavku(StavkaKartona s) throws Exception {
-        IzmeniStavkuKartonaOperacija isko=new IzmeniStavkuKartonaOperacija();
-        System.out.println("controller.Controller.izmeniStavku()"+s);
-        isko.izvrsi(s,null);
-    }
+    
 
     public boolean odjavi(MedicinskiRadnik odjava) {
         for (int i = 0; i < okz.size(); i++) {
@@ -271,13 +195,7 @@ public class Controller {
         return false;
     }
 
-    public List<StavkaKartona> vratiStavkuOdredjenogKartona(int id) throws Exception {
-        VratiStavkuKartonaOdredjenogOperacija vskoo=new VratiStavkuKartonaOdredjenogOperacija();
-        vskoo.izvrsi(id, null);
-        return vskoo.getStavka();
-        
-         
-    }
+    
 
     public List<Pacijent> vratiPacijenteSaKriterijumomStatusDa() throws Exception {
          VratiPacijenteKriterijumStatusDaOperacija vpk=new VratiPacijenteKriterijumStatusDaOperacija();
@@ -311,13 +229,13 @@ public class Controller {
         return vlkkko.getLista();
     }
 
-    public List<Karton> vratiKartoneKriterijumKarton(String ime) throws Exception {
+    public List<Karton> vratiKartoneKriterijumPacijentIme(String ime) throws Exception {
         VratiListuKartonKriterijumPacijentImeOperacija vlkkio=new VratiListuKartonKriterijumPacijentImeOperacija();
         vlkkio.izvrsi(ime, null);
         return vlkkio.getLista();
     }
 
-    public List<Karton> vratiKartoneKriterijumKartonImePrezime(String tekst) throws Exception {
+    public List<Karton> vratiKartoneKriterijumPacijentImePrezime(String tekst) throws Exception {
         VratiListuKartonKriterijumPacijentImePrezimeOperacija vpkipo=new VratiListuKartonKriterijumPacijentImePrezimeOperacija();
         vpkipo.izvrsi(tekst, null);
         return vpkipo.getLista();
@@ -356,6 +274,30 @@ public class Controller {
         PretraziPacijentaOperacija ppo=new PretraziPacijentaOperacija();
         ppo.izvrsi(idp, null);
         return ppo.getPac();
+    }
+
+    public List<Pacijent> vratiPacijenteKriterijumImeOsiguranjeDa(String ime) throws Exception {
+         VratiPacijenteKriterijumImeOsiguranjeDaOperacija vpkiod=new VratiPacijenteKriterijumImeOsiguranjeDaOperacija();
+         vpkiod.izvrsi(ime, null);
+         return vpkiod.getPac();
+    }
+
+    public List<Pacijent> vratiPacijenteKriterijumImeOsiguranjeNe(String ime) throws Exception {
+    VratiPacijenteKriterijumImeOsiguranjeNeOperacija vpkion=new VratiPacijenteKriterijumImeOsiguranjeNeOperacija();
+    vpkion.izvrsi(ime, null);
+    return vpkion.getPac();
+    }
+
+    public Karton sacuvajKarton(Karton k) throws Exception {
+        UbaciKartonOperacija sko=new UbaciKartonOperacija();
+        sko.izvrsi(k, null);
+        return sko.getK();
+    }
+
+    public Karton izmeniKartonSaStavkama(Karton karton) throws Exception {
+     IzmeniKartonSaStavkamaOperacija ikss=new IzmeniKartonSaStavkamaOperacija();
+     ikss.izvrsi(karton, null);
+     return ikss.getK();
     }
 
     

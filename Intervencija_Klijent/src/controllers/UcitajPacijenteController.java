@@ -46,40 +46,22 @@ public class UcitajPacijenteController {
         return upf;
     }
     private void addActionLisener() {
-     upf.izbrisiAddActionLisener(new ActionListener() {
-         @Override
-         public void actionPerformed(ActionEvent e) {
-              izbrisi(e);
-         }
+     
+              upf.getjButtonFiltriraj().addActionListener(e -> filtriraj());
 
-         private void izbrisi(ActionEvent e) {
-           int izabraniRed=upf.getjTablePacijent().getSelectedRow();
-           if(izabraniRed==-1){
-               JOptionPane.showMessageDialog(upf, "Morate da izaberete red iz tabele", "GRESKA",JOptionPane.ERROR_MESSAGE);
-               return;
-           }else{
-               ModelTabelePacijenti mtp=(ModelTabelePacijenti) upf.getjTablePacijent().getModel();
-               Pacijent p=mtp.getLista().get(izabraniRed);
-               Komunikacija.getInstance().izbrisiPacijenta(p);
-           }
-              pripremiFormu();
-            
-            
-         }
-     });
-             upf.getjRadioButtonDA().addActionListener(e -> filtrirajPoOsiguranju());
-             upf.getjRadioButtonNE().addActionListener(e -> filtrirajPoOsiguranju());
-             upf.getjButtonFiltriraj().addActionListener(e -> filtrirajPoImenu());
-             upf.getjButtonResetuj().addActionListener(e -> {
-    pripremiFormu();
-});
+    upf.getjButtonResetuj().addActionListener(e -> {
+        pripremiFormu();
+        bg.clearSelection();
+        upf.getjTextFieldImePrezime().setText("");
+    });
+
      
     }
 
-    private void filtrirajPoOsiguranju() {
+    /*private void filtrirajPoOsiguranju() {
       
      List<Pacijent>filtriraj=new ArrayList<>();
-    
+       
         if (upf.getjRadioButtonDA().isSelected()) {
             filtriraj=Komunikacija.getInstance().vratipacijenteKriterijumStatusaDA();
         } else if (upf.getjRadioButtonNE().isSelected()) {
@@ -88,7 +70,7 @@ public class UcitajPacijenteController {
     
     prikaziRezultat(filtriraj);
     bg.clearSelection();
-    }
+    }*/
 
     private void prikaziRezultat(List<Pacijent> lista) {
         if (lista.isEmpty()) {
@@ -108,7 +90,7 @@ public class UcitajPacijenteController {
         
     }
 
-    private void filtrirajPoImenu() {
+    /*private void filtrirajPoImenu() {
     List<Pacijent> filtrirani = new ArrayList<>();
 
     String tekst = upf.getjTextFieldImePrezime().getText().trim();
@@ -118,8 +100,14 @@ public class UcitajPacijenteController {
         String ime = delovi[0];
         
 
-        
-        if (delovi.length == 1) {
+         if (delovi.length == 1 && upf.getjRadioButtonDA().isSelected()) {
+        filtrirani = Komunikacija.getInstance().vratiPacijenteKriterijumImeOsiguranjeDa(ime);
+
+    } else if (delovi.length == 1 && upf.getjRadioButtonNE().isSelected()) {
+        filtrirani = Komunikacija.getInstance().vratiPacijenteKriterijumImeOsiguranjeNe(ime);
+
+    }
+    else if (delovi.length == 1) {
             filtrirani=Komunikacija.getInstance().VratiPacijenteKriterijumIme(ime);
         }
 
@@ -127,9 +115,44 @@ public class UcitajPacijenteController {
         else if (delovi.length == 2) {
          filtrirani=Komunikacija.getInstance().vratiPacijenteKriterijumImePrezime(tekst);
          }
+        
 
     prikaziRezultat(filtrirani);
     
     
-    }}
+    }*/
+    private void filtriraj() {
+    List<Pacijent> filtrirani = new ArrayList<>();
+
+    String tekst = upf.getjTextFieldImePrezime().getText().trim();
+
+    if (!tekst.isEmpty()) {
+        String[] delovi = tekst.split(" ");
+        String ime = delovi[0];
+
+        if (delovi.length == 1 && upf.getjRadioButtonDA().isSelected()) {
+            filtrirani = Komunikacija.getInstance().vratiPacijenteKriterijumImeOsiguranjeDa(ime);
+
+        } else if (delovi.length == 1 && upf.getjRadioButtonNE().isSelected()) {
+            filtrirani = Komunikacija.getInstance().vratiPacijenteKriterijumImeOsiguranjeNe(ime);
+
+        } else if (delovi.length == 1) {
+            filtrirani = Komunikacija.getInstance().VratiPacijenteKriterijumIme(ime);
+
+        } else if (delovi.length == 2) {
+            filtrirani = Komunikacija.getInstance().vratiPacijenteKriterijumImePrezime(tekst);
+        }
+
+    } else {
+        if (upf.getjRadioButtonDA().isSelected()) {
+            filtrirani = Komunikacija.getInstance().vratipacijenteKriterijumStatusaDA();
+
+        } else if (upf.getjRadioButtonNE().isSelected()) {
+            filtrirani = Komunikacija.getInstance().vratiPacijenteKriterijumStatusNe();
+        }
+    }
+
+    prikaziRezultat(filtrirani);
+}
+}
 
